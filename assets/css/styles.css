@@ -1,0 +1,41 @@
+table.tabs {
+   border-collapse: collapse;
+}
+table.tabs td {
+   width:140px;
+   height:29px;
+   border: 1px solid #fff;
+   /*background:url(/images/tabOverBG.jpg) repeat-x;*/
+   background-color: #81DAF5;
+   background-position:bottom;
+   font-size:9pt;
+   /*font-weight:bold;*/
+   text-align:center;
+   white-space:nowrap;
+   border-radius: 15px;
+}
+table.tabs td a{
+   display: block;
+   padding: 6px;
+   height:17px;
+   text-decoration: none;
+   margin-top:4px;
+   white-space:nowrap;
+}
+table.tabs td a:link, table.tabs td a:visited {
+   color: #fff;
+}
+table.tabs td a:hover, table.tabs td a:active, table.tabs td:hover {
+   color: #000;
+   background-color: #fff;
+   background-image:none;
+}
+table.tabs td.tabOn {
+   background-image:none;
+   background-color:#FFF;
+   color:#000;
+}
+table.tabs td.tabOn a{
+   color:#000;
+   margin-top:1px;
+}
