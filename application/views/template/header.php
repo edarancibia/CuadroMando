@@ -8,7 +8,9 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/styles.css"); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/menu.css"); ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/toastr.css"); ?>">
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -16,6 +18,7 @@
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/script.js"); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url("assets/js/toastr.min.js"); ?>"></script>
 
 </head>
 <body>

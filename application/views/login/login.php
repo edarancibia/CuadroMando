@@ -1,7 +1,7 @@
 <div class="container">
 
 	<div class="jumbotron">
-		<h3>Sistema de Cuadro de Mando CBO.</h3>
+		<h3>Cuadro de Mando Indicadores Calidad CBO.</h3>
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
@@ -13,13 +13,13 @@
 			    	<form accept-charset="UTF-8" role="form">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="E-mail" name="email" type="text">
+			    		    <input class="form-control" placeholder="Rut" name="rut" id="rut" type="text">
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
+			    			<input class="form-control" placeholder="Contraseña" name="password" id="password" type="password" value="">
 			    		</div>
 
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Iniciar sesión">
+			    		<button type="button" id="btnLogin" class="btn btn-lg btn-success btn-block" name="btnLogin">Iniciar sesión</button>
 			    	</fieldset>
 			      	</form>
 			    </div>

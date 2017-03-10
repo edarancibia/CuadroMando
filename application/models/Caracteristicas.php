@@ -6,4 +6,9 @@ class Caracteristicas extends CI_Model{
 		$query = $this->db->query('SELECT * FROM Caracteristicas WHERE fk_idAmbito='.$codAmbito.'');
 		return $query->result_array();
 	}
+
+	public function getById($idCaracteristica){
+		$query = $this->db->query('SELECT * FROM Caracteristicas WHERE idCaracteristica='.$idCaracteristica.'');
+		return $query->row();
+	}
 }
