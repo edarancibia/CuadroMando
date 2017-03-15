@@ -14,3 +14,26 @@
 	cursor: pointer;
 	font-size: 12px;
 }
+
+.tabla-evaluaIndicador{
+	width: 450px;
+	font-size: 11px;
+}
+
+.centrar{
+	margin-left: 200px;
+}
+
+.bntInicio{
+	width: 20px;
+	margin-left: 10px;
+}
+
+.logout{
+	float: right;
+	margin-right: 10px;
+}
+
+.navMargen{
+	margin-bottom: 5px;
+}

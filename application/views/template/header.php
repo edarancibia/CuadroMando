@@ -1,3 +1,4 @@
+<?php date_default_timezone_set("Chile/Continental"); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/script.js"); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/toastr.min.js"); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url("assets/js/moments.js"); ?>"></script>
 
 </head>
 <body>

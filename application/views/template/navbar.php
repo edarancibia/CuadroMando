@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse bg-inverse">
+<nav class="navbar navbar-inverse bg-inverse navMargen">
   <div class="container">
   	<div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,3 +25,8 @@
 
   </div>
 </nav>
+
+<div >
+  <a href="<?= base_url('index.php/welcome/home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
+  <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión</a>
+</div>

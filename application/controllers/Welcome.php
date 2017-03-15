@@ -16,10 +16,15 @@ class Welcome extends CI_Controller {
 		//$this->datos();
 	}
 
-	public function datos(){
+	public function home(){
 		$this->load->view('template/header');
 		$this->load->view('template/navbar');
-		$this->load->view('home');
+		$this->load->view('inicio');
 	}
 
+	public function logout(){
+		$this->session->sess_destroy();
+		$this->load->view('template/header');
+		$this->load->view('login/login');
+	}
 }
