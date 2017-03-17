@@ -24,8 +24,35 @@ class Indicadores_model extends CI_Model{
 	}
 
 	public function insertEvaluacion($denominador,$numerador,$multiplica,$res,$idIndicador,$fecha,$periodo){
-		$fecha = date("Y-m-d H:i:s", time());
-		$query = $this->db->query('INSERT INTO IndicadorDatos(denominador,numerador,multiplicador,resultado,fk_idIndicador,fecha,periodo)VALUES('.$denominador.','.$numerador.','.$multiplica.','.$res.','.$idIndicador.',"'.$fecha.'"
-			,'.$periodo.')');
+		$fecha = getdate();
+		$mes = $fecha['mon'];
+		$periodoSever = $mes.$fecha['year']; 
+		$query = $this->db->query('INSERT INTO IndicadorDatos(denominador,numerador,multiplicador,resultado,fk_idIndicador,fecha,hora,periodo)VALUES('.$denominador.','.$numerador.','.$multiplica.','.$res.','.$idIndicador.',CURRENT_DATE()
+			,CURRENT_TIME(),'.$periodoSever.')');
+	}
+
+	public function getUltimaEvaluacion($idIndicador){
+		$query = $this->db->query('SELECT * FROM IndicadorDatos WHERE fk_idIndicador='.$idIndicador.' ORDER BY fecha DESC LIMIT 1');
+
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		}else{
+			return null;
+		}
+	}
+
+	public function validaFecha($idIndicador){
+		$hoy = getdate();
+		$periodo = $hoy['mon']. $hoy['year'];
+		$query = $this->db->query('SELECT * FROM IndicadorDatos WHERE fk_idIndicador='.$idIndicador.' AND periodo='.$periodo.'');
+		
+		if (empty($query->result())) {
+			return false;
+		}else{
+			return true;
+		}
+
 	}
 }
+
+

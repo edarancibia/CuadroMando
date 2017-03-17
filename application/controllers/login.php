@@ -13,7 +13,7 @@ class Login extends CI_Controller{
 		$result = $cliente->verificaUsuario($rut_num,$clave);
 
 		//echo $clave;
-		if ($result == 'si') {
+		if ($result == "si") {
 			echo "pasa";
 			$this->session->set_userdata('rut',$rut_num);
 		}else{

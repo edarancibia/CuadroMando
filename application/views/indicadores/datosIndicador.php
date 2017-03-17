@@ -105,6 +105,8 @@
 				Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button> 
 				<button type="button" name="btnVolver" id="btnVolver" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></button> 
 			</div>
+			<br>
+			<button type="button" id="btnFecha">Ultima fecha</button>
 
 		</div>
 	</div>

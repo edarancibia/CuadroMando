@@ -53,6 +53,21 @@ class Indicadores extends CI_Controller
 		$this->Indicadores_model->insertEvaluacion($denominador,$numerador,$multiplicador,$resultado,$idIndicador,$fecha,$periodo);
 	}
 
+	public function getUltima(){
+		$idIndicador = $_POST['idIndicador'];
+
+		if ($this->Indicadores_model->getUltimaEvaluacion($idIndicador) != null) {
+			$fechaUlt = $this->Indicadores_model->getUltimaEvaluacion($idIndicador);
+			echo $fechaUlt->fecha;
+		}else{
+			echo 0; //solo si nunca se evaluado este indicador
+		}
+	}
+
+	public function validateDate(){
+		$idIndicador = $_POST['idIndicador'];
+		print_r($this->Indicadores_model->validaFecha($idIndicador));
+	}
 }
 
 
