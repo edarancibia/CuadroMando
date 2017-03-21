@@ -105,10 +105,35 @@
 				Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button> 
 				<button type="button" name="btnVolver" id="btnVolver" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></button> 
 			</div>
-			<br>
-			<button type="button" id="btnFecha">Ultima fecha</button>
 
 		</div>
 	</div>
 </div>
 <br><br>
+<script type="text/javascript">
+	var indicador = $('#txtIdindicador').val();
+	var fecha;
+	var baseUrl = 'http://localhost/CuadroMando/index.php/';
+
+	$.ajax({ // - - - COMPRUEBA SI HAY ALGUNA EVALUACION DURANTE EL PERIODO ACTUAL
+			type: 'post',
+			url: baseUrl+'Indicadores/validateDate',
+			data: {fecha: fecha, idIndicador: indicador},
+			success: function(data){
+				console.log('validacion '+data);
+				if (data == 1) {
+					console.log('No se puede');
+					$("#txtvalor1").attr('disabled','disabled');
+					$("#txtvalor2").attr('disabled','disabled');
+					$("#btnGuadar").attr('disabled','disabled');
+				}else{
+					console.log('Si se puede');
+					$('#txtvalor1').focus();
+				}
+			},
+			error: function(){
+				console.log('error ajax validacion');
+			}
+		});
+</script>
+</body>

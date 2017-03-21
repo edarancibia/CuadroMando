@@ -31,3 +31,7 @@
 	</div>
 	
 </div>
+<script type="text/javascript">
+	$('#rut').focus();
+</script>
+</body>

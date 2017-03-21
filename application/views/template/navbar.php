@@ -28,5 +28,5 @@
 
 <div >
   <a href="<?= base_url('index.php/welcome/home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
-  <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión</a>
+  <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
 </div>

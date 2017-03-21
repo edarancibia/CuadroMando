@@ -26,6 +26,7 @@ class Indicadores extends CI_Controller
 		echo($caract);
 	}
 
+	//LISTA INDICADORES POR USUARIO RESPONSABLE
 	public function misIndicadores(){
 		$rut_num = $this->session->userdata('rut');
 		$data['indica'] = $this->Indicadores_model->getByCargo($rut_num);
@@ -34,6 +35,7 @@ class Indicadores extends CI_Controller
 		$this->load->view('indicadores/IndicadoresCargo',$data);
 	}
 
+	//MUESTRA DETALLE DEL INDICADOR SELCCIONADO Y PERMITE INGRESAR VALORES
 	public function detalleIndicador(){
 		$idIndicador = $_GET['idIndicador'];
 		$data['indicador'] = $this->Indicadores_model->getById($idIndicador);
@@ -42,6 +44,7 @@ class Indicadores extends CI_Controller
 		$this->load->view('indicadores/datosIndicador',$data);
 	}
 
+	//GUARDA LOS VALORES MENSUAlES POR INDICADOR
 	public function guardaEvaluacion(){
 		$denominador = $this->input->post('denominador');
 		$numerador = $this->input->post('numerador');
@@ -64,7 +67,8 @@ class Indicadores extends CI_Controller
 		}
 	}
 
-	public function validateDate(){
+	//- - - Valida que solo grabe 1 x mes
+	public function validateDate(){  
 		$idIndicador = $_POST['idIndicador'];
 		print_r($this->Indicadores_model->validaFecha($idIndicador));
 	}

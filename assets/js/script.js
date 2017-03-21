@@ -26,6 +26,8 @@ $(document).ready(function(){
 		var rut = $('#rut').val();
 		var clave = $('#password').val();
 
+
+		//- - -COMPRUEBA SI EXISTE USUARIO Y CLAVE EN BD SICBONET
 		$.ajax({
 			type: 'post',
 			url: baseUrl+'login/wsLoginSicbo',
@@ -33,7 +35,23 @@ $(document).ready(function(){
 			success: function(data){
 				console.log(data);
 				if (data == 'pasa') {
-					location.href = baseUrl+'Welcome/home';
+					$.ajax({
+						type: 'post',
+						url: baseUrl+'login/validaCargo',
+						data: {rut_num: rut},
+						success: function(data){
+							console.log(data);
+							if (data == 1) {
+								location.href = baseUrl+'Welcome/HomeSupervisor';
+							}else{
+								location.href = baseUrl+'Welcome/home';
+							}
+						},
+						error: function(){
+							console.log('error ajax getGargo');
+						}
+					});
+
 				}else{
 
 					Command: toastr["error"]("Rut o contraseña incorrectos")
@@ -48,7 +66,7 @@ $(document).ready(function(){
 	});
 	// - - - - - - -  - - -  - - - - -     - -    - - -
 		
-	//- - - - - - Indicadores - - - - - - -   -  - - - -
+//- - - - - - Indicadores - - - - - - -   -  - - - - - - - - -
 
 	function getIndicadoresByCargo(){
 		var rut = $('#rut').val();
@@ -114,30 +132,17 @@ $(document).ready(function(){
 	$('#btnVolver').on('click',function(){
 		location.href = baseUrl+'Indicadores/misIndicadores';
 	});
+	
+	$('#linkAmbitos').on('click',function(){
+		$('#divAmbitos').slideDown('slow');
+		$('#divUnidades').hide();
+	});
 
-	$('#btnFecha').on('click',function(){
-		var indicador = $('#txtIdindicador').val();
-		var fecha;
+	$('#linkUnidades').on('click',function(){
+		$('#divAmbitos').hide();
+		$('#divUnidades').slideDown('slow');
+	});
 
-		$.ajax({ // - - - COMPRUEBA SI HAY ALGUNA EVALUACION DURANTE EL PERIODO ACTUAL
-				type: 'post',
-				url: baseUrl+'Indicadores/validateDate',
-				data: {fecha: fecha, idIndicador: indicador},
-				success: function(data){
-					console.log('validacion '+data);
-					if (data == 1) {
-						console.log('No se puede');
-						$("#txtvalor1").attr('disabled','disabled');
-						$("#txtvalor2").attr('disabled','disabled');
-						$("#btnGuadar").attr('disabled','disabled');
-					}else{
-						console.log('Si se puede');
-					}
-				},
-				error: function(){
-					console.log('error ajax validacion');
-				}
-			});
 
 		/*$.ajax({  ///- - BUSCA FECHA DE ULTIMA EVALUACION - - -
 			type: 'post',
@@ -171,7 +176,6 @@ $(document).ready(function(){
 				console.log('error ajax con fecha');
 			}
 		});*/
-	});
 
 });
 
