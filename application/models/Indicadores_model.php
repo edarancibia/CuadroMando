@@ -51,7 +51,18 @@ class Indicadores_model extends CI_Model{
 		}else{
 			return true;
 		}
+	}
 
+	public function getByAmbito($idAmbito){
+		$sql = $this->db->query('SELECT b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito '.
+				'FROM Indicadores a, Caracteristicas b,Ambitos c '.
+				'WHERE a.fk_idCaracteristica=b.idCaracteristica AND b.fk_idAmbito=c.idAmbito AND c.idAmbito='.$idAmbito.'');
+
+		if ($sql->num_rows() > 0) {
+			return $sql->result_array();
+		}else{
+			return false;
+		}
 	}
 }
 

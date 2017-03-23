@@ -26,22 +26,42 @@ class Indicadores extends CI_Controller
 		echo($caract);
 	}
 
+	public function template(){
+		$this->load->view('template/header');
+		$this->load->view('template/navbar');
+	}
+
+	public function templateSupervisor(){
+		$this->load->view('template/header');
+		$this->load->view('template/navSuper');
+	}	
+
 	//LISTA INDICADORES POR USUARIO RESPONSABLE
 	public function misIndicadores(){
 		$rut_num = $this->session->userdata('rut');
 		$data['indica'] = $this->Indicadores_model->getByCargo($rut_num);
-		$this->load->view('template/header');
-		$this->load->view('template/navbar');
-		$this->load->view('indicadores/IndicadoresCargo',$data);
+		//$this->template();
+		if ($this->session->userdata('cargo') == 1) {
+			$this->templateSupervisor();
+			$this->load->view('indicadores/IndicadoresCargo',$data);
+		}else{
+			$this->template();
+			$this->load->view('indicadores/IndicadoresCargo',$data);
+		}
 	}
 
 	//MUESTRA DETALLE DEL INDICADOR SELCCIONADO Y PERMITE INGRESAR VALORES
 	public function detalleIndicador(){
 		$idIndicador = $_GET['idIndicador'];
 		$data['indicador'] = $this->Indicadores_model->getById($idIndicador);
-		$this->load->view('template/header');
-		$this->load->view('template/navbar');
-		$this->load->view('indicadores/datosIndicador',$data);
+		//$this->template();
+		if ($this->session->userdata('cargo') == 1) {
+			$this->templateSupervisor();
+			$this->load->view('indicadores/datosIndicador',$data);
+		}else{
+			$this->template();
+			$this->load->view('indicadores/datosIndicador',$data);
+		}
 	}
 
 	//GUARDA LOS VALORES MENSUAlES POR INDICADOR
@@ -71,6 +91,21 @@ class Indicadores extends CI_Controller
 	public function validateDate(){  
 		$idIndicador = $_POST['idIndicador'];
 		print_r($this->Indicadores_model->validaFecha($idIndicador));
+	}
+
+	//- - -  - Muestra lista de indicadores segun ambito selccionado - - - - 
+	public function VistaAmbitos(){
+		$idAmbito = $_GET['idAmbito'];
+		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito);
+		//$this->template();
+		if ($this->session->userdata('cargo') == 1) {
+			$this->templateSupervisor();
+			$this->load->view('supervisor/listaIndicadores',$data);
+		}else{
+			$this->template();
+			$this->load->view('supervisor/listaIndicadores',$data);
+		}
+		
 	}
 }
 

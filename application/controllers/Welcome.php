@@ -11,7 +11,8 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->cabecera();
+		$this->load->view('template/header');
+		$this->load->view('login/login');
 	}
 
 	public function home(){
@@ -26,7 +27,7 @@ class Welcome extends CI_Controller {
 	}
 
 	public function HomeSupervisor(){
-		$this->cabecera();
+		$this->cabeceraSupervisor();
 		$this->load->view('supervisor/home');
 	}
 
@@ -34,4 +35,10 @@ class Welcome extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/navbar');
 	}
+
+	public function cabeceraSupervisor(){
+		$this->load->view('template/header');
+		$this->load->view('template/navSuper');
+	}
+
 }
