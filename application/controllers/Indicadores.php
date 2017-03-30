@@ -93,10 +93,17 @@ class Indicadores extends CI_Controller
 		print_r($this->Indicadores_model->validaFecha($idIndicador));
 	}
 
+	public function VistaAmbitos2(){
+		$data['idAmbito'] = $_GET['idAmbito'];
+		$this->templateSupervisor();
+		$this->load->view('supervisor/listaIndicadores',$data);
+	}
+
 	//- - -  - Muestra lista de indicadores segun ambito selccionado - - - - 
 	public function VistaAmbitos(){
-		$idAmbito = $_GET['idAmbito'];
-		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito);
+		$idAmbito = $this->input->post('idAmbito',TRUE);
+		$trimestre = $this->input->post('trimestre',TRUE);
+		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$trimestre);
 		//$this->template();
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
@@ -105,8 +112,8 @@ class Indicadores extends CI_Controller
 			$this->template();
 			$this->load->view('supervisor/listaIndicadores',$data);
 		}
-		
 	}
+
 }
 
 

@@ -9,7 +9,7 @@
 			</tr>
 			<?php foreach ($indica as $row) {
 				echo "<tr>";
-				echo 	"<td>".$row['idIndicador']."</td>";
+				//echo 	"<td>".$row['idIndicador']."</td>";
 				echo 	"<td>".$row['Caracteristica']."</td>";
 				echo 	"<td>".$row['sub']."</td>";
 				echo 	"<td>".$row['descripcion']."</td>";

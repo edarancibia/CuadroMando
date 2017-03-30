@@ -14,16 +14,16 @@
 <div class="row">
   <div class="col-md-6">
 	<div id="divAmbitos" style="display: none;" class="divListasHomeS">
-		<ul class="list-group">
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=1">Dignidad del paciente</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=2">Gestión de la calidad</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=3">Acceso,oportunidad y continuidad de la atención</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=4">Competencias del recurso humano</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=5">Registros</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=6">Seguridad del equipamiento</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=7">Seguridad de las instalaciones</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=9">Gestión clínica</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos?idAmbito=10">Servicios de apoyo</a></li>
+		<ul class="list-group"">
+			<li class="list-group-item" ><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=1">Dignidad del paciente</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=2">Gestión de la calidad</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=3">Acceso,oportunidad y continuidad de la atención</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=4">Competencias del recurso humano</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=5">Registros</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=6">Seguridad del equipamiento</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=7">Seguridad de las instalaciones</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=9">Gestión clínica</a></li>
+			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=10">Servicios de apoyo</a></li>
 		</ul>
 	</div>
   </div>

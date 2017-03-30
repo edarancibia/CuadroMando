@@ -144,39 +144,6 @@ $(document).ready(function(){
 	});
 
 
-		/*$.ajax({  ///- - BUSCA FECHA DE ULTIMA EVALUACION - - -
-			type: 'post',
-			url: baseUrl+'Indicadores/getUltima',
-			data: {idIndicador: indicador},
-			success: function(data){
-				fecha = data;
-				console.log('la fecha es: '+fecha);
-
-				$.ajax({ // - - - 
-					type: 'post',
-					url: baseUrl+'Indicadores/validateDate',
-					data: {fecha: fecha, idIndicador: indicador},
-					success: function(data){
-						console.log('validacion '+data);
-						if (data == 1) {
-							console.log('No se puede');
-							$("#txtvalor1").attr('disabled','disabled');
-							$("#txtvalor2").attr('disabled','disabled');
-							$("#btnGuadar").attr('disabled','disabled');
-						}else{
-							console.log('Si se puede');
-						}
-					},
-					error: function(){
-						console.log('error ajax validacion');
-					}
-				});
-			},
-			error: function(){
-				console.log('error ajax con fecha');
-			}
-		});*/
-
 });
 
 
