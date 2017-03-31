@@ -50,7 +50,7 @@
 		}
 		if (empty($indicadoresAmbito)) {
 	 		echo "no hay resultados";
-		} else{
+	} else{
 		 	foreach ($indicadoresAmbito as $row) {
 				echo "<tr>";
 					echo "<td width=50>".$row['Caracteristica']." ".$row['desc_subUn']."</td>";

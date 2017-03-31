@@ -26,7 +26,14 @@
   </div>
 </nav>
 
-<div >
+<div style="width: max;">
+
   <a href="<?= base_url('index.php/welcome/HomeSupervisor'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
-  <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+  <div style="width: 150px;float:right;">
+    <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+  </div>
+  <div style="width: 300px;float:right;">
+    <p class=""><?= $this->session->userdata('user'); ?></p>
+  </div>
+
 </div>

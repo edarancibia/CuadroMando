@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
         <li><a href="<?php echo base_url('index.php/Indicadores/'); ?>">Datos indicador</a></li>
-        <li><a href="<?php echo base_url('index.php/Indicadores/getIndicadores'); ?>">Informe trimestral</a></li>
+        <li><a href="<?php echo base_url('index.php/Informe/InformacionGeneral'); ?>">Informe trimestral</a></li>
       </ul>
       
     </div><!-- /.navbar-collapse -->
@@ -26,7 +26,14 @@
   </div>
 </nav>
 
-<div >
-  <a href="<?= base_url('index.php/welcome/home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
-  <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+<div style="width: max;">
+
+  <a href="<?= base_url('index.php/welcome/Home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
+  <div style="width: 150px;float:right;">
+    <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+  </div>
+  <div style="width: 300px;float:right;">
+    <p class=""><?= $this->session->userdata('user'); ?></p>
+  </div>
+
 </div>

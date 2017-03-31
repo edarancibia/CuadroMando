@@ -17,11 +17,13 @@ class Login extends CI_Controller{
 			//echo "pasa";
 			$rut_num = $this->input->post('rut');
 			if ($this->validaCargo($rut_num) == 1) {
+				$this->getNombreUsuario();
 				$this->session->set_userdata('rut',$rut_num);
 				$this->load->view('template/header');
 				$this->load->view('template/navSuper');
 				$this->load->view('supervisor/home');
 			}else{
+				$this->getNombreUsuario();
 				$this->session->set_userdata('rut',$rut_num);
 				$this->cabecera();
 				$this->load->view('inicio');
@@ -36,6 +38,13 @@ class Login extends CI_Controller{
 	public function cabecera(){
 		$this->load->view('template/header');
 		$this->load->view('template/navbar');
+	}
+
+	public function getNombreUsuario(){
+		$rut_num = $this->input->post('rut');
+		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
+		$result = $cliente->getNombre($rut_num);
+		$this->session->set_userdata('user',$result);
 	}
 	
 	public function validaCargo($rut_num){
