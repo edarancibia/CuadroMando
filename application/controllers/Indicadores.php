@@ -37,7 +37,7 @@ class Indicadores extends CI_Controller
 	}	
 
 	//LISTA INDICADORES POR USUARIO RESPONSABLE
-	public function misIndicadores(){
+	/*public function misIndicadores(){
 		$rut_num = $this->session->userdata('rut');
 		$data['indica'] = $this->Indicadores_model->getByCargo($rut_num);
 		//$this->template();
@@ -48,12 +48,41 @@ class Indicadores extends CI_Controller
 			$this->template();
 			$this->load->view('indicadores/IndicadoresCargo',$data);
 		}
+	}*/
+
+	//metodo llamado desde menu MIS INDICADORES para mantenerse en la misma vista en caso de no haber informacion para el informe
+	public function misIndicadores2(){
+		$rut = $this->session->userdata('rut');
+		$idUnidad = $_REQUEST['idUnidad'];
+		$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+		//$data['unidad'] = $idUnidad;
+		//$this->template();
+		if ($this->session->userdata('cargo') == 1) {
+			$this->templateSupervisor();
+			$this->load->view('indicadores/IndicadoresCargo',$data);
+		}else{
+			$this->template();
+			$this->load->view('indicadores/IndicadoresCargo',$data);
+		}
+	}
+
+	//metodo que busca Los indicadores asisgnados por unidad y usuario
+	public function MisIndicadores(){
+		$rut = $this->session->userdata('rut');
+		$idUnidad = $_REQUEST['idUnidad'];
+		$data['unidad'] = $idUnidad;
+		$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+
+		$this->template();
+		$this->load->view('indicadores/IndicadoresCargo',$data);
 	}
 
 	//MUESTRA DETALLE DEL INDICADOR SELCCIONADO Y PERMITE INGRESAR VALORES
 	public function detalleIndicador(){
 		$idIndicador = $_GET['idIndicador'];
+		$idUnidad = $_REQUEST['idUnidad'];
 		$data['indicador'] = $this->Indicadores_model->getById($idIndicador);
+		$data['unidad'] = $idUnidad;
 		//$this->template();
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
@@ -113,6 +142,7 @@ class Indicadores extends CI_Controller
 			$this->load->view('supervisor/listaIndicadores',$data);
 		}
 	}
+
 
 }
 

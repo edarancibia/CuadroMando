@@ -67,6 +67,19 @@ class Indicadores_model extends CI_Model{
 			return false;
 		}
 	}
+
+	public function getByCargoYunidad($rut,$idUnidad){
+		$sql = $this->db->query('SELECT a.idIndicador,f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1
+								from Indicadores a,Unidades b, Cargos c,Rel_cargoIndicadores d,rel_indicadorUnidades e,Caracteristicas f
+								WHERE c.fk_rut_num='.$rut.' AND c.idCargo=d.fk_idCargo AND a.idIndicador=d.fk_idIndicador AND b.idUnidad='.$idUnidad.' AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad AND f.idCaracteristica=a.fk_idCaracteristica');
+
+		if ($sql->num_rows() > 0) {
+			return $sql->result_array();
+		}else{
+			return false;
+		}
+
+	}
 }
 
 

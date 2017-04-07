@@ -15,7 +15,7 @@
 				</tr>
 				<tr>
 					<td>Fecha del informe:</td>
-					<td><?= date('d-m-Y'); ?></td>
+					<td><?= $datos->fecha; ?></td>
 				</tr>
 				<tr>
 					<td>Responsable:</td>
@@ -41,7 +41,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control" value="<?= $datos->numeradores. ' / '.$datos->denominadores.' = '. intval($datos->res).'%';?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control" value="<?= $datos->resultadoDet;?>" disabled="true">
 					</td>
 				</tr>
 				<tr>
@@ -49,23 +49,22 @@
 					<td><?= $caracteristica->umbralDesc .'%'; ?></td>
 				</tr>
 				<td>Periodo:</td>
-				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value=""></td>
+				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?= $datos->periodo;?>" disabled="true"></td>
 			</table>
 		</div>
 
 		<div class="col-md-6 col-md-offset-3">
 			<fieldset>
 				<label for="comentarios">4.Cometarios:</label>
-				<textarea name="comentarios" id="comentarios" class="form-control"></textarea>
+				<textarea name="comentarios" id="comentarios" class="form-control" disabled="true"><?= $datos->comentarios;?></textarea>
 
 				<label for="plan">Plan de mejora:</label>
-				<textarea name="plan" id="plan" class="form-control"></textarea>
+				<textarea name="plan" id="plan" class="form-control" disabled="true"><?= $datos->plan;?></textarea>
 			</fieldset>
 			<br>
 			<div>
-				<button type="button" class="btn btn-success" id="btnGuardaInforme" name="btnGuardaInforme">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
 
-				<a href="<?= 'http://localhost/CuadroMando/index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+				<a href="<?= 'http://localhost/CuadroMando/index.php/Indicadores/MisIndicadores?idUnidad='.$idUnidad.'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 			</div>
 		</div>
 

@@ -1,22 +1,33 @@
 <div class="container">
 	<div class="row">
-		<table class="table table-hover tabla-selectInd">
+	  <div class="col-md-9 col-md-offset-1" >
+		<table class="table table-hover table-responsive" >
 			<tr>
-				<th>Id</th>
 				<th>Caracteristica</th>
 				<th></th>
 				<th>Indicador</th>
+				<th></th>
+				<th></th>
 			</tr>
-			<?php foreach ($indica as $row) {
-				echo "<tr>";
-				//echo 	"<td>".$row['idIndicador']."</td>";
-				echo 	"<td>".$row['Caracteristica']."</td>";
-				echo 	"<td>".$row['sub']."</td>";
-				echo 	"<td>".$row['descripcion']."</td>";
-				echo 	"<td><a href='http://localhost/CuadroMando/index.php/Indicadores/detalleIndicador?idIndicador=".$row["idIndicador"]."' class='btn btn-warning'>Evaluar <span class='glyphicon glyphicon-pencil'></span></a></td>";
-				echo "</tr>";
-			};
+			<?php 
+
+			if (empty($indica)) {
+				echo "<h3>Usted no tiene indicadores asignados en esta unidad.</h3>";
+			}else{
+				$idUnidad = $_GET['idUnidad'];
+				foreach ($indica as $row) {
+					echo "<tr>";
+					echo 	"<td width=100>".$row['Caracteristica']."</td>";
+					echo 	"<td width=150>".$row['sub']."</td>";
+					echo 	"<td width=400>".$row['descripcion']."</td>";
+					echo 	"<td width=50><a href='http://localhost/CuadroMando/index.php/Indicadores/detalleIndicador?idIndicador=".$row["idIndicador"]."&idUnidad=".$idUnidad."' class='btn btn-warning'>Evaluar <span class='glyphicon glyphicon-pencil'></span></a></td>";
+					echo 	"<td width=50><a href='http://localhost/CuadroMando/index.php/Informe/Informe?idIndicador=".$row["idIndicador"]."&idUnidad=".$idUnidad."' class='btn btn-info'>Informe <i class='fa fa-file-text-o' aria-hidden='true'></i></a></td>";
+					echo "</tr>";
+				};
+			}
 			?>
 		</table>
+	  </div>
 	</div>
 </div>
+</body>

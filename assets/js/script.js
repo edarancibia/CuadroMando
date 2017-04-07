@@ -129,9 +129,9 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#btnVolver').on('click',function(){
-		location.href = baseUrl+'Indicadores/misIndicadores';
-	});
+	/*$('#btnVolver').on('click',function(){
+		location.href = baseUrl+'Indicadores/misIndicadores3';
+	});*/
 	
 	$('#linkAmbitos').on('click',function(){
 		$('#divAmbitos').slideDown('slow');
@@ -143,6 +143,57 @@ $(document).ready(function(){
 		$('#divUnidades').slideDown('slow');
 	});
 
+	//- - - -  - - -  INFORME TRIMESTRAL- - - - - - - - - -  - - - 
+
+	$('#btnGuardaInforme').on('click',function(e){
+
+		e.preventDefault();
+		$('#dialog-confirm').dialog("open");	
+
+	});
+
+	$( function () { //DIALOG CONFIRM
+		$( "#dialog-confirm" ).dialog({
+			    resizable: false,
+			    autoOpen: false,
+			    height: "auto",
+			    width: 400,
+			    modal: true,
+			    buttons: {
+			   	 "Guardar": function() {
+			   	 		var comentarios = $('#comentarios').val();
+						var plan = $('#plan').val();
+						var periodo = $('#txtperiodo').val();
+						var idIndicador = $('input#textIdindicador').val();
+						var resultado = $('#txtresultado').val();
+			   	 		$.ajax({
+							type: 'post',
+							url: baseUrl + 'Informe/GuardaInforme',
+							data: {idIndicador: idIndicador, periodo: periodo, comentarios: comentarios, plan: plan,resultado: resultado},
+							success: function(){
+								toastr.success('Informe guardado exitosamente');
+								$('#txtperiodo').val('');
+								$('#comentarios').val('');
+								$('#plan').val('');
+							},
+							error: function(){
+								console.log('error ajax al guardar informe');
+							}
+						});
+
+			       	console.log('ok confirm');
+			        $( this ).dialog( "close" );
+			      },
+			       Cancelar: function() {
+			         $( this ).dialog( "close" );
+			       }
+			    }
+		});
+	});
+
+	/*$('#btnVolver2').on('click',function(){
+		location.href = baseUrl+'Indicadores/misIndicadores3';
+	});*/
 
 });
 

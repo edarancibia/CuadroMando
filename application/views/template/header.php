@@ -13,15 +13,17 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/menu.css"); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/toastr.css"); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/font-awesome/css/font-awesome.min.css'); ?>">
-
+	<link rel="stylesheet" type="text/css" href="<? echo base_url('assets/jquery-ui-1.12.1/jquery-ui.css');?>">
+	
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/script.js"); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/toastr.min.js"); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/moments.js"); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url("assets/jquery-ui-1.12.1/jquery-ui.js"); ?>"></script>
 
 </head>
 <body>
