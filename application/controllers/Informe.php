@@ -6,7 +6,8 @@ class Informe extends CI_Controller{
 		parent::__construct();
 		$this->load->model('IndicadorInforme');
 		$this->load->model('Caracteristicas');
-		$this->load->model('Indicadores_model');		
+		$this->load->model('Indicadores_model');	
+		$this->load->library('Pdf');	
 	}
 
 	public function cabecera(){
@@ -14,21 +15,29 @@ class Informe extends CI_Controller{
 		$this->load->view('template/navbar');
 	}
 
+	public function trimestre($mes=null){
+	  	$mes = is_null($mes) ? date('m') : $mes;
+	  	$trim=floor(($mes-1) / 3)+1;
+	  	return $trim;
+	}
+
+
 	//metodo llamado desde el boton INFORME en menu MIS INDICADORES
 	public function Informe(){
-		//$idUnidad = $_REQUEST['idUnidad'];
 		$idIndicador = $_REQUEST['idIndicador'];
 		$rut = $this->session->userdata('rut');
 		$idUnidad = $_REQUEST['idUnidad'];
+
+		$trimestre = $this->trimestre();
 
 		if ($this->IndicadorInforme->existenDatos($idIndicador) == true) {
 		//pregunta si hay datos de evaluaciones en en trimestre para realizar el informe
 			if ($this->IndicadorInforme->existeInforme($idIndicador) == true) {//pregunta si hay informe hecho este trimestre
 				//hay informacion y el informe esta hecho
-				$data['unidad'] = $this->IndicadorInforme->getNombreUnidad(1);
+				$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
 				$data['caracteristica'] = $this->Indicadores_model->getById($idIndicador);
 				//$data['datos'] = $this->IndicadorInforme->getDatosByIndicadorYrut($idIndicador,1);
-				$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$idUnidad,$rut,2);
+				$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$idUnidad,$rut,$trimestre);
 				$data['indicador'] = $idIndicador;
 				$data['idUnidad'] = $idUnidad;
 				
@@ -39,7 +48,7 @@ class Informe extends CI_Controller{
 				//hay informacion pero el informe no esta hecho
 				$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
 				$data['caracteristica'] = $this->Indicadores_model->getById($idIndicador);
-				$data['datos'] = $this->IndicadorInforme->getDatosByIndicadorYrut($idIndicador,2);
+				$data['datos'] = $this->IndicadorInforme->getDatosByIndicadorYrut($idIndicador,$trimestre);
 				$this->cabecera();
 				$this->load->view('informes/vwinforme', $data);
 				//echo "hay informacion pero no informe";
@@ -62,4 +71,19 @@ class Informe extends CI_Controller{
 		$rut = $this->session->userdata('rut');
 		$this->IndicadorInforme->insertInforme($periodo,$resultado,$comentarios,$plan,$idIndicador,$rut);
 	}
+
+	public function Imprimir(){
+		$idIndicador = $_REQUEST['idIndicador'];
+		$idUnidad = $_REQUEST['idUnidad'];
+		$rut = $this->session->userdata('rut');
+		$data['rut'] = $rut;
+		$trimestre = $this->trimestre();
+		$usuario = $this->session->userdata('user');
+		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
+		$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$idUnidad,$rut,$trimestre);
+		$data['resp'] = $usuario;
+		$this->load->view('testpdf',$data);
+	}
 }
+
+

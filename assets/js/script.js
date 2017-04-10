@@ -86,47 +86,74 @@ $(document).ready(function(){
 		});
 	}
 
-	$('#btnGuadar').on('click',function(){ //- - - Guarda datos de evaluacion de indicador - - 
-		var parsedDen = 0;
-		var parsedNum = 0;
-		var parsedRes = 0;
-		var denominador = $('#txtvalor1').val();
-		var numerador = $('#txtvalor2').val();
-		var fecha = new Date;
-        var anio = fecha.getFullYear();
-        var mes = parseInt(fecha.getMonth());
-        var periodo = mes.toString()+anio.toString();
-        var indicador = $('#txtIdindicador').val();
-		parsedDen = parseInt(denominador);
-		parsedNum = parseInt(numerador);
-		parsedRes = parseInt(parsedDen / parsedNum * 100);
-		var fecha2 = moment().format('L');
+	$('#btnGuadar').on('click',function(e){ //- - - Guarda datos de evaluacion de indicador - - 
+		e.preventDefault();
+		$('#dialog-confirm2').dialog("open");		
+	});
 
-		if (denominador == '') {
-			toastr.info('Ingrese valores');
-			configToastr();
-			$('#txtvalor2').focus();
-		}else if(numerador == ''){
-			toastr.info('Ingrese valores');
-			$('#txtvalor2').focus();
-		}else{
-			$.ajax({
-				type: 'post',
-				url: baseUrl+'Indicadores/guardaEvaluacion',
-				data: {denominador: parsedDen,numerador: parsedNum,multiplicador: 100, resultado: parsedRes,idIndicador: indicador,fecha: fecha2, periodo: periodo},
-				success: function(data){
-					console.log('Guardado exitosamente');
-					$('#txtvalor1').val('');
-					$('#txtvalor2').val('');
-					toastr.success('Datos guardados exitosamente');
-					configToastr();
+	$( function () { //DIALOG CONFIRM EVALUACION PERIODICA
+		$( "#dialog-confirm2" ).dialog({
 
-				},
-				error: function(){
-					console.log('error ajax al guardar');
-				}
-			});
-		}
+			    resizable: false,
+			    autoOpen: false,
+			    height: "auto",
+			    width: 400,
+			    modal: true,
+			    buttons: {
+			   	 "Guardar": function() {
+			   	 	var parsedDen = 0;
+					var parsedNum = 0;
+					var parsedRes = 0;
+					var denominador = $('#txtvalor1').val();
+					var numerador = $('#txtvalor2').val();
+					var fecha = new Date;
+			        var anio = fecha.getFullYear();
+			        var mes = parseInt(fecha.getMonth());
+			        var periodo = mes.toString()+anio.toString();
+			        var indicador = $('#txtIdindicador').val();
+					parsedDen = parseInt(denominador);
+					parsedNum = parseInt(numerador);
+					parsedRes = parseInt(parsedDen / parsedNum * 100);
+					var fecha2 = moment().format('L');
+
+					if (denominador == '') {
+						toastr.info('Ingrese valores');
+						configToastr();
+						$('#txtvalor2').focus();
+					}else if(numerador == ''){
+						toastr.info('Ingrese valores');
+						$('#txtvalor2').focus();
+					}else{
+
+						var res = numerador/denominador*100;
+
+						$.ajax({
+							type: 'post',
+							url: baseUrl+'Indicadores/guardaEvaluacion',
+							data: {denominador: parsedDen,numerador: parsedNum,multiplicador: 100, resultado: parsedRes,idIndicador: indicador,fecha: fecha2, periodo: periodo},
+							success: function(data){
+								console.log('Guardado exitosamente');
+								$('#txtvalor1').val('');
+								$('#txtvalor2').val('');
+								toastr.success('Datos guardados exitosamente');
+								configToastr();
+								$('#txtresultado').val(res+'%');
+								$("#btnGuadar").attr('disabled','disabled');
+
+							},
+							error: function(){
+								console.log('error ajax al guardar');
+							}
+						});
+					}
+					 $( this ).dialog( "close" );
+			   	 		
+			      },
+			       Cancelar: function() {
+			         $( this ).dialog( "close" );
+			       }
+			    }
+		});
 	});
 
 	/*$('#btnVolver').on('click',function(){
@@ -152,7 +179,8 @@ $(document).ready(function(){
 
 	});
 
-	$( function () { //DIALOG CONFIRM
+
+	$( function () { //DIALOG CONFIRM INFORME
 		$( "#dialog-confirm" ).dialog({
 			    resizable: false,
 			    autoOpen: false,

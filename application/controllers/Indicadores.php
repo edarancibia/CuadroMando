@@ -9,6 +9,7 @@ class Indicadores extends CI_Controller
 		parent::__construct();
 		$this->load->model('Indicadores_model');
 		$this->load->model('Caracteristicas');
+		$this->load->library('Pdf');
 	}
 
 	public function index(){
@@ -19,6 +20,7 @@ class Indicadores extends CI_Controller
 		$this->load->view('template/navbar');
 		$this->load->view('indicadores/datosIndicador',$data);*/
 		//$this->getIndicaCargo();
+		//$this->load->view('testpdf');
 	}
 
 	public function redirectCarateristica(){
@@ -37,18 +39,6 @@ class Indicadores extends CI_Controller
 	}	
 
 	//LISTA INDICADORES POR USUARIO RESPONSABLE
-	/*public function misIndicadores(){
-		$rut_num = $this->session->userdata('rut');
-		$data['indica'] = $this->Indicadores_model->getByCargo($rut_num);
-		//$this->template();
-		if ($this->session->userdata('cargo') == 1) {
-			$this->templateSupervisor();
-			$this->load->view('indicadores/IndicadoresCargo',$data);
-		}else{
-			$this->template();
-			$this->load->view('indicadores/IndicadoresCargo',$data);
-		}
-	}*/
 
 	//metodo llamado desde menu MIS INDICADORES para mantenerse en la misma vista en caso de no haber informacion para el informe
 	public function misIndicadores2(){
@@ -56,7 +46,7 @@ class Indicadores extends CI_Controller
 		$idUnidad = $_REQUEST['idUnidad'];
 		$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
 		//$data['unidad'] = $idUnidad;
-		//$this->template();
+		
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
 			$this->load->view('indicadores/IndicadoresCargo',$data);
@@ -83,7 +73,7 @@ class Indicadores extends CI_Controller
 		$idUnidad = $_REQUEST['idUnidad'];
 		$data['indicador'] = $this->Indicadores_model->getById($idIndicador);
 		$data['unidad'] = $idUnidad;
-		//$this->template();
+		
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
 			$this->load->view('indicadores/datosIndicador',$data);
@@ -133,7 +123,7 @@ class Indicadores extends CI_Controller
 		$idAmbito = $this->input->post('idAmbito',TRUE);
 		$trimestre = $this->input->post('trimestre',TRUE);
 		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$trimestre);
-		//$this->template();
+		
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
 			$this->load->view('supervisor/listaIndicadores',$data);

@@ -96,7 +96,7 @@
 				</tr>
 				<tr>
 					<td>% Cumplimiento</td>
-					<td></td>
+					<td><input type="text" name="txtresultado" id="txtresultado" class="form-control" disabled="true"></td>
 				</tr>				
 			</table>
 
@@ -108,6 +108,10 @@
 
 		</div>
 	</div>
+
+			<div id="dialog-confirm2" title="Guardando datos">
+  				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea guardar los datos? Una vez hecho no podrán ser modificados.</p>
+			</div>
 </div>
 <br><br>
 <script type="text/javascript">

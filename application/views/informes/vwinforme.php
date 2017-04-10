@@ -66,11 +66,13 @@
 				<button type="button" class="btn btn-success" id="btnGuardaInforme" name="btnGuardaInforme">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
 
 				<a href="<?= 'http://localhost/CuadroMando/index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+
+				<a id="btnPdf" href="<?= base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'';?>" class="btn btn-danger" target="_blanck">Ver PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 			</div>
 		</div>
 
 		<div id="dialog-confirm" title="Informe de indicador">
-  			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea guardar el informe? Una vez hecho no podrá ser modificado.</p>
+  			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea guardar el informe? Una vez hecho no podrá ser modificado. </p>
 		</div>
 	</div>
 <br><br>

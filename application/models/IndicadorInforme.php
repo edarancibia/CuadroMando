@@ -32,7 +32,7 @@ class IndicadorInforme extends CI_Model{
 
 	//obtiene la informacion del informe correspondiente al trimestre actual, por responsable y unidad
 	public function getDatosInforme($idIndicador,$idUnidad,$rut,$trimestre){
-		$sql = $this->db->query('SELECT DISTINCT  b.*,c.codigo,a.fecha,a.resultadoDet,a.periodo,a.comentarios,a.plan,f.descripcion
+		$sql = $this->db->query('SELECT DISTINCT  b.*,b.descripcion indicadorDesc,c.codigo,a.fecha,a.resultadoDet,a.periodo,a.comentarios,a.plan,f.descripcion
 									FROM IndicadorInformes a, Indicadores b, Caracteristicas c,Rel_cargoIndicadores d, rel_indicadorUnidades e,Unidades f,Cargos g
 									WHERE b.idIndicador='.$idIndicador.' AND a.fk_idIndicador=b.idIndicador AND b.fk_idCaracteristica=c.idCaracteristica
 									AND b.idIndicador=d.fk_idIndicador AND f.idUnidad='.$idUnidad.' AND e.fk_idUnidad=f.idUnidad AND g.idCargo=d.fk_idCargo AND g.fk_rut_num='.$rut.' AND QUARTER(a.fecha)='.$trimestre.'');
