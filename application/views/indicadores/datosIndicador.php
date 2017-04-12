@@ -117,7 +117,8 @@
 <script type="text/javascript">
 	var indicador = $('#txtIdindicador').val();
 	var fecha;
-	var baseUrl = 'http://localhost/CuadroMando/index.php/';
+	//var baseUrl = 'http://localhost/CuadroMando/index.php/';
+	var baseUrl = window.location.origin+'/CuadroMando/index.php/';
 
 	$.ajax({ // - - - COMPRUEBA SI HAY ALGUNA EVALUACION DURANTE EL PERIODO ACTUAL
 			type: 'post',

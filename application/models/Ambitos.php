@@ -12,4 +12,18 @@ class Ambitos extends CI_Model{
 		$this->db->where('fk_idAmbito', $idAmbito);
 		return $this->db->get('Caracteristicas')->result_array();
 	}
+
+	//OBTIENE INFORMACION DEL AMBITO SELCCIONADO
+	public function getById($idAmbito){
+		$this->db->select('idAmbito, descripcion');
+		$this->db->where('idAmbito',$idAmbito);
+		return $this->db->get('Ambitos')->row();
+	}
+
+	//OBTIENE INFORMACION DE LA UNIDAD SELCCIONADA
+	public function getByUnidadId($idUnidad){
+		$this->db->select('idUnidad, descripcion');
+		$this->db->where('idUnidad',$idUnidad);
+		return $this->db->get('Unidades')->row();
+	}
 }

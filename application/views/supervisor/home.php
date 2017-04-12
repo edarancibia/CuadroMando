@@ -15,15 +15,15 @@
   <div class="col-md-6">
 	<div id="divAmbitos" style="display: none;" class="divListasHomeS">
 		<ul class="list-group"">
-			<li class="list-group-item" ><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=1">Dignidad del paciente</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=2">Gestión de la calidad</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=3">Acceso,oportunidad y continuidad de la atención</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=4">Competencias del recurso humano</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=5">Registros</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=6">Seguridad del equipamiento</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=7">Seguridad de las instalaciones</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=9">Gestión clínica</a></li>
-			<li class="list-group-item"><a href="http://localhost/CuadroMando/index.php/Indicadores/VistaAmbitos2?idAmbito=10">Servicios de apoyo</a></li>
+			<li class="list-group-item" ><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=1'?>">Dignidad del paciente</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=2'?>">Gestión de la calidad</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=3'?>">Acceso,oportunidad y continuidad de la atención</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=4'?>">Competencias del recurso humano</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=5'?>">Registros</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=6'?>">Seguridad del equipamiento</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=7'?>">Seguridad de las instalaciones</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=9'?>">Gestión clínica</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=10'?>">Servicios de apoyo</a></li>
 		</ul>
 	</div>
   </div>
@@ -33,22 +33,22 @@
   <div class="col-md-6">
 	<div id="divUnidades" style="display: none;" class="divListasHomeS">
 		<ul class="list-group">
-			<li class="list-group-item"><a href="">Hospitalización</a></li>
-			<li class="list-group-item"><a href="">Pabellón</a></li>
-			<li class="list-group-item"><a href="">Upc</a></li>
-			<li class="list-group-item"><a href="">Gineco-Obtetrica</a></li>
-			<li class="list-group-item"><a href="">Neonatología</a></li>
-			<li class="list-group-item"><a href="">Anatomía Patológica</a></li>
-			<li class="list-group-item"><a href="">Diagnóstico ambulatorio</a></li>
-			<li class="list-group-item"><a href="">Esterilización</a></li>
-			<li class="list-group-item"><a href="">Farmacia</a></li>
-			<li class="list-group-item"><a href="">Imagenología</a></li>
-			<li class="list-group-item"><a href="">Kinesiterapia</a></li>
-			<li class="list-group-item"><a href="">Laboratorio</a></li>
-			<li class="list-group-item"><a href="">Oncología</a></li>
-			<li class="list-group-item"><a href="">Post-Operado</a></li>
-			<li class="list-group-item"><a href="">Residencia Médica</a></li>
-			<li class="list-group-item"><a href="">Vacunatorio</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=1'?>">Hospitalización</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=2'?>">Pabellón</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=3'?>">Upc</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=4'?>">Gineco-Obtetrica</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=5'?>">Neonatología</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=6'?>">Anatomía Patológica</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=7'?>">Diagnóstico ambulatorio</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=8'?>">Esterilización</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=9'?>">Farmacia</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=10'?>">Imagenología</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=11'?>">Kinesiterapia</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=12'?>">Laboratorio</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=13'?>">Oncología</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=14'?>">Post-Operado</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=15'?>">Residencia Médica</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=16'?>">Vacunatorio</a></li>
 		</ul>
 	</div>
   </div>	

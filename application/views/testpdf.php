@@ -36,7 +36,7 @@ $pdf->SetSubject('TCPDF Tutorial');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
 $pdf->setFooterData(array(0,64,0), array(0,64,128));
 
 // set header and footer fonts
@@ -72,7 +72,7 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('dejavusans', '', 12, '', true);
+$pdf->SetFont('dejavusans', '', 11, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
@@ -85,7 +85,7 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 
 $html = <<<EOD
 <h1>Informe y análisis de resutaltados de Indicadores</h1>
-<i>I. Información general</i><br>
+I. INFORMACIÓN GENERAL<br><br>
 <table>
 	<tr>
 		<td>Nombre unidad:</td>
@@ -102,7 +102,7 @@ $html = <<<EOD
 </table>
 
 <br><br>
-II. Información medición del Indicador <br><br>
+II. INFORMACIÓN MEDICIÓN DEL INDICADOR <br><br>
 <table border="1">
 	<tr>
 		<td>Código característica:</td>
@@ -131,11 +131,11 @@ II. Información medición del Indicador <br><br>
 </table>
 <br><br>
 <div>
-III. Análisis y comentarios de los resultados:
+III. ANÁLISIS Y COMENTARIOS DE LOS RESULTADOS:
  <p>$datos->comentarios</p>
 </div>
 
-Plan de mejora:
+PLAN DE MEJORA:
 <div>
 <p>$datos->plan</p>
 </div>

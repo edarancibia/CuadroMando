@@ -1,5 +1,6 @@
+
 <div class="container">
-<form method="POST" action="<?= base_url('index.php/Indicadores/VistaAmbitos'); ?>">
+<form method="POST" action="<?= base_url('index.php/Indicadores/Result'); ?>">
   <div class="row col-xs-6">
       <select id="trimestre" name="trimestre">
         <option value="0" SELECTED>Seleccione un periodo</option>
@@ -10,20 +11,23 @@
       </select>
       <!--<input type="submit" name="buscaTrimestre" id="buscaTrimestre" class="btn btn-default" value="Ver Periodo">-->
       <button type="submit" name="buscaTrimestre" class="btn-success btn">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
-      <input type="hidden" name="idAmbito" id="idAmbito" value='<? echo $_REQUEST['idAmbito'] ?>'>
+      <input type="hidden" name="idUnidad" id="idUnidad" value='<? echo $_REQUEST['idUnidad'] ?>'>
+     
   </div>
   <br/>
 
 <div class="row">
 	<br/>
 	<?
-	print_r($ambito);
+	print_r($unidad);
+	//echo '<strong>'.$unidad->descripcion.'</strong>';
 	$m1 = 'Mes 1';
 	$m2 = 'Mes 2';
 	$m3 = 'Mes 3';
 
 	if (isset($_POST['buscaTrimestre'])) {
 		$trimestre = $_POST["trimestre"];
+		//$nomUnidad=$unidad->descripcion;
 		
 		switch ($trimestre) {
 		  case 1:
@@ -75,24 +79,23 @@
 	//echo $idAmbito;
 	if (isset($_POST["buscaTrimestre"])) {
 		$trimestre = $_POST["trimestre"];
-		$idAmbito2 = $_POST["idAmbito"];
-		//print_r($ambito);
+
 		if ($trimestre == 0) {
 			echo "<script>alert('Seleccione una opcion');</script>";
 		}
 		
 		switch ($trimestre) {
 			case 1:
-				echo "<h4>Primer trimestre</h4>";
+				echo "<h4 style='width:200px'>Primer trimestre</h4>";
 				break;
 			case 2:
-				echo "<h4>Segundo trimestre</h4>";
+				echo "<h4 style='width:200px'>Segundo trimestre</h4>";
 				break;
 			case 3:
-				echo "<h4>Tercer trimestre</h4>";
+				echo "<h4 style='width:200px'>Tercer trimestre</h4>";
 				break;
 			case 4:
-				echo "<h4>Cuarto trimestre</h4>";
+				echo "<h4 style='width:200px'>Cuarto trimestre</h4>";
 				break;
 			default:
 				
@@ -100,11 +103,13 @@
 		}
 
 
-		if (empty($indicadoresAmbito)) {
+		if (empty($indicadoresUnidad)) {
+			echo "<tr>";
 	 		echo "no hay resultados";
+	 		echo "</tr>";
 	} else{
 
-		 	foreach ($indicadoresAmbito as $row) {
+		 	foreach ($indicadoresUnidad as $row) {
 				echo "<tr>";
 					echo "<td width=50>".$row['Caracteristica']." ".$row['desc_subUn']."</td>";
 					echo "<td width=150>".$row['descripcion']."</td>";

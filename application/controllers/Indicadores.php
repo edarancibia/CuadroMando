@@ -8,7 +8,9 @@ class Indicadores extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Indicadores_model');
+		$this->load->model('IndicadorInforme');
 		$this->load->model('Caracteristicas');
+		$this->load->model('Ambitos');
 		$this->load->library('Pdf');
 	}
 
@@ -112,17 +114,28 @@ class Indicadores extends CI_Controller
 		print_r($this->Indicadores_model->validaFecha($idIndicador));
 	}
 
+	//OBTIENE NOMBRE DEL AMBITO SELECCIONADO
+	public function NombreAmbito($idAmbito){
+		$amb = $this->Ambitos->getById($idAmbito);
+		$nomAmbito = $amb->descripcion;
+		return $nomAmbito;
+	}
+
+	//cargar vista index con buscador de datos por trimestre y ambito
 	public function VistaAmbitos2(){
-		$data['idAmbito'] = $_GET['idAmbito'];
+		$idAmbito =  $_GET['idAmbito'];
+		$data['idAmbito'] = $idAmbito;
+		$data['ambito'] = $this->NombreAmbito($idAmbito);
 		$this->templateSupervisor();
 		$this->load->view('supervisor/listaIndicadores',$data);
 	}
 
-	//- - -  - Muestra lista de indicadores segun ambito selccionado - - - - 
+	//- - -  - Muestra lista de indicadores segun ambito seleccionado - - - - 
 	public function VistaAmbitos(){
 		$idAmbito = $this->input->post('idAmbito',TRUE);
 		$trimestre = $this->input->post('trimestre',TRUE);
 		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$trimestre);
+		$data['ambito'] = $this->NombreAmbito($idAmbito);
 		
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
@@ -133,8 +146,44 @@ class Indicadores extends CI_Controller
 		}
 	}
 
+	//cargar vista index con buscador de datos por trimestre y unidad
+	public function ResultIndex(){
+		$idUnidad = $_GET['idUnidad'];
+		$data['idUnidad'] = $idUnidad;
+		$data['unidad'] = $this->NombreUnidad($idUnidad);
+		$this->templateSupervisor();
+		$this->load->view('supervisor/listaIndicadores2', $data);
+	}
+
+
+	//- - -  - Muestra lista de indicadores segun la unidad selccionada - - - - 
+	public function Result(){
+		$idUnidad = $this->input->post('idUnidad',TRUE);
+		$trimestre = $this->input->post('trimestre',TRUE);
+		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$trimestre);
+		$data['unidad'] = $this->NombreUnidad($idUnidad);
+		
+		if ($this->session->userdata('cargo') == 1) {
+			$this->templateSupervisor();
+			$this->load->view('supervisor/listaIndicadores2',$data);
+		}else{
+			$this->template();
+			$this->load->view('supervisor/listaIndicadores2',$data);
+		}
+	}
+
+	//OBTIENE NOMBRE DE LA UNIDAD SELCCIONADA
+	public function NombreUnidad($idUnidad){
+		$uni = $this->Ambitos->getByUnidadId($idUnidad);
+		$nomUnidad = $uni->descripcion;
+		return $nomUnidad;
+	}
+
+
 
 }
+
+
 
 
 

@@ -19,7 +19,7 @@ $(document).ready(function(){
 		   "hideMethod": "fadeOut"
 		}
 	}
-	var baseUrl = 'http://localhost/CuadroMando/index.php/';
+	var baseUrl = window.location.origin+'/CuadroMando/index.php/';
 
 	//- - - - -   Login - - -  - - - -  - 
 	$('#btnLogin').on('click', function(){

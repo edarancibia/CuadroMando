@@ -64,7 +64,7 @@
 			<br>
 			<div>
 
-				<a href="<?= 'http://localhost/CuadroMando/index.php/Indicadores/MisIndicadores?idUnidad='.$idUnidad.'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+				<a href="<?= base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 			</div>
 		</div>
 

@@ -65,7 +65,7 @@
 			<div>
 				<button type="button" class="btn btn-success" id="btnGuardaInforme" name="btnGuardaInforme">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
 
-				<a href="<?= 'http://localhost/CuadroMando/index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+				<a href="<?= base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 
 				<a id="btnPdf" href="<?= base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'';?>" class="btn btn-danger" target="_blanck">Ver PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 			</div>
