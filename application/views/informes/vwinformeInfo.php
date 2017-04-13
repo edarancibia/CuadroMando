@@ -55,7 +55,7 @@
 
 		<div class="col-md-6 col-md-offset-3">
 			<fieldset>
-				<label for="comentarios">4.Cometarios:</label>
+				<label for="comentarios">3.Comentarios:</label>
 				<textarea name="comentarios" id="comentarios" class="form-control" disabled="true"><?= $datos->comentarios;?></textarea>
 
 				<label for="plan">Plan de mejora:</label>

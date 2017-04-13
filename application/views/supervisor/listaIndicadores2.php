@@ -117,7 +117,8 @@
 					echo "<td width=200'>".$row['formula1']."<hr>".$row['formula2']."<br/><br/></td>";
 					//echo "<td width=80>".substr($row['fecha'], 0,10) ."</td>";
 					echo "<td width=190 style='font-size:14px;'>".$row['numerador']."<hr>".$row['denominador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
-					<td width=50 style='font-size:14px;'>".$row['numeradores']."<hr>".$row['denominadores']."<hr><strong>".intval($row['resultados'])."</strong></td>";
+					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['numeradores']."<hr>".$row['denominadores']."<hr><strong>".intval($row['resultados'])."</strong></td>";
+					echo '<td width=30><button class="btnmail2" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
 					//echo "<td width=150>".$row['fechas']."<br/>".$row['resultados']."</td>";
 					/*echo '<td width=100><div class="progress">
 						  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$row['resultado'].'"
@@ -134,5 +135,22 @@
 	</div>
 </div>
 </form>
+</div>
+
+<div id="dialog-form" title="Nuevo correo">
+  <form>
+    <fieldset>
+      <label for="name">Destinatario</label>
+      <input type="text" name="txtmail" id="txtmail"  class="text ui-widget-content ui-corner-all">
+      <label for="email">Asunto</label>
+      <input type="text" name="txtasunto" id="txtasunto"  class="text ui-widget-content ui-corner-all">
+      <label for="txtmensaje">Mensaje</label>
+      <textarea id="txtmensaje" name="txtmensaje" class="mensaje text ui-widget-content ui-corner-all"></textarea>
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+
 </div>
 </body>

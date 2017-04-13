@@ -84,7 +84,7 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 // Set some content to print
 
 $html = <<<EOD
-<h1>Informe y análisis de resutaltados de Indicadores</h1>
+<h1>Informe y análisis de resultados de Indicadores</h1>
 I. INFORMACIÓN GENERAL<br><br>
 <table>
 	<tr>
