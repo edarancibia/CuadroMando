@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var email;
+
 	function configToastr(){
 		toastr.options = {
 		  "closeButton": true,
@@ -113,7 +115,7 @@ $(document).ready(function(){
 			        var indicador = $('#txtIdindicador').val();
 					parsedDen = parseInt(denominador);
 					parsedNum = parseInt(numerador);
-					parsedRes = parseInt(parsedDen / parsedNum * 100);
+					parsedRes = parseInt(parsedNum / parsedDen * 100);
 					var fecha2 = moment().format('L');
 
 					if (denominador == '') {
@@ -223,15 +225,15 @@ $(document).ready(function(){
 		location.href = baseUrl+'Indicadores/misIndicadores3';
 	});*/
 
-	//MODAL ENVIO DE CORREO DESDE VISTA DE SUPERVISOR - -  - - - -  -
+	//SECCION MODAL ENVIO DE CORREO DESDE VISTA DE SUPERVISOR - -  - - - -  -
 	$( function() {
     var dialog, form,
  
       // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
       emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-      name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
+      name = $( "#txtmail" ),
+      email = $( "#txtasunto" ),
+      password = $( "#txtmensaje" ),
       allFields = $( [] ).add( name ).add( email ).add( password ),
       tips = $( ".validateTips" );
  
@@ -266,36 +268,42 @@ $(document).ready(function(){
     }
 
     function correo(){
-    	var $div = $('<div id="spinner" <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> ');
-		$div.css({
-		    height: '40px',
-		    width: '40px',
-		    //background: 'red'
-		});
- 		
-		$("#dialog-form").append($div);
 
-    	var para = $('#txtmail').val();
-    	var asunto = $('#txtasunto').val();
-    	var mensaje = $('#txtmensaje').val();
+    	if ($('#txtmail').val() != '') {
+    		var $div = $('<div id="spinner" <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i> ');
+			$div.css({
+			    height: '40px',
+			    width: '40px',
+			    //background: 'red'
+			});
+	 		
+			$("#dialog-form").append($div);
 
-    	$.ajax({
-    		type: 'post',
-    		url: baseUrl +'Mail/sendMail',
-    		data: {to: para, subject: asunto, message: mensaje},
+	    	var para = $('#txtmail').val();
+	    	var asunto = $('#txtasunto').val();
+	    	var mensaje = $('#txtmensaje').val();
 
-    		success: function(){
-    			$('#txtmail').val('');
-    			$('#txtasunto').val('');
-    			var mensaje = $('#txtmensaje').val('');
-    			toastr.success('Mensaje enviado exitosamente');
-    			$("#dialog-form").dialog( "close" );
-    			$('#spinner').hide();
-    		},
-    		error: function(){
-    			console.log('error ajax envio de correo');
-    		}
-    	});
+	    	$.ajax({
+	    		type: 'post',
+	    		url: baseUrl +'Mail/sendMail',
+	    		data: {to: para, subject: asunto, message: mensaje},
+
+	    		success: function(){
+	    			$('#txtmail').val('');
+	    			$('#txtasunto').val('');
+	    			var mensaje = $('#txtmensaje').val('');
+	    			toastr.success('Mensaje enviado exitosamente');
+	    			$("#dialog-form").dialog( "close" );
+	    			$('#spinner').hide();
+	    		},
+	    		error: function(){
+	    			console.log('error ajax envio de correo');
+	    		}
+	    	});
+    	}else{
+    		toastr.error('Ingrese destinatario');
+    		$('#txtmail').focus();
+    	}
     }
  
     dialog = $( "#dialog-form" ).dialog({
@@ -322,13 +330,73 @@ $(document).ready(function(){
     });
  
     $( ".btnmail" ).button().on( "click", function() {
-      dialog.dialog( "open" );
+    	var id = $(this).data('id');
+    	getEmail(id);
+      	dialog.dialog( "open" );
     });
 
      $( ".btnmail2" ).button().on( "click", function() {
-      dialog.dialog( "open" );
+     	var id = $(this).data('id');
+     	getEmail(id);
+      	dialog.dialog( "open" );
     });
+
+     //obtiene json con datos del responsable desde el controlador INDICADORES
+     function getEmail(id){
+     	 $.ajax({
+     		type: 'post',
+     		url: baseUrl + 'Indicadores/Responsable',
+     		data: {idIndicador: id},
+     		dataType: 'json',
+     		success: function(data){
+    			email = data.resp.email;
+    			$('#txtmail').val(email);
+    			$('#txtmail').attr('disabled','disabled');;
+     		},
+     		error: function(){
+     			console.log('error ajax al buscar email');
+     		}
+     	});
+     }
  });
+
+/* * * * *    FIN SECCION ENVIO DE EMAIL ****************** * * * * * ** * * * ** * * */
+
+	/*$("td").each(function() {
+	    var value = this.innerHTML;
+	    if (value === 'No' || value === 'NO' || value === 'no') {
+	        $(this).parent('tr').addClass('no');
+	    } 
+	});*/
+
+	//$(function() {
+	    /* Obtiene todas las filas del body de la tabla*/
+	//	const filas = $('#tablaUnidad tbody tr');
+	    /* Itera sobre los valores de dicha fila */
+	//	for(let i=0 ;i<filas.length;i++){
+	         /* Compara los valores , obteniendo los hijos con ChildNodes, 
+	          donde el primer td será el Indice 1 , como deseo acceder al segundo Td ,
+	           accedo al indice 3*/
+	/*		if(filas[i].childNodes[9].innerText=='NO'){
+				filas[i].style.background= '#ccc';
+			}
+		}
+	});*/
+
+
+//------------- COLOREAR TABLAS SEGUN CUMPLIMIENTO DE INDICADORES --- - -
+	$(function() {
+	  $("#tablaUnidad td:last-child:contains(NO)")
+	    .parents("tr")
+	    .css("background-color", "#F4A460");
+	});
+
+	$(function() {
+	  $("#tablaAmbito td:last-child:contains(NO)")
+	    .parents("tr")
+	    .css("background-color", "#F4A460");
+	});
+	//---------------------- - - - - - - - - - - -- - - - - - - -- - - - - -- 
 
 });
 

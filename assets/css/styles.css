@@ -134,7 +134,9 @@ label, input { display:block; }
   height: 120px;
 }
 
-
+.no {
+  background: red;
+}
 
 
 

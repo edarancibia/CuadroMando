@@ -84,6 +84,7 @@ class Informe extends CI_Controller{
 		$data['resp'] = $usuario;
 		$this->load->view('testpdf',$data);
 	}
+
 }
 
 

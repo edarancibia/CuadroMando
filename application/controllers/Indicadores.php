@@ -134,7 +134,9 @@ class Indicadores extends CI_Controller
 	public function VistaAmbitos(){
 		$idAmbito = $this->input->post('idAmbito',TRUE);
 		$trimestre = $this->input->post('trimestre',TRUE);
-		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$trimestre);
+		$fecha = getdate();
+		$anio = $fecha['year'];
+		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$anio,$trimestre);
 		$data['ambito'] = $this->NombreAmbito($idAmbito);
 		
 		if ($this->session->userdata('cargo') == 1) {
@@ -156,11 +158,13 @@ class Indicadores extends CI_Controller
 	}
 
 
-	//- - -  - Muestra lista de indicadores segun la unidad selccionada - - - - 
+	//- - -  - Muestra lista de indicadores segun la unidad seleccionada - - - - 
 	public function Result(){
 		$idUnidad = $this->input->post('idUnidad',TRUE);
 		$trimestre = $this->input->post('trimestre',TRUE);
-		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$trimestre);
+		$fecha = getdate();
+		$anio = $fecha['year'];
+		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$anio,$trimestre);
 		$data['unidad'] = $this->NombreUnidad($idUnidad);
 		
 		if ($this->session->userdata('cargo') == 1) {
@@ -179,7 +183,12 @@ class Indicadores extends CI_Controller
 		return $nomUnidad;
 	}
 
-
+	//OBTIENE DATOS DEL RESPONSABLE DEL INDICADOR PARA ENVIAR EMAIL
+	public function Responsable(){
+		$idIndicador = $_REQUEST['idIndicador'];
+		$data['resp'] = $this->Indicadores_model->getDatosResponsable($idIndicador);
+		echo json_encode($data);
+	}
 
 }
 

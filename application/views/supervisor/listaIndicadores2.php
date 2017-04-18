@@ -64,16 +64,21 @@
 		
 	?>
 
-	<div class="col-md-10 col-md-offset-1" >
-		<table class="table tablaListaIndS table-hover" border=1>
+	<div class="col-md-11 col-md-offset-1" >
+		<table class="table tablaListaIndS table-hover" border=1 id="tablaUnidad">
+		<thead>
 		 <tr>
+		 	
 			<th>CARACTERÍSTICA</th>
 			<th>INDICADOR</th>
 			<th>UMBRAL</th>
 			<th>FÓRMULA</th>
 			<th><? echo $m1 .' |'.$m2 . ' |' .$m3. ' |';?></th>
 			<th>TRIMESTRE</th>
+			<th></th>
 		 </tr>
+		 </thead>
+		 <tbody>
 
 	<? 
 	//echo $idAmbito;
@@ -111,14 +116,15 @@
 
 		 	foreach ($indicadoresUnidad as $row) {
 				echo "<tr>";
+					echo "<td width=50 style='display:none;'>".$row['idIndicador']."</td>";
 					echo "<td width=50>".$row['Caracteristica']." ".$row['desc_subUn']."</td>";
 					echo "<td width=150>".$row['descripcion']."</td>";
 					echo "<td width=30>".$row['umbralDesc']."</td>";
 					echo "<td width=200'>".$row['formula1']."<hr>".$row['formula2']."<br/><br/></td>";
 					//echo "<td width=80>".substr($row['fecha'], 0,10) ."</td>";
-					echo "<td width=190 style='font-size:14px;'>".$row['numerador']."<hr>".$row['denominador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
+					echo "<td width=200 style='font-size:14px;'>".$row['numerador']."<hr>".$row['denominador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
 					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['numeradores']."<hr>".$row['denominadores']."<hr><strong>".intval($row['resultados'])."</strong></td>";
-					echo '<td width=30><button class="btnmail2" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
+					echo '<td width=30><button data-id='.$row["idIndicador"].' class="btnmail2" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
 					//echo "<td width=150>".$row['fechas']."<br/>".$row['resultados']."</td>";
 					/*echo '<td width=100><div class="progress">
 						  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$row['resultado'].'"
@@ -126,11 +132,13 @@
 						    '.$row['resultado'].'%  
 						  </div>
 						</div></td>';*/
+					echo "<td width=30 style='display:none'>".$row['evaluacion']."</td>";
 				echo "<tr>";
 			};
 		}
 	}
  	?>
+ 		  </tbody>
 		</table>
 	</div>
 </div>
@@ -140,9 +148,9 @@
 <div id="dialog-form" title="Nuevo correo">
   <form>
     <fieldset>
-      <label for="name">Destinatario</label>
+      <label for="txtmail">Destinatario</label>
       <input type="text" name="txtmail" id="txtmail"  class="text ui-widget-content ui-corner-all">
-      <label for="email">Asunto</label>
+      <label for="txtasunto">Asunto</label>
       <input type="text" name="txtasunto" id="txtasunto"  class="text ui-widget-content ui-corner-all">
       <label for="txtmensaje">Mensaje</label>
       <textarea id="txtmensaje" name="txtmensaje" class="mensaje text ui-widget-content ui-corner-all"></textarea>
