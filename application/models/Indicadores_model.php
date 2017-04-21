@@ -2,6 +2,29 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Indicadores_model extends CI_Model{
+
+	//GRABA NUEVO INDICADOR EN LA BD
+	public function insert($subUn,$desc,$umbral,$f1,$f2,$umbralDesc,$idCaracteristica){
+		$sql = $this->db->query("INSERT INTO Indicadores(desc_subUn,descripcion,umbral,formula1,formula2,umbralDesc,fk_idCaracteristica)
+			VALUES('$subUn','$desc','$umbral','$f1','$f2','$umbralDesc','$idCaracteristica')");
+
+		//return ($this->db->affected_rows() != 1) ? false : true;
+		$ultimo = $this->db->insert_id();
+		return $ultimo;
+	}
+
+	//GRABA NUEVA RELACION INDICADOR-UNIDAD
+	public function relIndUni($idIndicador,$idUnidad){
+		$sql = $this->db->query('INSERT INTO rel_indicadorUnidades(fk_idIndicador,fk_idUnidad)VALUES('.$idIndicador.','.$idUnidad.')');
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
+	//GRABA NUEVA RELACION INDICADOR-RESPONSABLE
+	public function relIndCargo($idIndicador,$idCargo){
+		$sql = $this->db->query('INSERT INTO Rel_cargoIndicadores(fk_idCargo,fk_idIndicador)VALUES('.$idCargo.','.$idIndicador.')');
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
 	public function getByCaracteristica($idCaracteristica){
 		$query = $this->db->query('SELECT * FROM Indicadores where fk_idCaracteristica='.$idCaracteristica.'');
 		return $query->result_array();

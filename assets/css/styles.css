@@ -138,6 +138,9 @@ label, input { display:block; }
   background: red;
 }
 
+.input{
+  height: 25px;
+}
 
 
 

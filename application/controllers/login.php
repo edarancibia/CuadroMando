@@ -7,7 +7,7 @@ class Login extends CI_Controller{
 		$this->load->model('Login_model');
 	}
 
-	public function wsLoginSicbo(){
+	public function Login(){
 		$rut_num = $this->input->post('rut');
 		$clave = $this->input->post('password');
 		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/loginCmando.php?wsdl');

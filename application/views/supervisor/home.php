@@ -34,8 +34,8 @@
 	<div id="divUnidades" style="display: none;" class="divListasHomeS">
 		<ul class="list-group">
 			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=1'?>">Hospitalización</a></li>
-			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=2'?>">Pabellón</a></li>
-			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=3'?>">Upc</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=2'?>">Upc</a></li>
+			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=3'?>">Pabellón</a></li>
 			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=4'?>">Gineco-Obtetrica</a></li>
 			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=5'?>">Neonatología</a></li>
 			<li class="list-group-item"><a href="<?= base_url().'index.php/Indicadores/ResultIndex?idUnidad=6'?>">Anatomía Patológica</a></li>

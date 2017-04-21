@@ -10,7 +10,7 @@
 			    	<h3 class="panel-title">Inicio de sesión</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" method="post" role="form" action="<?= base_url('index.php/login/wsLoginSicbo'); ?>">
+			    	<form accept-charset="UTF-8" method="post" role="form" action="<?= base_url('index.php/login/Login'); ?>">
                     <fieldset>
 			    	  	<div class="input-group">
 			    	  		<span class="input-group-addon glyphicon glyphicon-user" id="addon1"></span>

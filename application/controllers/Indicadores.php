@@ -11,6 +11,8 @@ class Indicadores extends CI_Controller
 		$this->load->model('IndicadorInforme');
 		$this->load->model('Caracteristicas');
 		$this->load->model('Ambitos');
+		$this->load->model('Unidades_model');
+		$this->load->model('Cargos_model');
 		$this->load->library('Pdf');
 	}
 
@@ -190,6 +192,48 @@ class Indicadores extends CI_Controller
 		echo json_encode($data);
 	}
 
+	//GUARDA NUEVO INDICADOR EN MODULO DE ADMINISTRACION
+	public function nuevo(){
+		$umbral = $this->input->post('umbral');
+		$idCarac = $this->input->post('caract');
+		$descripcion = $this->input->post('desc');
+		$f1 = $this->input->post('f1');
+		$f2 = $this->input->post('f2');
+		$umbralDesc = $this->input->post('umbralDesc');
+		$subUn = $this->input->post('subUn');
+
+		return $this->Indicadores_model->insert($subUn,$descripcion,$umbral,$f1,$f2,$umbralDesc,$idCarac);
+	}
+
+	//carga formulario de mantencion de indicadores
+	public function Mantencion(){
+		$data['unidades'] = $this->Unidades_model->getAll();
+		$data['cargos'] = $this->Cargos_model->getAll();
+		$this->templateSupervisor();
+		$this->load->view('supervisor/mantencion',$data);
+	}
+
+	//autocompletar caracteriscita en modulo de mantencion de indicadores
+	public function getCaracteristica(){
+		if (isset($_GET['term'])) {
+			$q = $_GET['term'];
+			echo $this->Caracteristicas->get_Caracteristica($q);
+		}
+	}
+
+	//guarda relacion entre indicador-unidad
+	public function relIndUnidad(){
+		$idIndicador = $this->input->post('idIndicador');
+		$idUnidad = $this->input->post('idUnidad');
+		$this->Indicadores_model->relIndUni($idIndicador,$idUnidad);
+	}
+
+	//guarda relacion entre indicador-cargo
+	public function relIndCar(){
+		$idIndicador = $this->input->post('idIndicador');
+		$idCargo = $this->input->post('idCargo');
+		$this->Indicadores_model->relIndCargo($idIndicador,$idCargo);
+	}
 }
 
 
