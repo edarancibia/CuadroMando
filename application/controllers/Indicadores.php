@@ -202,7 +202,7 @@ class Indicadores extends CI_Controller
 		$umbralDesc = $this->input->post('umbralDesc');
 		$subUn = $this->input->post('subUn');
 
-		return $this->Indicadores_model->insert($subUn,$descripcion,$umbral,$f1,$f2,$umbralDesc,$idCarac);
+		echo $this->Indicadores_model->insert($subUn,$descripcion,$umbral,$f1,$f2,$umbralDesc,$idCarac);
 	}
 
 	//carga formulario de mantencion de indicadores

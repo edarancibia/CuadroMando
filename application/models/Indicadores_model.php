@@ -5,12 +5,25 @@ class Indicadores_model extends CI_Model{
 
 	//GRABA NUEVO INDICADOR EN LA BD
 	public function insert($subUn,$desc,$umbral,$f1,$f2,$umbralDesc,$idCaracteristica){
-		$sql = $this->db->query("INSERT INTO Indicadores(desc_subUn,descripcion,umbral,formula1,formula2,umbralDesc,fk_idCaracteristica)
-			VALUES('$subUn','$desc','$umbral','$f1','$f2','$umbralDesc','$idCaracteristica')");
 
-		//return ($this->db->affected_rows() != 1) ? false : true;
-		$ultimo = $this->db->insert_id();
-		return $ultimo;
+		$data = array(
+			'desc_subUn' => $subUn,
+			'descripcion' => $desc,
+			'umbral' => $umbral,
+			'formula1' => $f1  ,
+			'formula2' => $f2,
+			'umbralDesc' => $umbralDesc,
+			'fk_idCaracteristica' => $idCaracteristica
+		);
+
+		$this->db->insert('Indicadores', $data);
+		//$ultimo = $this->db->insert_id();
+		//return $ultimo;
+
+		$query = $this->db->query('SELECT LAST_INSERT_ID()');
+	    $row = $query->row_array();
+	    $LastIdInserted = $row['LAST_INSERT_ID()'];
+	    return $LastIdInserted;
 	}
 
 	//GRABA NUEVA RELACION INDICADOR-UNIDAD

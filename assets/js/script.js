@@ -384,9 +384,9 @@ $(document).ready(function(){
 	    var that = $(el);
 	    that.autocomplete({
 	        source: baseUrl+'Indicadores/getCaracteristica',
-	        select: function( event , ui ) {
+	       /* select: function( event , ui ) {
 	            alert( "You selected: " + ui.item.label );
-	        }
+	        }*/
 	    });
 	});
 
@@ -418,6 +418,7 @@ $(document).ready(function(){
 			   	 	var f2 = $('#txtf2').val();
 			   	 	var a,b,c,d,e,f,g,h,i,j,k,l,m;
 			   	 	var subUnidad2;
+			   	 	var nuevoIndicador;
 
 			   	 	if ($('#chksubu1').is(':checked')) {
 			   	 		a = $('#chksubu1').val();
@@ -518,14 +519,41 @@ $(document).ready(function(){
 			   	 		url: baseUrl+'Indicadores/nuevo',
 			   	 		data: {caract:caract,desc:desc,umbral:umbral,umbralDesc:umbralDesc2,f1:f1,f2:f2,subUn: subUnidad2},
 			   	 		success: function(d){
-			   	 			console.log(d);	
-			   	 			//relIndUnidad();
-			   	 			//relIndCargo();
+			   	 			console.log('el codigo indicadores es: '+d);
+			   	 			nuevoIndicador = d;
 			   	 			toastr.success('Indicador guardado exitosamente');
 			   	 		},
 			   	 		error: function(){
 			   	 			console.log('error ajax al guardar nuevo indicador');
 			   	 		}
+			   	 	}).done(function(){
+
+			   	 				$.ajax({
+									type: 'post',
+									url: baseUrl+'Indicadores/relIndUnidad',
+									data: {idIndicador: nuevoIndicador,idUnidad:unidad},
+									success: function(){
+										console.log('relacion ind unidad guardada exitosamente');
+									},
+									error: function(){
+										console.log('error ajax en relacion ind-unidad');
+									}
+								});
+
+			   	 				$.ajax({
+									type: 'post',
+									url: baseUrl+'Indicadores/relIndCar',
+									data: {idIndicador: nuevoIndicador,idCargo:resp},
+									success: function(){
+										console.log('relacion ind cargo guardada exitosamente');
+									},
+									error: function(){
+										console.log('error ajax en relacion ind-cargo');
+									}
+								});
+
+								limpiarMantendor();
+
 			   	 	});
 
 					 $( this ).dialog( "close" );
@@ -536,35 +564,15 @@ $(document).ready(function(){
 			       }
 			    }
 		});
-
-		function relIndUnidad(){
-			$.ajax({
-				type: 'post',
-				url: baseUrl+'Indicadores/relIndUnidad',
-				data: {idIndicador: idIndicador,idUnidad:idUnidad},
-				success: function(){
-					console.log('relacion ind unidad guardada exitosamente');
-				},
-				error: function(){
-					console.log('error ajax en relacion ind-unidad');
-				}
-			});
-		}
-
-		function relIndCargo(){
-			$.ajax({
-				type: 'post',
-				url: baseUrl+'Indicadores/relIndCar',
-				data: {idIndicador: idIndicador,idCargo:idCargo},
-				success: function(){
-					console.log('relacion ind cargo guardada exitosamente');
-				},
-				error: function(){
-					console.log('error ajax en relacion ind-cargo');
-				}
-			});
-		}
 	});
+
+	function limpiarMantendor(){
+		$('#txtCaracteristica').val('');
+		$('#txtDescIndicador').val('');
+		$('#txtUmbral').val('');
+		$('#txtf1').val('');
+		$('#txtf2').val('');
+	}
 
 });
 

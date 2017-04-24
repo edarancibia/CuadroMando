@@ -8,7 +8,7 @@
 				<td><select id="cboUnidades" name="cboUnidades" class="form-control input">
 					<?php
 					foreach ($unidades as  $item)
-					   echo '<option value="<?=$item->idUnidad?>">'.$item->descripcion.'</option>';
+					   echo '<option value="'.$item->idUnidad.'">'.$item->descripcion.'</option>';
 					?>
 				</select></td>
 			</tr>
@@ -66,7 +66,7 @@
 				<td><select name="cboResponsable" id="cboResponsable" class="form-control input">
 					<?php
 					foreach ($cargos as  $item)
-					   echo '<option value="<?=$item->idCargo?>">'.$item->descripcion.'</option>';
+					   echo '<option value="'.$item->idCargo.'">'.$item->descripcion.'</option>';
 					?>
 				</select></td>
 			</tr>
