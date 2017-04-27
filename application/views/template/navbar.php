@@ -26,14 +26,21 @@
   </div>
 </nav>
 
+<?php
+  if(!($this->session->userdata('user') == true)){
+       echo "Sesion expirada";
+       redirect(base_url,'refresh');
+    }
+?>
+
 <div style="width: max;">
 
-  <a href="<?= base_url('index.php/welcome/Home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
+  <a href="<?php echo base_url('index.php/welcome/Home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
   <div style="width: 150px;float:right;">
-    <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+    <a href="<?php echo base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
   </div>
   <div style="width: 300px;float:right;">
-    <p class=""><?= $this->session->userdata('user'); ?></p>
+    <p class=""><?php echo $this->session->userdata('user'); ?></p>
   </div>
 
 </div>

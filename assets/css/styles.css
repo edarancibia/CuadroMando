@@ -44,7 +44,7 @@
 }
 
 .divListasHomeS{
-	margin-left: 400px;
+	margin-left: 300px;
 }
 
 .divHeaderHomeS{
@@ -142,5 +142,22 @@ label, input { display:block; }
   height: 25px;
 }
 
+
+.checkboxes label {
+  display: block;
+  float: left;
+  padding-right: 10px;
+  white-space: nowrap;
+}
+.checkboxes input {
+  vertical-align: middle;
+}
+.checkboxes label span {
+  vertical-align: middle;
+}
+
+.lblnombre{
+  color: #3498DB;
+}
 
 

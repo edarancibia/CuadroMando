@@ -10,8 +10,8 @@
 
 				<tr>
 					<td>Nombre unidad:</td>
-					<td><?= $unidad->descripcion;  ?></td>
-					<td><input type="hidden" name="textIdindicador" id="textIdindicador" value="<?= $_REQUEST['idIndicador']; ?>"></td>
+					<td><?php echo $unidad->descripcion;  ?></td>
+					<td><input type="hidden" name="textIdindicador" id="textIdindicador" value="<?php echo $_REQUEST['idIndicador']; ?>"></td>
 				</tr>
 				<tr>
 					<td>Fecha del informe:</td>
@@ -19,7 +19,7 @@
 				</tr>
 				<tr>
 					<td>Responsable:</td>
-					<td><?= $this->session->userdata('user'); ?></td>
+					<td><?php echo $this->session->userdata('user'); ?></td>
 				</tr>
 			</table>
 
@@ -28,43 +28,43 @@
 			<table class="table table-hover" border="1">
 				<tr>
 					<td>Código de característica:</td>
-					<td><?= $caracteristica->caracteristica;?></td>
+					<td><?php echo $caracteristica->caracteristica;?></td>
 				</tr>
 				<tr>
 					<td>Nombre del indicador:</td>
-					<td><?= $caracteristica->descripcion; ?></td>
+					<td><?php echo $caracteristica->descripcion; ?></td>
 				</tr>
 				<tr>
 					<td>Fórmula del indicador:</td>
-					<td><?= $caracteristica->formula1. '/'. $caracteristica->formula2; ?></td>
+					<td><?php echo $caracteristica->formula1. '/'. $caracteristica->formula2; ?></td>
 				</tr>
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control" value="<?= $datos->resultadoDet;?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control" value="<?php echo $datos->resultadoDet;?>" disabled="true">
 					</td>
 				</tr>
 				<tr>
 					<td>Umbral de cumplimiento:</td>
-					<td><?= $caracteristica->umbralDesc .'%'; ?></td>
+					<td><?php echo $caracteristica->umbralDesc .'%'; ?></td>
 				</tr>
 				<td>Periodo:</td>
-				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?= $datos->periodo;?>" disabled="true"></td>
+				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?php echo $datos->periodo;?>" disabled="true"></td>
 			</table>
 		</div>
 
 		<div class="col-md-6 col-md-offset-3">
 			<fieldset>
 				<label for="comentarios">3.Comentarios:</label>
-				<textarea name="comentarios" id="comentarios" class="form-control" disabled="true"><?= $datos->comentarios;?></textarea>
+				<textarea name="comentarios" id="comentarios" class="form-control" disabled="true"><?php echo $datos->comentarios;?></textarea>
 
 				<label for="plan">Plan de mejora:</label>
-				<textarea name="plan" id="plan" class="form-control" disabled="true"><?= $datos->plan;?></textarea>
+				<textarea name="plan" id="plan" class="form-control" disabled="true"><?php echo $datos->plan;?></textarea>
 			</fieldset>
 			<br>
 			<div>
 
-				<a href="<?= base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 			</div>
 		</div>
 

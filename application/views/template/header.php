@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cuadro de mando</title>
+	<title>Cuadro de mando - Indicadores de Calidad</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/menu.css"); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/toastr.css"); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/font-awesome/css/font-awesome.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<? echo base_url('assets/jquery-ui-1.12.1/jquery-ui.css');?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/jquery-ui-1.12.1/jquery-ui.css');?>">
 	
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>

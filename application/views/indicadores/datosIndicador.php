@@ -6,38 +6,35 @@
 			<legend><h5>Evaluación periódica</h5></legend>
 			<table class="table table-caract centrar">
 				<tr>
-					<td><input type="hidden" name="txtIdindicador" id="txtIdindicador" value="<?= $indicador->idIndicador; ?>"></td>
+					<td><input type="hidden" name="txtIdindicador" id="txtIdindicador" value="<?php echo $indicador->idIndicador; ?>"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>Característica: </td>
 					<td>
-						<?= $indicador->caracteristica; ?>
+						<?php echo $indicador->caracteristica; ?>
 					</td>
 				</tr>
 				<tr>
 					<td>Descripción: </td>
-					<td><?= $indicador->descripcion; ?></td>
+					<td><?php echo $indicador->descripcion; ?></td>
 				</tr>
 				<tr>
 					<td>Umbral cumplimiento: </td>
 					<td>
-						<?= $indicador->umbralDesc; ?>
+						<?php echo $indicador->umbralDesc; ?>
 					</td>
-				</tr>
-				<tr>
-					<td>Porcentaje de avance: </td>
-					<td></td>
 				</tr>
 
 			</table>
 		</fieldset>
 
-		<?
+		<?php
 			$fecha = getdate();
 			$mes = $fecha['mon'];
 			$anio = $fecha['year'];
 			$nombreMes = '';
+			$url2 = 'index.php/Indicadores/MisIndicadores?idUnidad=';
 			
 			switch ($mes) {
 				case 1:
@@ -78,7 +75,7 @@
 					break;
 			}
 		?>
-		<div><p>Periodo: <?= $nombreMes .' '.$anio; ?></p></div>
+		<div><p>Periodo: <?php echo $nombreMes .' '.$anio; ?></p></div>
 
 		<div class="col-md-5 centrar" align="center">
 			<table border="1" class="table tabla-evaluaIndicador">
@@ -87,11 +84,11 @@
 					<th></th>
 				</tr>
 				<tr>
-					<td><?= $indicador->formula1; ?></td>
+					<td><?php echo $indicador->formula1; ?></td>
 					<td><input type="text" name="txtvalor1" class="form-control input-sm" id="txtvalor1"></td>
 				</tr>
 				<tr>
-					<td><?= $indicador->formula2; ?></td>
+					<td><?php echo $indicador->formula2; ?></td>
 					<td><input type="text" name="txtvalor2" class="form-control input-sm" id="txtvalor2"></td>
 				</tr>
 				<tr>
@@ -103,7 +100,7 @@
 			<div>
 				<button type="button" name="btnGuadar" id="btnGuadar" class="btn btn-success">
 				Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button> 
-				<a href="<?= base_url('index.php/Indicadores/MisIndicadores?idUnidad='.$unidad.'')?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a> 
+				<a href='<?php echo base_url(). $url2 . $_REQUEST["idUnidad"]; ?>' class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a> 
 			</div>
 
 		</div>

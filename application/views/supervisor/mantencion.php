@@ -19,20 +19,21 @@
 			</tr>
 			<tr>
 				<td>Sub Unidades</td>
-				<td ><div class="form-group">
-					<input type="checkbox" name="chksubu1" id="chksubu1" value="Hospitalizacion" class="form-control">Hospitalización
-					<input type="checkbox" name="chksubu2" id="chksubu2" value="Medicina">Medicina
-					<input type="checkbox" name="chksubu3" id="chksubu3" value="Gineco Obst">Gineco Obst
-					<input type="checkbox" name="chksubu4" id="chksubu4" value="Cirugia adulto">Cirugia adulto
-					<input type="checkbox" name="chksubu5" id="chksubu5" value="Cirugia infantil">Cirugia infantil
-					<input type="checkbox" name="chksubu6" id="chksubu6" value="Pediatria">Pediatria
-					<input type="checkbox" name="chksubu7" id="chksubu7" value="Pab gral">Pab gral
-					<input type="checkbox" name="chksubu8" id="chksubu8" value="CMA">CMA
-					<input type="checkbox" name="chksubu9" id="chksubu9" value="Pab gobs">Pab gobs
-					<input type="checkbox" name="chksubu10" id="chksubu10" value="Pabellon">Pabellon
-					<input type="checkbox" name="chksubu11" id="chksubu11" value="Upc">UPC
-					<input type="checkbox" name="chksubu12" id="chksubu12" value="UPP">UPP
-					<input type="checkbox" name="chksubu13" id="chksubu13" value="Neo">Neo
+				<td ><div class="checkboxes">
+					<label><input type="checkbox" name="chksubu1" id="chksubu1" value="Hospitalizacion">Hospitalización</label>
+					<label><input type="checkbox" name="chksubu2" id="chksubu2" value="Medicina">Medicina</label>
+					<label><input type="checkbox" name="chksubu3" id="chksubu3" value="Gineco Obst">Gineco Obst</label>
+					<label><input type="checkbox" name="chksubu4" id="chksubu4" value="Cirugia adulto">Cirugia adulto</label>
+					<label><input type="checkbox" name="chksubu5" id="chksubu5" value="Cirugia infantil">Cirugia infantil</label>
+					<label><input type="checkbox" name="chksubu6" id="chksubu6" value="Pediatria">Pediatria</label>
+					
+					<label><input type="checkbox" name="chksubu7" id="chksubu7" value="Pab gral">Pab gral</label>
+					<label><input type="checkbox" name="chksubu8" id="chksubu8" value="CMA">CMA</label>
+					<label><input type="checkbox" name="chksubu9" id="chksubu9" value="Pab gobs">Pab gobs</label>
+					<label><input type="checkbox" name="chksubu10" id="chksubu10" value="Pabellon">Pabellon</label>
+					<label><input type="checkbox" name="chksubu11" id="chksubu11" value="Upc">UPC</label>
+					<label><input type="checkbox" name="chksubu12" id="chksubu12" value="UPP">UPP</label>
+					<label><input type="checkbox" name="chksubu13" id="chksubu13" value="Neo">Neo</label>
 					</div>
 				</td>
 				<td></td>
@@ -59,7 +60,7 @@
 			</tr>
 			<tr>
 				<td>/</td>
-				<td><textarea name="txtf2" id="txtf2" class="form-control"></textarea>x 100</td>
+				<td><textarea name="txtf2" id="txtf2" class="form-control"></textarea></td>
 			</tr>
 			<tr>
 				<td>Responsable</td>

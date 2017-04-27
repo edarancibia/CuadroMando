@@ -1,5 +1,5 @@
 <div class="container">
-<form method="POST" action="<?= base_url('index.php/Indicadores/VistaAmbitos'); ?>">
+<form method="POST" action="<?php echo base_url('index.php/Indicadores/VistaAmbitos'); ?>">
   <div class="row col-xs-6">
       <select id="trimestre" name="trimestre">
         <option value="0" SELECTED>Seleccione un periodo</option>
@@ -10,14 +10,14 @@
       </select>
       <!--<input type="submit" name="buscaTrimestre" id="buscaTrimestre" class="btn btn-default" value="Ver Periodo">-->
       <button type="submit" name="buscaTrimestre" class="btn-success btn">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
-      <input type="hidden" name="idAmbito" id="idAmbito" value='<? echo $_REQUEST['idAmbito'] ?>'>
+      <input type="hidden" name="idAmbito" id="idAmbito" value='<?php echo $_REQUEST['idAmbito'] ?>'>
   </div>
   <br/>
 
 <div class="row">
 	<br/>
-	<?
-	print_r($ambito);
+	<?php
+	echo "<label class='lblnombre'>" .$ambito."</label>";
 	$m1 = 'Mes 1';
 	$m2 = 'Mes 2';
 	$m3 = 'Mes 3';
@@ -75,7 +75,7 @@
 		 </thead>
 		 <tbody>
 
-	<? 
+	<?php 
 	//echo $idAmbito;
 	if (isset($_POST["buscaTrimestre"])) {
 		$trimestre = $_POST["trimestre"];
@@ -116,8 +116,8 @@
 					echo "<td width=30>".$row['umbralDesc']."</td>";
 					echo "<td width=200'>".$row['formula1']."<hr>".$row['formula2']."<br/><br/></td>";
 					//echo "<td width=80>".substr($row['fecha'], 0,10) ."</td>";
-					echo "<td width=200 style='font-size:14px;'>".$row['numerador']."<hr>".$row['denominador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
-					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['numeradores']."<hr>".$row['denominadores']."<hr><strong>".intval($row['resultados'])."</strong></td>";
+					echo "<td width=200 style='font-size:14px;'>".$row['denominador']."<hr>".$row['numerador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
+					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['denominadores']."<hr>".$row['numeradores']."<hr><strong>".intval($row['res'])."</strong></td>";
 					echo '<td width=30><button data-id='.$row["idIndicador"].' class="btnmail" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
 					//echo "<td width=150>".$row['fechas']."<br/>".$row['resultados']."</td>";
 					/*echo '<td width=100><div class="progress">

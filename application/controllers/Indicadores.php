@@ -53,10 +53,10 @@ class Indicadores extends CI_Controller
 		
 		if ($this->session->userdata('cargo') == 1) {
 			$this->templateSupervisor();
-			$this->load->view('indicadores/IndicadoresCargo',$data);
+			$this->load->view('indicadores/indicadoresCargo',$data);
 		}else{
 			$this->template();
-			$this->load->view('indicadores/IndicadoresCargo',$data);
+			$this->load->view('indicadores/indicadoresCargo',$data);
 		}
 	}
 
@@ -66,9 +66,10 @@ class Indicadores extends CI_Controller
 		$idUnidad = $_REQUEST['idUnidad'];
 		$data['unidad'] = $idUnidad;
 		$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+		$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
 
 		$this->template();
-		$this->load->view('indicadores/IndicadoresCargo',$data);
+		$this->load->view('indicadores/indicadoresCargo',$data);
 	}
 
 	//MUESTRA DETALLE DEL INDICADOR SELCCIONADO Y PERMITE INGRESAR VALORES

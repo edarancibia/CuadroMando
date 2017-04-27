@@ -77,6 +77,7 @@ class Indicadores_model extends CI_Model{
 		}
 	}
 
+	//VALIDAD QUE NO SE INGRESEN DATOS MAS DE UNA VEZ AL MES
 	public function validaFecha($idIndicador){
 		$hoy = getdate();
 		$periodo = $hoy['mon']. $hoy['year'];
@@ -91,7 +92,7 @@ class Indicadores_model extends CI_Model{
 
 	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR UNIDAD
 	public function getByAmbito($idAmbito,$anio,$trimestre){
-		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,(SUM(d.numerador)/sum(d.denominador)*100) as res,
+		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,(SUM(d.denominador)/sum(d.numerador)*100) as res,
 			IF(round((SUM(d.numerador)/sum(d.denominador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
 				'FROM Indicadores a '.
 					'INNER JOIN Caracteristicas b ON a.fk_idCaracteristica=b.idCaracteristica '.
@@ -107,9 +108,9 @@ class Indicadores_model extends CI_Model{
 	}
 
 	public function getByCargoYunidad($rut,$idUnidad){
-		$sql = $this->db->query('SELECT a.idIndicador,f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1
-								from Indicadores a,Unidades b, Cargos c,Rel_cargoIndicadores d,rel_indicadorUnidades e,Caracteristicas f
-								WHERE c.fk_rut_num='.$rut.' AND c.idCargo=d.fk_idCargo AND a.idIndicador=d.fk_idIndicador AND b.idUnidad='.$idUnidad.' AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad AND f.idCaracteristica=a.fk_idCaracteristica');
+		$sql = $this->db->query("SELECT a.idIndicador,f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1
+								from Indicadores a,Unidades b, Cargos c,Rel_cargoIndicadores d,rel_indicadorUnidades e,Caracteristicas f ".
+								'WHERE c.fk_rut_num='.$rut.' AND c.idCargo=d.fk_idCargo AND a.idIndicador=d.fk_idIndicador AND b.idUnidad='.$idUnidad.' AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad AND f.idCaracteristica=a.fk_idCaracteristica');
 
 		if ($sql->num_rows() > 0) {
 			return $sql->result_array();
@@ -120,8 +121,8 @@ class Indicadores_model extends CI_Model{
 
 	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR UNIDAD
 	public function getByUnidad($idUnidad,$anio,$trimestre){
-		$sql = $this->db->query("SELECT d.fk_idIndicador,e.codigo Caracteristica,a.*,c.idUnidad,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY 	d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,round((SUM(d.numerador)/sum(d.denominador)*100)) as res,
-			IF(round((SUM(d.numerador)/sum(d.denominador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
+		$sql = $this->db->query("SELECT d.fk_idIndicador,e.codigo Caracteristica,a.*,c.idUnidad,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY 	d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,round((SUM(d.denominador)/sum(d.numerador)*100)) as res,
+			IF(round((SUM(d.denominador)/sum(d.numerador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
 			'FROM Indicadores a
 			INNER JOIN rel_indicadorUnidades b ON a.idIndicador=b.fk_idIndicador
 			INNER JOIN Unidades c ON b.fk_idUnidad=c.idUnidad AND c.idUnidad='.$idUnidad.'

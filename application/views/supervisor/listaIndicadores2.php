@@ -11,15 +11,15 @@
       </select>
       <!--<input type="submit" name="buscaTrimestre" id="buscaTrimestre" class="btn btn-default" value="Ver Periodo">-->
       <button type="submit" name="buscaTrimestre" class="btn-success btn">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
-      <input type="hidden" name="idUnidad" id="idUnidad" value='<? echo $_REQUEST['idUnidad'] ?>'>
+      <input type="hidden" name="idUnidad" id="idUnidad" value='<?php echo $_REQUEST['idUnidad'] ?>'>
      
   </div>
   <br/>
 
 <div class="row">
 	<br/>
-	<?
-	print_r($unidad);
+	<?php
+	echo "<label class='lblnombre'>" .$unidad."</label>";
 	//echo '<strong>'.$unidad->descripcion.'</strong>';
 	$m1 = 'Mes 1';
 	$m2 = 'Mes 2';
@@ -73,14 +73,14 @@
 			<th>INDICADOR</th>
 			<th>UMBRAL</th>
 			<th>FÓRMULA</th>
-			<th><? echo $m1 .' |'.$m2 . ' |' .$m3. ' |';?></th>
+			<th><?php echo $m1 .' |'.$m2 . ' |' .$m3. ' |';?></th>
 			<th>TRIMESTRE</th>
 			<th></th>
 		 </tr>
 		 </thead>
 		 <tbody>
 
-	<? 
+	<?php
 	//echo $idAmbito;
 	if (isset($_POST["buscaTrimestre"])) {
 		$trimestre = $_POST["trimestre"];
@@ -122,8 +122,8 @@
 					echo "<td width=30>".$row['umbralDesc']."</td>";
 					echo "<td width=200'>".$row['formula1']."<hr>".$row['formula2']."<br/><br/></td>";
 					//echo "<td width=80>".substr($row['fecha'], 0,10) ."</td>";
-					echo "<td width=200 style='font-size:14px;'>".$row['numerador']."<hr>".$row['denominador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
-					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['numeradores']."<hr>".$row['denominadores']."<hr><strong>".intval($row['resultados'])."</strong></td>";
+					echo "<td width=200 style='font-size:14px;'>".$row['denominador']."<hr>".$row['numerador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
+					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['denominadores']."<hr>".$row['numeradores']."<hr><strong>".intval($row['res'])."</strong></td>";
 					echo '<td width=30><button data-id='.$row["idIndicador"].' class="btnmail2" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
 					//echo "<td width=150>".$row['fechas']."<br/>".$row['resultados']."</td>";
 					/*echo '<td width=100><div class="progress">

@@ -115,7 +115,7 @@ $(document).ready(function(){
 			        var indicador = $('#txtIdindicador').val();
 					parsedDen = parseInt(denominador);
 					parsedNum = parseInt(numerador);
-					parsedRes = parseInt(parsedNum / parsedDen * 100);
+					parsedRes = parseInt(parsedDen / parsedNum * 100);
 					var fecha2 = moment().format('L');
 
 					if (denominador == '') {
@@ -127,7 +127,7 @@ $(document).ready(function(){
 						$('#txtvalor2').focus();
 					}else{
 
-						var res = numerador/denominador*100;
+						var res = denominador/numerador*100;
 
 						$.ajax({
 							type: 'post',
@@ -139,7 +139,7 @@ $(document).ready(function(){
 								$('#txtvalor2').val('');
 								toastr.success('Datos guardados exitosamente');
 								configToastr();
-								$('#txtresultado').val(res+'%');
+								$('#txtresultado').val(parsedRes+'%');
 								$("#btnGuadar").attr('disabled','disabled');
 
 							},
@@ -175,9 +175,12 @@ $(document).ready(function(){
 	//- - - -  - - -  INFORME TRIMESTRAL- - - - - - - - - -  - - - 
 
 	$('#btnGuardaInforme').on('click',function(e){
-
-		e.preventDefault();
-		$('#dialog-confirm').dialog("open");	
+		if ($('#txtperiodo').val() == '' || $('#comentarios').val() == '' || $('#plan').val() == '') {
+			toastr.error('Complete todos los campos');
+		}else{
+			e.preventDefault();
+			$('#dialog-confirm').dialog("open");	
+		}
 
 	});
 
@@ -392,8 +395,13 @@ $(document).ready(function(){
 
 	$('#btnGuardaIndicador').on('click',function(e){
 
-		e.preventDefault();
-		$('#dialog-confirm3').dialog("open");	
+		if ($('#txtCaracteristica').val().length < 1 || $('#txtUmbral').val() < 1 || $('#txtDescIndicador').val() < 1  || $('#txtf1').val() < 1 ||$('#txtf2').val() < 1) {
+			toastr.error('Complete todos los campos');
+			return false;
+		}else{
+			e.preventDefault();
+			$('#dialog-confirm3').dialog("open");	
+		}
 
 	});
 
@@ -572,6 +580,19 @@ $(document).ready(function(){
 		$('#txtUmbral').val('');
 		$('#txtf1').val('');
 		$('#txtf2').val('');
+		$('#chksubu1 :checked').removeAttr('checked');
+		$('#chksubu2 :checked').removeAttr('checked');
+		$('#chksubu3 :checked').removeAttr('checked');
+		$('#chksubu4 :checked').removeAttr('checked');
+		$('#chksubu5 :checked').removeAttr('checked');
+		$('#chksubu6 :checked').removeAttr('checked');
+		$('#chksubu7 :checked').removeAttr('checked');
+		$('#chksubu8 :checked').removeAttr('checked');
+		$('#chksubu9 :checked').removeAttr('checked');
+		$('#chksubu10 :checked').removeAttr('checked');
+		$('#chksubu11 :checked').removeAttr('checked');
+		$('#chksubu12 :checked').removeAttr('checked');
+		$('#chksubu13 :checked').removeAttr('checked');
 	}
 
 });

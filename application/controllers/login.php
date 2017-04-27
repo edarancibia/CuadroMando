@@ -29,7 +29,7 @@ class Login extends CI_Controller{
 				$this->load->view('inicio');
 			}
 		}else{
-			echo "<p><strong>Usuario o contraseña incorrectos...</strong></p>";
+			echo "<script>alert('Usuario o contraseña incorrectos')</script>";
 			$this->load->view('template/header');
 			$this->load->view('login/login');
 		}

@@ -16,7 +16,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
-        <li><a href="<?= base_url('index.php/Indicadores/mantencion')?>">Administración</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo base_url('index.php/Indicadores/mantencion')?>">Indicadores</a></li>
+            <li><a href="#">Responsables</a></li>
+          </ul>
+        </li>
       </ul>
       
     </div><!-- /.navbar-collapse -->
@@ -25,20 +31,21 @@
   </div>
 </nav>
 
-<?
+<?php
   if(!($this->session->userdata('user') == true)){
-       echo "sesion expirada";
+       echo "session expirada";
+       redirect(base_url,'refresh');
     }
 ?>
 
 <div style="width: max;">
 
-  <a href="<?= base_url('index.php/welcome/HomeSupervisor'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
+  <a href="<?php echo base_url('index.php/welcome/HomeSupervisor'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
   <div style="width: 150px;float:right;">
-    <a href="<?= base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+    <a href="<?php echo base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
   </div>
   <div style="width: 300px;float:right;">
-    <p class=""><?= $this->session->userdata('user'); ?></p>
+    <p><?php echo $this->session->userdata('user'); ?></p>
   </div>
 
 </div>
