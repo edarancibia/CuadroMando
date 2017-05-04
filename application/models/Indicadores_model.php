@@ -64,7 +64,7 @@ class Indicadores_model extends CI_Model{
 		$mes = $fecha['mon'];
 		$periodoSever = $mes.$fecha['year']; 
 		$query = $this->db->query('INSERT INTO IndicadorDatos(denominador,numerador,multiplicador,resultado,fk_idIndicador,fecha,hora,periodo)VALUES('.$denominador.','.$numerador.','.$multiplica.','.$res.','.$idIndicador.',CURRENT_DATE()
-			,CURRENT_TIME(),'.$periodoSever.')');
+			,CURRENT_TIME(),'.$periodo.')');
 	}
 
 	public function getUltimaEvaluacion($idIndicador){
@@ -78,9 +78,9 @@ class Indicadores_model extends CI_Model{
 	}
 
 	//VALIDAD QUE NO SE INGRESEN DATOS MAS DE UNA VEZ AL MES
-	public function validaFecha($idIndicador){
+	public function validaFecha($idIndicador,$periodo){
 		$hoy = getdate();
-		$periodo = $hoy['mon']. $hoy['year'];
+		//$periodo = $hoy['mon']. $hoy['year'];
 		$query = $this->db->query('SELECT * FROM IndicadorDatos WHERE fk_idIndicador='.$idIndicador.' AND periodo='.$periodo.'');
 		
 		if (empty($query->result())) {

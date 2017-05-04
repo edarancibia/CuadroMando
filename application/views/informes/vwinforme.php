@@ -2,7 +2,9 @@
 	<div class="row">
 		<h4>Informe y análisis de resultados Indicadores</h4>
 	</div>
+
 </div>
+
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<label>1.Información general</label>
@@ -12,6 +14,7 @@
 					<td>Nombre unidad:</td>
 					<td><?= $unidad->descripcion;  ?></td>
 					<td><input type="hidden" name="textIdindicador" id="textIdindicador" value="<?php echo $_REQUEST['idIndicador']; ?>"></td>
+					<td><input type="hidden" name="txtperiodo2" id="txtperiodo2" value="<?php echo $periodo;?>"></td>
 				</tr>
 				<tr>
 					<td>Fecha del informe:</td>
@@ -24,8 +27,10 @@
 			</table>
 
 			<br>
+
+
 			<label>2.Información medición del indicador</label>
-			<table class="table table-hover" border="1">
+			<table class="table table-hover tabla-informe" border="1">
 				<tr>
 					<td>Código de característica:</td>
 					<td><?php echo $caracteristica->caracteristica;?></td>
@@ -41,7 +46,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control" value="<?= $datos->denominadores. ' / '.$datos->numeradores.' = '. intval($datos->res).'%';?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?= $datos->denominadores. ' / '.$datos->numeradores.' = '. intval($datos->res).'%';?>" disabled="true">
 					</td>
 				</tr>
 				<tr>
@@ -67,7 +72,7 @@
 
 				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
 
-				<a id="btnPdf" href='<?php echo base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'';?>' class="btn btn-danger" target="_blanck">Ver PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+				<a id="btnPdf" href="<?php echo base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'&anio='.$_REQUEST["cboAnio3"].'&cuarto='.$_REQUEST["cboCuarto"].''?>" class="btn btn-danger" target="_blanck">Imprimir <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 			</div>
 		</div>
 

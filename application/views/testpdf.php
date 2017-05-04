@@ -72,7 +72,7 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('dejavusans', '', 11, '', true);
+$pdf->SetFont('dejavusans', '', 9, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
@@ -126,7 +126,7 @@ II. INFORMACIÓN MEDICIÓN DEL INDICADOR <br><br>
 	</tr>
 	<tr>
 		<td>Periodo:</td>
-		<td>$datos->periodo</td>
+		<td>$datos->periodoDet</td>
 	</tr>
 </table>
 <br><br>

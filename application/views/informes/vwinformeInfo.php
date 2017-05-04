@@ -12,6 +12,7 @@
 					<td>Nombre unidad:</td>
 					<td><?php echo $unidad->descripcion;  ?></td>
 					<td><input type="hidden" name="textIdindicador" id="textIdindicador" value="<?php echo $_REQUEST['idIndicador']; ?>"></td>
+
 				</tr>
 				<tr>
 					<td>Fecha del informe:</td>
@@ -25,7 +26,7 @@
 
 			<br>
 			<label>2.Información medición del indicador</label>
-			<table class="table table-hover" border="1">
+			<table class="table table-hover tabla-informe" border="1">
 				<tr>
 					<td>Código de característica:</td>
 					<td><?php echo $caracteristica->caracteristica;?></td>
@@ -41,7 +42,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control" value="<?php echo $datos->resultadoDet;?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?php echo $datos->resultadoDet;?>" disabled="true">
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +50,7 @@
 					<td><?php echo $caracteristica->umbralDesc .'%'; ?></td>
 				</tr>
 				<td>Periodo:</td>
-				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?php echo $datos->periodo;?>" disabled="true"></td>
+				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?php echo $datos->periodoDet;?>" disabled="true"></td>
 			</table>
 		</div>
 
@@ -65,6 +66,8 @@
 			<div>
 
 				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+
+				<a href="<?php echo base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'&anio='.$_REQUEST["cboAnio3"].'&cuarto='.$_REQUEST["cboCuarto"].''?>" target="_blanck" class="btn btn-danger">Imprimir <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 			</div>
 		</div>
 

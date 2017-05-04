@@ -75,7 +75,35 @@
 					break;
 			}
 		?>
-		<div><p>Periodo: <?php echo $nombreMes .' '.$anio; ?></p></div>
+		<div class="row">
+		    <div class="col-xs-12 col-md-3">
+		      <div class="form-group">
+		        
+		        <div class="input-group">
+		          <select class="form-control" id="cboAnio">
+		        	<option value="2017">2017</option>
+		        	<option value="2018">2018</option>
+		        </select>
+		        <span class="input-group-addon">-</span>
+		          <select class="form-control" id="cbomes">
+		          	<option value="0" selected="selected">Seleccione mes</option>
+		        	<option value="1">Enero</option>
+		        	<option value="2">Febrero</option>
+		        	<option value="3">Marzo</option>
+		        	<option value="4">Abril</option>
+		        	<option value="5">Mayo</option>
+		        	<option value="6">Junio</option>
+		        	<option value="7">Julio</option>
+		        	<option value="8">Agosto</option>
+		        	<option value="9">Septiembre</option>
+		        	<option value="10">Octubre</option>
+		        	<option value="11">Noviembre</option>
+		        	<option value="12">Diciembre</option>
+		        </select>
+		        </div>
+		      </div>
+		    </div>
+		</div>
 
 		<div class="col-md-5 centrar" align="center">
 			<table border="1" class="table tabla-evaluaIndicador">
@@ -111,31 +139,5 @@
 			</div>
 </div>
 <br><br>
-<script type="text/javascript">
-	var indicador = $('#txtIdindicador').val();
-	var fecha;
-	//var baseUrl = 'http://localhost/CuadroMando/index.php/';
-	var baseUrl = window.location.origin+'/CuadroMando/index.php/';
 
-	$.ajax({ // - - - COMPRUEBA SI HAY ALGUNA EVALUACION DURANTE EL PERIODO ACTUAL
-			type: 'post',
-			url: baseUrl+'Indicadores/validateDate',
-			data: {fecha: fecha, idIndicador: indicador},
-			success: function(data){
-				console.log('validacion '+data);
-				if (data == 1) {
-					console.log('No se puede');
-					$("#txtvalor1").attr('disabled','disabled');
-					$("#txtvalor2").attr('disabled','disabled');
-					$("#btnGuadar").attr('disabled','disabled');
-				}else{
-					console.log('Si se puede');
-					$('#txtvalor1').focus();
-				}
-			},
-			error: function(){
-				console.log('error ajax validacion');
-			}
-		});
-</script>
 </body>

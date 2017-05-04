@@ -114,7 +114,8 @@ class Indicadores extends CI_Controller
 	//- - - Valida que solo grabe 1 x mes
 	public function validateDate(){  
 		$idIndicador = $_POST['idIndicador'];
-		print_r($this->Indicadores_model->validaFecha($idIndicador));
+		$periodo = $this->input->post('periodo');
+		print_r($this->Indicadores_model->validaFecha($idIndicador,$periodo));
 	}
 
 	//OBTIENE NOMBRE DEL AMBITO SELECCIONADO

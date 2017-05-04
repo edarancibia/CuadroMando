@@ -88,9 +88,46 @@ $(document).ready(function(){
 		});
 	}
 
+	$('#cbomes').change(function(){
+		var anio = $('#cboAnio').val();
+		var mes = $("#cbomes").val();
+		var periodo = mes.concat(anio);
+
+		var indicador = $('#txtIdindicador').val();
+
+		$.ajax({ // - - - COMPRUEBA SI HAY ALGUNA EVALUACION DURANTE EL PERIODO ACTUAL
+				type: 'post',
+				url: baseUrl+'Indicadores/validateDate',
+				data: {periodo: periodo, idIndicador: indicador},
+				success: function(data){
+					console.log('validacion '+data);
+					if (data == 1) {
+						console.log('No se puede');
+						$("#txtvalor1").attr('disabled','disabled');
+						$("#txtvalor2").attr('disabled','disabled');
+						$("#btnGuadar").attr('disabled','disabled');
+						toastr.warning('Ya existen datos para este periodo');
+					}else{
+						$("#txtvalor1").attr('disabled',false);
+						$("#txtvalor2").attr('disabled',false);
+						$("#btnGuadar").attr('disabled',false);
+						console.log('Si se puede');
+						$('#txtvalor1').focus();
+					}
+				},
+				error: function(){
+					console.log('error ajax validacion');
+				}
+			});
+	});
+
 	$('#btnGuadar').on('click',function(e){ //- - - Guarda datos de evaluacion de indicador - - 
 		e.preventDefault();
-		$('#dialog-confirm2').dialog("open");		
+		if ($('#cbomes').val() == 0) {
+			toastr.error('Seleccione mes');
+		}else{
+			$('#dialog-confirm2').dialog("open");	
+		}	
 	});
 
 	$( function () { //DIALOG CONFIRM EVALUACION PERIODICA
@@ -109,9 +146,9 @@ $(document).ready(function(){
 					var denominador = $('#txtvalor1').val();
 					var numerador = $('#txtvalor2').val();
 					var fecha = new Date;
-			        var anio = fecha.getFullYear();
-			        var mes = parseInt(fecha.getMonth());
-			        var periodo = mes.toString()+anio.toString();
+			        var anio = $('#cboAnio').val();
+					var mes = $("#cbomes").val();
+					var periodo = mes.concat(anio);
 			        var indicador = $('#txtIdindicador').val();
 					parsedDen = parseInt(denominador);
 					parsedNum = parseInt(numerador);
@@ -196,13 +233,15 @@ $(document).ready(function(){
 			   	 "Guardar": function() {
 			   	 		var comentarios = $('#comentarios').val();
 						var plan = $('#plan').val();
-						var periodo = $('#txtperiodo').val();
+						var periodoDet = $('#txtperiodo').val();
 						var idIndicador = $('input#textIdindicador').val();
 						var resultado = $('#txtresultado').val();
+						var periodo = $('#txtperiodo2').val();
+
 			   	 		$.ajax({
 							type: 'post',
 							url: baseUrl + 'Informe/GuardaInforme',
-							data: {idIndicador: idIndicador, periodo: periodo, comentarios: comentarios, plan: plan,resultado: resultado},
+							data: {idIndicador: idIndicador, periodo: periodo ,periodoDet: periodoDet, comentarios: comentarios, plan: plan,resultado: resultado},
 							success: function(){
 								toastr.success('Informe guardado exitosamente');
 								$('#txtperiodo').val('');
@@ -594,6 +633,39 @@ $(document).ready(function(){
 		$('#chksubu12 :checked').removeAttr('checked');
 		$('#chksubu13 :checked').removeAttr('checked');
 	}
+
+// - - - - -  SECCION MODAL INFORME - - - - -  - - - - 
+
+	/*var idIndicadorModal;
+
+	$('#myModal').on('shown.bs.modal', function (e) {
+		var boton = e.relatedTarget;
+  		var idIndicadorModal = $(boton).attr("data-id");
+  		var idUnidad = $(boton).attr("data-unidad");
+
+  		$('#btnModalOk').on('click',function(){
+  			if ($('#cboCuarto').val() == 0) {
+  				toastr.error('Seleccione trimestre');
+  			}else{
+  				var anio = $('#cboAnio3').val();
+				var cuarto = $('#cboCuarto').val();
+				
+				$.ajax({
+					type: 'post',
+					url: baseUrl+'Informe/Informe',
+					data: {idIndicador: idIndicadorModal,anio: anio,cuarto: cuarto,idUnidad:idUnidad},
+					success: function(data){
+						console.log(data);
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+						console.log(errorThrown);
+					}
+				});
+  			}
+		});
+	});*/
+
+
 
 });
 
