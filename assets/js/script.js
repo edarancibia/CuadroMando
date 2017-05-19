@@ -391,12 +391,13 @@ $(document).ready(function(){
      		data: {idIndicador: id},
      		dataType: 'json',
      		success: function(data){
-    			email = data.resp.email;
+    			var d = data.resp;
+    			email = d.email;
     			$('#txtmail').val(email);
     			$('#txtmail').attr('disabled','disabled');;
      		},
-     		error: function(){
-     			console.log('error ajax al buscar email');
+     		error: function(XMLHttpRequest, textStatus, errorThrown){
+     			console.log('error: '+textStatus);
      		}
      	});
      }
@@ -409,18 +410,18 @@ $(document).ready(function(){
 	$(function() {
 	  $("#tablaUnidad td:last-child:contains(NO)")
 	    .parents("tr")
-	    .css("background-color", "#F4A460");
+	    .css("background-color", "#ffcccc");
 	});
 
 	$(function() {
 	  $("#tablaAmbito td:last-child:contains(NO)")
 	    .parents("tr")
-	    .css("background-color", "#F4A460");
+	    .css("background-color", "#ffcccc");
 	});
 	//---------------------- - - - - - - - - - - -- - - - - - - -- - - - - -- 
 
 
-// - - - - - -  -SECCION ADMINISTRACION - - - - - - - - - 
+// - - - - - -  -SECCION ADMINISTRACION - - - - - - - - - - - - - - - --  - - 
 	//MANTENCION DE INDICADORES
 	$('#txtCaracteristica').each(function(i, el) {
 	    var that = $(el);
@@ -634,6 +635,56 @@ $(document).ready(function(){
 		$('#chksubu13 :checked').removeAttr('checked');
 	}
 
+	//filtra indicadores por unidad en mantencion de responsables
+	$('#cboUnidad').change(function(){
+		var idUnidad = $('#cboUnidad').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl+'Indicadores/ListaPorUnidad',
+			//dataType: 'JSON',
+			data: {idUnidad: idUnidad},
+			success: function(d){
+				var data = d.indicadores;
+				
+    			$('#records_table tr').remove();
+
+				$.each(data, function(i, item){
+					$('<tr>').html(
+        				"<td>"+data[i].idIndicador +"</td><td>"+ data[i].codigo + "</td><td>" + data[i].desc_subUn + "</td><td>" + data[i].descripcion + "</td><td><input type='radio' name='rdInd' id='rdInd'/></td>").appendTo('#records_table');
+				});
+			},
+			error: function(jqXHR, exception){
+				console.log(jqXHR);
+			}
+		});
+	});
+
+	 $('input:radio').change(function(){
+        alert('changed');   
+    });          
+
+
+
+//  - - - - -- - FIN ADMINISTRACION - - - - - -- - 
+
+// ocultar filas de tablas de resultados segun cumplimiento
+
+	$("#btnFiltrar").on('click',function(){
+		
+	  $("#tablaUnidad td:last-child:contains(SI)")
+	    .parents("tr").toggle();
+
+	});
+
+	$("#btnFiltrar2").on('click',function(){
+	  $("#tablaAmbito td:last-child:contains(SI)")
+	    .parents("tr").toggle();
+
+	});
+
+	$('#tabla-preview td:last-child:contains(SI)')
+		.parents('tr').toggle();
 // - - - - -  SECCION MODAL INFORME - - - - -  - - - - 
 
 	/*var idIndicadorModal;

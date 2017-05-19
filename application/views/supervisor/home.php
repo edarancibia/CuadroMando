@@ -8,6 +8,9 @@
 		<div class="col-xs-3">
 			<a href="#" class="btn btn-primary btn-lg" id="linkUnidades">Unidad <i class="fa fa-stethoscope" aria-hidden="true"></i></a>
 		</div>
+		<div class="col-xs-3">
+			<a href="<?php echo base_url().'index.php/Indicadores/Preview'?>" class="btn btn-info btn-lg" id="btnPreview">Vista rápida <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+		</div>
 	</div>
 </div>
 <br>
@@ -27,7 +30,7 @@
 		<tr>
 			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=7'?>">Seguridad de las instalaciones</a></td>
 			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=9'?>">Gestión clínica</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=10'?>">Servicios de apoyo</a></td>
+			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/VistaAmbitos2?idAmbito=23'?>">Servicios de apoyo</a></td>
 		</tr>
 	</table>
   </div>

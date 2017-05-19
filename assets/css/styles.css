@@ -173,3 +173,20 @@ label, input { display:block; }
 .tabla-informe{
   font-size: 12px;
 }
+
+#records_table{
+  font-size: 12px;
+}
+
+.tabla-preview{
+  background-color: #ffcccc;
+}
+
+#tabla-preview {
+        height: 500px;
+        display: inline-block;
+        width: 100%;
+        overflow-y:scroll;
+    }
+
+

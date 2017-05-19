@@ -180,6 +180,28 @@ class Indicadores extends CI_Controller
 		}
 	}
 
+	//calcula en cuarto(trimestre) actual
+	public function quarter(){
+		$curMonth = date("m", time());
+		$curQuarter = ceil($curMonth/3);
+		return $curQuarter;
+	}
+
+	public function getAnio(){
+		$fecha = getdate();
+		$anio = $fecha['year'];
+		return $anio;
+	}
+
+	//carga vista de preview de indicadores 
+	public function Preview(){
+		$anio = $this->getAnio();
+		$cuarto = $this->quarter();
+		$data['info'] = $this->Indicadores_model->getPreview($anio,$cuarto);
+		$this->templateSupervisor();
+		$this->load->view('supervisor/preview',$data);
+	}
+
 	//OBTIENE NOMBRE DE LA UNIDAD SELCCIONADA
 	public function NombreUnidad($idUnidad){
 		$uni = $this->Ambitos->getByUnidadId($idUnidad);
@@ -215,6 +237,20 @@ class Indicadores extends CI_Controller
 		$this->load->view('supervisor/mantencion',$data);
 	}
 
+	public function MantencionCargos(){
+		$data['cargos'] = $this->Cargos_model->getAll();
+		$data['unidades'] = $this->Unidades_model->getAll();
+		$this->templateSupervisor();
+		$this->load->view('supervisor/mantencionCargos',$data);
+	}
+
+	public function ListaPorUnidad(){
+		header('Content-Type: application/json');
+		$idUnidad = $this->input->post('idUnidad');
+		$data['indicadores'] = $this->Indicadores_model->getIndicadoresMan($idUnidad);
+		echo json_encode($data);
+	}
+
 	//autocompletar caracteriscita en modulo de mantencion de indicadores
 	public function getCaracteristica(){
 		if (isset($_GET['term'])) {
@@ -236,6 +272,7 @@ class Indicadores extends CI_Controller
 		$idCargo = $this->input->post('idCargo');
 		$this->Indicadores_model->relIndCargo($idIndicador,$idCargo);
 	}
+
 }
 
 

@@ -89,7 +89,7 @@ class Informe extends CI_Controller{
 		$trimestre = $this->trimestre();
 
 		//pregunta si hay datos de evaluaciones en en trimestre para realizar el informe
-		if ($this->IndicadorInforme->existenDatos($idIndicador,$anio,$cuarto) == true) {
+		if ($this->IndicadorInforme->existenDatos($idIndicador,$anio,$desde,$hasta) == true) {
 		
 			if ($this->IndicadorInforme->existeInforme($idIndicador,$anio,$periodo) == true) {//pregunta si hay informe hecho este trimestre
 				//hay informacion y el informe esta hecho

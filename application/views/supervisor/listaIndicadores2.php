@@ -12,6 +12,8 @@
       <!--<input type="submit" name="buscaTrimestre" id="buscaTrimestre" class="btn btn-default" value="Ver Periodo">-->
       <button type="submit" name="buscaTrimestre" class="btn-success btn">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
       <input type="hidden" name="idUnidad" id="idUnidad" value='<?php echo $_REQUEST['idUnidad'] ?>'>
+
+      <button type="button" id="btnFiltrar" class="btn btn-info">Filtrar resultados <i class="fa fa-filter" aria-hidden="true"></i></button>
      
   </div>
   <br/>
@@ -124,14 +126,15 @@
 					//echo "<td width=80>".substr($row['fecha'], 0,10) ."</td>";
 					echo "<td width=200 style='font-size:14px;'>".$row['denominador']."<hr>".$row['numerador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
 					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['denominadores']."<hr>".$row['numeradores']."<hr><strong>".intval($row['res'])."</strong></td>";
-					echo '<td width=30><button data-id='.$row["idIndicador"].' class="btnmail2" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
+					
 					//echo "<td width=150>".$row['fechas']."<br/>".$row['resultados']."</td>";
-					/*echo '<td width=100><div class="progress">
-						  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$row['resultado'].'"
-						  aria-valuemin="0" aria-valuemax="100" style="width:'.$row['resultado'].'%">
-						    '.$row['resultado'].'%  
+					echo '<td width=100><div class="progress">
+						  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$row['res'].'"
+						  aria-valuemin="0" aria-valuemax="100" style="width:'.$row['res'].'%">
+						    '.$row['res'].'%  
 						  </div>
-						</div></td>';*/
+						</div></td>';
+					echo '<td width=30><button data-id='.$row["idIndicador"].' class="btnmail2" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i></button></td>';
 					echo "<td width=30 style='display:none'>".$row['evaluacion']."</td>";
 				echo "<tr>";
 			};

@@ -32,7 +32,7 @@ class IndicadorInforme extends CI_Model{
 
 	//obtiene la informacion del informe correspondiente al trimestre actual, por responsable y unidad
 	public function getDatosInforme($idIndicador,$periodo){
-		$sql = $this->db->query('SELECT DISTINCT  b.*,b.descripcion indicadorDesc,c.codigo,a.fecha,a.resultadoDet,a.periodoDet,a.comentarios,a.plan
+		$sql = $this->db->query('SELECT DISTINCT  b.*,b.descripcion indicadorDesc,c.codigo,DATE_FORMAT(a.fecha,"%d/%m/%Y")fecha,a.resultadoDet,a.periodoDet,a.comentarios,a.plan
 									FROM IndicadorInformes a, Indicadores b, Caracteristicas c
 									WHERE b.idIndicador='.$idIndicador.' AND a.fk_idIndicador=b.idIndicador AND b.fk_idCaracteristica=c.idCaracteristica AND a.periodo='.$periodo.'');
 
@@ -62,8 +62,8 @@ class IndicadorInforme extends CI_Model{
 	}
 
 	//COMPRUEBA SI HAY DATOS DE UN INDICACADOR DURANTE UN TRIMESTRE SELECCIONADO
-	public function existenDatos($idIndicador,$anio,$cuarto){
-		$sql = $this->db->query('SELECT * FROM IndicadorDatos WHERE fk_idIndicador='.$idIndicador.' AND YEAR(fecha)='.$anio.' AND QUARTER(fecha)='.$cuarto.'');
+	public function existenDatos($idIndicador,$anio,$desde,$hasta){
+		$sql = $this->db->query('SELECT * FROM IndicadorDatos WHERE fk_idIndicador='.$idIndicador.' AND YEAR(fecha)='.$anio.' AND periodo BETWEEN '.$desde.' AND '.$hasta.'');
 
 		if ($sql->num_rows() > 0) {
 			return true;

@@ -93,7 +93,7 @@ I. INFORMACIÓN GENERAL<br><br>
 	</tr>
 	<tr>
 		<td>Fecha del Informe:</td>
-		<td>11-03-2017</td>
+		<td>$datos->fecha</td>
 	</tr>
 	<tr>
 		<td>Nombre del responsable:</td>

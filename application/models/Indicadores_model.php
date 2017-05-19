@@ -92,7 +92,7 @@ class Indicadores_model extends CI_Model{
 
 	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR UNIDAD
 	public function getByAmbito($idAmbito,$anio,$trimestre){
-		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,(SUM(d.denominador)/sum(d.numerador)*100) as res,
+		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,round((SUM(d.denominador)/sum(d.numerador)*100)) as res,
 			IF(round((SUM(d.numerador)/sum(d.denominador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
 				'FROM Indicadores a '.
 					'INNER JOIN Caracteristicas b ON a.fk_idCaracteristica=b.idCaracteristica '.
@@ -143,6 +143,38 @@ class Indicadores_model extends CI_Model{
 									WHERE b.fk_idIndicador='.$idIndicador.' AND b.fk_idCargo=a.idCargo');
 		if ($sql->num_rows() >0) {
 			return $sql->row();
+		}else{
+			return null;
+		}
+
+	}
+
+	//obtiene lista de indicadores por unidad, para modulo de mantencion de responsables
+	public function getIndicadoresMan($idUnidad){
+		$sql = $this->db->query('SELECT a.*,c.codigo
+				from Indicadores a, rel_indicadorUnidades b, Caracteristicas c
+				WHERE a.idIndicador=b.fk_idIndicador AND b.fk_idUnidad='.$idUnidad.' AND a.fk_idCaracteristica=c.idCaracteristica');
+
+		if ($sql->num_rows() >0) {
+			return $sql->result_array();
+		}else{
+			return null;
+		}
+	}
+
+	//obtiene datos para vista rapida de cuadro de mando
+	public function getPreview($anio,$cuarto){
+		$sql = $this->db->query("SELECT e.codigo Caracteristica,a.descripcion,a.umbralDesc,c.idUnidad,round((SUM(d.denominador)/sum(d.	numerador)*100)) as res,c.descripcion Unidad,a.umbral,
+								IF(round((SUM(d.denominador)/sum(d.numerador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
+								'FROM Indicadores a
+								INNER JOIN rel_indicadorUnidades b ON a.idIndicador=b.fk_idIndicador
+								INNER JOIN Unidades c ON b.fk_idUnidad=c.idUnidad 
+								INNER JOIN Caracteristicas e ON a.fk_idCaracteristica=e.idCaracteristica
+								LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND QUARTER(d.fecha)='.$cuarto.'
+								GROUP BY c.descripcion, d.fk_idIndicador,e.codigo,e.idCaracteristica,c.idUnidad,a.idIndicador,a.codigo,a.desc_subUn,a.descripcion,a.fk_idCaracteristica,a.formula1,a.formula2,a.umbral,a.umbralDesc');
+
+		if ($sql->num_rows() >0) {
+			return $sql->result_array();
 		}else{
 			return null;
 		}
