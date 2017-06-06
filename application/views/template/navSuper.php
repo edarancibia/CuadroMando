@@ -16,11 +16,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo base_url('index.php/welcome/HomeSupervisor'); ?>">Inicio <span class="sr-only">(current)</span></a></li>
+        <li><a href="<?php echo base_url('index.php/Informe/ReportsIndex')?>">Informes</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url('index.php/Indicadores/mantencion')?>">Indicadores</a></li>
-            <li><a href="<?php echo base_url('index.php/Indicadores/mantencionCargos')?>">Responsables</a></li>
+            <li><a href="<?php echo base_url('index.php/Indicadores/mantencion')?>">Nuevo indicador</a></li>
+            <li><a href="<?php echo base_url('index.php/Indicadores/EditIndex')?>">Modificar datos</a></li>
           </ul>
         </li>
       </ul>

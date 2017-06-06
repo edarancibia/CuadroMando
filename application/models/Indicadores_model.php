@@ -90,14 +90,14 @@ class Indicadores_model extends CI_Model{
 		}
 	}
 
-	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR UNIDAD
-	public function getByAmbito($idAmbito,$anio,$trimestre){
+	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR AMBITO
+	public function getByAmbito($idAmbito,$anio,$desde,$hasta){
 		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,round((SUM(d.denominador)/sum(d.numerador)*100)) as res,
-			IF(round((SUM(d.numerador)/sum(d.denominador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
+			IF(round((SUM(d.denominador)/sum(d.numerador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
 				'FROM Indicadores a '.
 					'INNER JOIN Caracteristicas b ON a.fk_idCaracteristica=b.idCaracteristica '.
 					'INNER JOIN Ambitos c ON b.fk_idAmbito=c.idAmbito AND c.idAmbito='.$idAmbito.' '.
-					'LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND QUARTER(fecha)='.$trimestre.' '.
+					'LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND periodo BETWEEN '.$desde.' AND '.$hasta.' '.
 					'GROUP BY d.fk_idIndicador,b.codigo,b.idCaracteristica,c.idAmbito,a.idIndicador,a.codigo,a.desc_subUn,a.descripcion,a.fk_idCaracteristica,a.formula1,a.formula2,a.umbral,a.umbralDesc');
 
 		if ($sql->num_rows() > 0) {
@@ -120,14 +120,14 @@ class Indicadores_model extends CI_Model{
 	}
 
 	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR UNIDAD
-	public function getByUnidad($idUnidad,$anio,$trimestre){
+	public function getByUnidad($idUnidad,$anio,$desde,$hasta){
 		$sql = $this->db->query("SELECT d.fk_idIndicador,e.codigo Caracteristica,a.*,c.idUnidad,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY 	d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,round((SUM(d.denominador)/sum(d.numerador)*100)) as res,
 			IF(round((SUM(d.denominador)/sum(d.numerador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
 			'FROM Indicadores a
 			INNER JOIN rel_indicadorUnidades b ON a.idIndicador=b.fk_idIndicador
 			INNER JOIN Unidades c ON b.fk_idUnidad=c.idUnidad AND c.idUnidad='.$idUnidad.'
 			INNER JOIN Caracteristicas e ON a.fk_idCaracteristica=e.idCaracteristica
-			LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND QUARTER(d.fecha)='.$trimestre.'
+			LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND periodo BETWEEN '.$desde.' AND '.$hasta.'
 			GROUP BY  d.fk_idIndicador,e.codigo,e.idCaracteristica,c.idUnidad,a.idIndicador,a.codigo,a.desc_subUn,a.descripcion,a.fk_idCaracteristica,a.formula1,a.formula2,a.umbral,a.umbralDesc');
 
 		if ($sql->num_rows() >0) {
@@ -163,14 +163,14 @@ class Indicadores_model extends CI_Model{
 	}
 
 	//obtiene datos para vista rapida de cuadro de mando
-	public function getPreview($anio,$cuarto){
+	public function getPreview($anio,$desde,$hasta){
 		$sql = $this->db->query("SELECT e.codigo Caracteristica,a.descripcion,a.umbralDesc,c.idUnidad,round((SUM(d.denominador)/sum(d.	numerador)*100)) as res,c.descripcion Unidad,a.umbral,
 								IF(round((SUM(d.denominador)/sum(d.numerador)*100),0) >= a.umbral,'SI','NO')as evaluacion ".
 								'FROM Indicadores a
 								INNER JOIN rel_indicadorUnidades b ON a.idIndicador=b.fk_idIndicador
 								INNER JOIN Unidades c ON b.fk_idUnidad=c.idUnidad 
 								INNER JOIN Caracteristicas e ON a.fk_idCaracteristica=e.idCaracteristica
-								LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND QUARTER(d.fecha)='.$cuarto.'
+								LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND d.periodo BETWEEN '.$desde.' AND '.$hasta.'
 								GROUP BY c.descripcion, d.fk_idIndicador,e.codigo,e.idCaracteristica,c.idUnidad,a.idIndicador,a.codigo,a.desc_subUn,a.descripcion,a.fk_idCaracteristica,a.formula1,a.formula2,a.umbral,a.umbralDesc');
 
 		if ($sql->num_rows() >0) {
@@ -181,6 +181,34 @@ class Indicadores_model extends CI_Model{
 
 	}
 
+	//obtiene lista de indicadores, para ver informes desde perfil supervisor
+	public function Lista($idUnidad){
+		$sql = $this->db->query("SELECT b.codigo carac, a.idIndicador,a.desc_subUn,a.descripcion descInd,d.descripcion responsable,d.idCargo cargo,d.fk_rut_num rut ".
+									'FROM Indicadores a, Caracteristicas b,Rel_cargoIndicadores c,Cargos d,rel_indicadorUnidades e
+									WHERE  a.fk_idCaracteristica=b.idCaracteristica AND a.idIndicador=c.fk_idIndicador AND c.fk_idCargo=d.idCargo and e.fk_idIndicador=a.idIndicador and e.fk_idUnidad='.$idUnidad.'');
+		if ($sql->num_rows() >0) {
+			return $sql->result_array();
+		}else{
+			return null;
+		}
+	}
+
+	//obtiene los datos de evaluacion mensual de un indicador
+	public function getDataIndicador($idIndicador,$periodo){
+		$sql = $this->db->query('SELECT c.codigo cod_c,a.*,b.* FROM Indicadores a ,IndicadorDatos b,Caracteristicas c WHERE a.idIndicador=b.fk_idIndicador AND a.idIndicador='.$idIndicador.' AND b.periodo='.$periodo.' and a.fk_idCaracteristica=c.idCaracteristica');
+
+		if ($sql->num_rows() >0) {
+			return $sql->row();
+		}else{
+			return null;
+		}
+	}
+
+	//modifica datos de evalucion de indicador
+	public function editaDatos($idIndicador,$periodo,$numerador,$denominador){
+		$sql = $this->db->query('UPDATE IndicadorDatos SET numerador='.$numerador.',denominador='.$denominador.' WHERE fk_idIndicador='.$idIndicador.' AND periodo='.$periodo.'');
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
 }
 
 

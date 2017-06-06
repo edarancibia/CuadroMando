@@ -9,7 +9,7 @@ class Login_model extends CI_Model{
 		if ($sql->num_rows() > 0) {
 			$res = $sql->row();
 
-			if ($res->idCargo == 1) {
+			if ($res->perfil == 1) {
 				return true;
 			}else{
 				return false;

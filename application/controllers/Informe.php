@@ -6,7 +6,8 @@ class Informe extends CI_Controller{
 		parent::__construct();
 		$this->load->model('IndicadorInforme');
 		$this->load->model('Caracteristicas');
-		$this->load->model('Indicadores_model');	
+		$this->load->model('Indicadores_model');
+		$this->load->model('Unidades_model');	
 		$this->load->library('Pdf');	
 	}
 
@@ -156,6 +157,48 @@ class Informe extends CI_Controller{
 			echo "<h3>Todavia no ha hecho un informe para el periodo seleccionado.</h3>";
 		}
 		
+	}
+
+	//llama vista de llistado de indicadores para ver informes, desde perfil supervisor
+	public function ReportsIndex(){
+		$data['unidades'] = $this->Unidades_model->getAll();
+		$this->load->view('template/header');
+		$this->load->view('template/navSuper');
+		$this->load->view('supervisor/informes',$data);
+	}
+
+	//carga lista de indicadore por unidad
+	public function Reports(){
+		$idUnidad = $this->input->post('idUnidad');
+		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
+		//$idUnidad = $_REQUEST['idUnidad'];
+		$data['lista'] = $this->Indicadores_model->Lista($idUnidad);
+		echo json_encode($data);
+		/*$this->load->view('template/header');
+		$this->load->view('template/navSuper');
+		$this->load->view('supervisor/informes',$data);*/
+
+	}
+
+	//genera informes desde perfil de supervisor
+	public function GetReport(){
+		$idIndicador = $_REQUEST['idIndicador'];
+		$cuarto = $_REQUEST['trimestre'];
+		$anio = $_REQUEST['anio'];
+		$idUnidad = $_REQUEST['idUnidad'];
+		$periodo = $cuarto.$anio;
+		$rut_num = $_REQUEST['rut'];
+		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
+		$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
+
+		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
+		$data['resp'] = $cliente->getNombre($rut_num);
+
+		if ($data['datos'] != null) {
+			$this->load->view('testpdf',$data);
+		}else{
+			echo "<h3>Todavia no ha hecho un informe para el periodo seleccionado.</h3>";
+		}
 	}
 
 }

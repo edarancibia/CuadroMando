@@ -2,8 +2,11 @@
 <div class="container">
 <form method="POST" action="<?= base_url('index.php/Indicadores/Result'); ?>">
   <div class="row col-xs-6">
+  		<select id="cboanio5" name="cboanio5">
+  			<option value="2017">2017</option>
+  		</select>
+
       <select id="trimestre" name="trimestre">
-        <option value="0" SELECTED>Seleccione un periodo</option>
       	<option value="1">1 Trimestre</option>
       	<option value="2">2 Trimestre</option>
       	<option value="3">3 Trimestre</option>
@@ -29,7 +32,6 @@
 
 	if (isset($_POST['buscaTrimestre'])) {
 		$trimestre = $_POST["trimestre"];
-		//$nomUnidad=$unidad->descripcion;
 		
 		switch ($trimestre) {
 		  case 1:
@@ -66,7 +68,7 @@
 		
 	?>
 
-	<div class="col-md-11 col-md-offset-1" >
+	<div class="col-md-11 col-md-offset-1" style="overflow: scroll; height: 500px;">
 		<table class="table tablaListaIndS table-hover" border=1 id="tablaUnidad">
 		<thead>
 		 <tr>
@@ -86,23 +88,21 @@
 	//echo $idAmbito;
 	if (isset($_POST["buscaTrimestre"])) {
 		$trimestre = $_POST["trimestre"];
+		$anio = $_POST['cboanio5'];
 
-		if ($trimestre == 0) {
-			echo "<script>alert('Seleccione una opcion');</script>";
-		}
 		
 		switch ($trimestre) {
 			case 1:
-				echo "<h4 style='width:200px'>Primer trimestre</h4>";
+				echo "<h4 style='width:200px'>Primer trimestre ".$anio. "</h4>";
 				break;
 			case 2:
-				echo "<h4 style='width:200px'>Segundo trimestre</h4>";
+				echo "<h4 style='width:200px'>Segundo trimestre ".$anio."</h4>";
 				break;
 			case 3:
-				echo "<h4 style='width:200px'>Tercer trimestre</h4>";
+				echo "<h4 style='width:200px'>Tercer trimestre ".$anio."</h4>";
 				break;
 			case 4:
-				echo "<h4 style='width:200px'>Cuarto trimestre</h4>";
+				echo "<h4 style='width:200px'>Cuarto trimestre ".$anio."</h4>";
 				break;
 			default:
 				
@@ -124,10 +124,9 @@
 					echo "<td width=30>".$row['umbralDesc']."</td>";
 					echo "<td width=200'>".$row['formula1']."<hr>".$row['formula2']."<br/><br/></td>";
 					//echo "<td width=80>".substr($row['fecha'], 0,10) ."</td>";
-					echo "<td width=200 style='font-size:14px;'>".$row['denominador']."<hr>".$row['numerador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
+					echo "<td width=220 style='font-size:14px;'>".$row['denominador']."<hr>".$row['numerador']."<hr>" ."<strong>".$row['resultados']."%</strong></td>
 					<td width=50 bgcolor='#f5f5dc' style='font-size:14px;'>".$row['denominadores']."<hr>".$row['numeradores']."<hr><strong>".intval($row['res'])."</strong></td>";
 					
-					//echo "<td width=150>".$row['fechas']."<br/>".$row['resultados']."</td>";
 					echo '<td width=100><div class="progress">
 						  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$row['res'].'"
 						  aria-valuemin="0" aria-valuemax="100" style="width:'.$row['res'].'%">

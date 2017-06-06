@@ -16,17 +16,6 @@ class Indicadores extends CI_Controller
 		$this->load->library('Pdf');
 	}
 
-	public function index(){
-		/*$idCarac = $_GET['idCarac'];
-		$data['caracteristicas'] = $this->Caracteristicas->getById($idCarac);
-		$data['indicadores'] = $this->Indicadores_model->getByCaracteristica($idCarac);
-		$this->load->view('template/header');
-		$this->load->view('template/navbar');
-		$this->load->view('indicadores/datosIndicador',$data);*/
-		//$this->getIndicaCargo();
-		//$this->load->view('testpdf');
-	}
-
 	public function redirectCarateristica(){
 		$caract = $_GET['idCarac'];
 		echo($caract);
@@ -134,13 +123,43 @@ class Indicadores extends CI_Controller
 		$this->load->view('supervisor/listaIndicadores',$data);
 	}
 
+	//DEFINE EL RANGO DE BUSQUEDA DE DATOS SEGUN AÑO Y EL CAMPO PERIODO
+	public function rango($trimestre,$anio){
+		switch ($trimestre) {
+			case 1:
+				$desde = '1'.$anio;
+				$hasta = '3'.$anio;
+				break;
+			case 2:
+				$desde = '4'.$anio;
+				$hasta = '6'.$anio;
+				break;
+			case 3:
+				$desde = '7'.$anio;
+				$hasta = '9'.$anio;
+				break;
+			case 4:
+				$desde = '10'.$anio;
+				$hasta = '12'.$anio;
+				break;
+			default:
+				# code...
+				break;
+		}
+		return array($desde,$hasta);
+	}
+
 	//- - -  - Muestra lista de indicadores segun ambito seleccionado - - - - 
 	public function VistaAmbitos(){
 		$idAmbito = $this->input->post('idAmbito',TRUE);
 		$trimestre = $this->input->post('trimestre',TRUE);
 		$fecha = getdate();
-		$anio = $fecha['year'];
-		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$anio,$trimestre);
+		$anio = $this->input->post('cboanio4');
+		$desde;
+		$hasta;
+
+		list($desde,$hasta) = $this->rango($trimestre,$anio);
+		$data['indicadoresAmbito']= $this->Indicadores_model->getByAmbito($idAmbito,$anio,$desde,$hasta);
 		$data['ambito'] = $this->NombreAmbito($idAmbito);
 		
 		if ($this->session->userdata('cargo') == 1) {
@@ -167,8 +186,12 @@ class Indicadores extends CI_Controller
 		$idUnidad = $this->input->post('idUnidad',TRUE);
 		$trimestre = $this->input->post('trimestre',TRUE);
 		$fecha = getdate();
-		$anio = $fecha['year'];
-		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$anio,$trimestre);
+		$anio = $this->input->post('cboanio5');
+		$desde;
+		$hasta;
+
+		list($desde,$hasta) = $this->rango($trimestre,$anio);
+		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$anio,$desde,$hasta);
 		$data['unidad'] = $this->NombreUnidad($idUnidad);
 		
 		if ($this->session->userdata('cargo') == 1) {
@@ -197,7 +220,11 @@ class Indicadores extends CI_Controller
 	public function Preview(){
 		$anio = $this->getAnio();
 		$cuarto = $this->quarter();
-		$data['info'] = $this->Indicadores_model->getPreview($anio,$cuarto);
+		$desde;
+		$hasta;
+
+		list($desde,$hasta) = $this->rango($cuarto,$anio);
+		$data['info'] = $this->Indicadores_model->getPreview($anio,$desde,$hasta);
 		$this->templateSupervisor();
 		$this->load->view('supervisor/preview',$data);
 	}
@@ -273,6 +300,58 @@ class Indicadores extends CI_Controller
 		$this->Indicadores_model->relIndCargo($idIndicador,$idCargo);
 	}
 
+	//llama vista para modificar datos de evaluaciones de indicadores
+	public function EditIndex2(){
+		$idIndicador = $_REQUEST['txtidndicador'];
+		$mes = $_REQUEST['cbomes'];
+		$anio = $_REQUEST['cboanio7'];
+		//$idUnidad = $_REQUEST['idUnidad'];
+		$periodo = $mes.$anio;
+
+		$data['info'] = $this->Indicadores_model->getDataIndicador($idIndicador,$periodo);
+		//echo json_encode($data);
+		if (empty($data['info'])) {
+			echo "<script>alert('no hay datos')
+					history.go(-1);</script>";
+		}else{
+			$this->templateSupervisor();
+			$this->load->view('supervisor/editaDatos',$data);
+		}
+	}
+
+	//llama vista index de lista de indicadores para editar datos mensuales
+	public function EditIndex(){
+		$data['unidades'] = $this->Unidades_model->getAll();
+		$this->templateSupervisor();
+		$this->load->view('supervisor/editaIndex',$data);
+	}
+
+	//LLENA LISTA DE INDICADORES POR SECCION PARA EDITAR DATOS
+	public function EditList(){
+		$idUnidad = $this->input->post('idUnidad');
+		$data['lista'] = $this->Indicadores_model->Lista($idUnidad);
+		echo json_encode($data);
+	}
+
+	//lista de indicadores para editar sus datos mensuales
+	public function EditResult(){
+		$idUnidad = $this->input->post('idUnidad');
+		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
+		//$idUnidad = $_REQUEST['idUnidad'];
+		$data['lista'] = $this->Indicadores_model->Lista($idUnidad);
+		echo json_encode($data);
+	}
+
+	//carga datos del indicador seleccionado y su periodo
+	public function Edit(){
+		$idIndicador = $_REQUEST['idIndicador'];
+		$cuarto = $_REQUEST['trimestre'];
+		$anio = $_REQUEST['anio'];
+		$periodo = $cuarto.$anio;
+		$numerador = $this->input->post('txtf1');
+		$denominador = $this->input->post('txtf2');
+		$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador);
+	}
 }
 
 

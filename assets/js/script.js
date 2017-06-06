@@ -685,6 +685,115 @@ $(document).ready(function(){
 
 	$('#tabla-preview td:last-child:contains(SI)')
 		.parents('tr').toggle();
+
+
+	$('#btnModDatos').on('click',function(){
+		$('#dialog-confirm3').dialog("open");
+
+		
+	});
+
+	$( function () { //DIALOG CONFIRM MODIFICA DATOS
+		$( "#dialog-confirm3" ).dialog({
+			    resizable: false,
+			    autoOpen: false,
+			    height: "auto",
+			    width: 400,
+			    modal: true,
+			    buttons: {
+			   	 "Guardar": function() {
+			   	 
+			   	 	var numerador = $('#txtf1').val();
+					var denominador = $('#txtf2').val();
+					var idIndicador = $('#txtIdIndicador2').val();
+			   	 		
+			   	 		$.ajax({
+							type: 'post',
+							url: baseUrl + 'Indicadores/Edit',
+							data: {idIndicador: idIndicador, numerador: numerador,denominador: denominador},
+							success: function(){
+								toastr.success('Informe guardado exitosamente');
+								$('#txtperiodo').val('');
+								$('#comentarios').val('');
+								$('#plan').val('');
+							},
+							error: function(){
+								console.log('error ajax al guardar informe');
+							}
+						});
+
+			       	
+			        $( this ).dialog( "close" );
+			      },
+			       Cancelar: function() {
+			         $( this ).dialog( "close" );
+			       }
+			    }
+		});
+	});
+
+	//LISTA DE INDICADORES EN BUSCADOR DE INFORMES
+	$('#btnReport2').on('click',function(){
+		var cuarto = $('#cboTrimestre').val();
+		var anio = $('#cboanio6').val();
+		var idUnidad = $('#cboUnidad').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Informe/Reports',
+			data: {idUnidad: idUnidad},
+			success: function(d){
+				var data = JSON.parse(d);
+				$('#table-reports tr').remove();
+
+				$.each(data.lista, function(i, item){
+					$('<tr>').html(
+        				"<td>"+data.lista[i].carac+' '+data.lista[i].desc_subUn+"</td><td>"+ 
+        				data.lista[i].descInd + "</td><td>" + data.lista[i].responsable+
+        				"<td><a href="+baseUrl+"Informe/GetReport?idIndicador="+data.lista[i].idIndicador+
+        				"&trimestre="+cuarto+"&anio="+anio+"&idUnidad="+idUnidad+"&rut="+data.lista[i].rut+
+        				" target='blank' class='btn btn-danger'><i class='fa fa-print' aria-hidden='true'></i></a></td>").appendTo('#table-reports');
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});
+	})
+
+	//llena lista de indicadores por unidad para editar datos
+	$('#btnEditIndex').on('click',function(){
+		var idUnidad = $('#cboUnidad2').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Indicadores/EditList',
+			data: {idUnidad: idUnidad},
+			success: function(d){
+				var data = JSON.parse(d);
+				console.log(data);
+				$('#table-edit tr').remove();
+
+				$.each(data.lista, function(i, item){
+					$('<tr>').html(
+        				"<td>"+data.lista[i].carac+' '+data.lista[i].desc_subUn+"</td><td>"+ 
+        				data.lista[i].descInd + "</td><td>" + data.lista[i].responsable+
+        				"<td><button type='button' data-id="+data.lista[i].idIndicador+" data-toggle='modal' data-target='#modalEdit' class='btn btn-info'>Modificar</button></td>").appendTo('#table-edit');
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});
+	});
+
+	$('#modalEdit').on('shown.bs.modal', function (e){
+		var boton = e.relatedTarget;
+		var idIndicadorModal = $(boton).attr("data-id");
+
+		$('#txtidndicador').val(idIndicadorModal);
+	});
+
 // - - - - -  SECCION MODAL INFORME - - - - -  - - - - 
 
 	/*var idIndicadorModal;
