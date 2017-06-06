@@ -100,9 +100,9 @@ $(document).ready(function(){
 				url: baseUrl+'Indicadores/validateDate',
 				data: {periodo: periodo, idIndicador: indicador},
 				success: function(data){
-					console.log('validacion '+data);
+					//console.log('validacion '+data);
 					if (data == 1) {
-						console.log('No se puede');
+						//console.log('No se puede');
 						$("#txtvalor1").attr('disabled','disabled');
 						$("#txtvalor2").attr('disabled','disabled');
 						$("#btnGuadar").attr('disabled','disabled');
@@ -111,7 +111,7 @@ $(document).ready(function(){
 						$("#txtvalor1").attr('disabled',false);
 						$("#txtvalor2").attr('disabled',false);
 						$("#btnGuadar").attr('disabled',false);
-						console.log('Si se puede');
+						//console.log('Si se puede');
 						$('#txtvalor1').focus();
 					}
 				},
@@ -152,7 +152,17 @@ $(document).ready(function(){
 			        var indicador = $('#txtIdindicador').val();
 					parsedDen = parseInt(denominador);
 					parsedNum = parseInt(numerador);
-					parsedRes = parseInt(parsedDen / parsedNum * 100);
+
+					if (parsedNum == 0) {
+						parsedDen = 0
+						parsedNum = 0;
+						parsedRes = 0;
+						
+					}else{
+						parsedRes = parseInt(parsedDen / parsedNum * 100);
+						
+					}
+					
 					var fecha2 = moment().format('L');
 
 					if (denominador == '') {
@@ -787,6 +797,8 @@ $(document).ready(function(){
 		});
 	});
 
+
+	//modal editar datos
 	$('#modalEdit').on('shown.bs.modal', function (e){
 		var boton = e.relatedTarget;
 		var idIndicadorModal = $(boton).attr("data-id");
