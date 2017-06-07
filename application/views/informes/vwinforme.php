@@ -68,9 +68,9 @@
 			</fieldset>
 			<br>
 			<div>
-				<button type="button" class="btn btn-success" id="btnGuardaInforme" name="btnGuardaInforme">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
+				<button type="button" class="btn btn-success" id="btnGuardaInforme" name="btnGuardaInforme">Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 
-				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].''?>" class="btn btn-success">Volver atras <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 
 				<a id="btnPdf" href="<?php echo base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'&anio='.$_REQUEST["cboAnio3"].'&cuarto='.$_REQUEST["cboCuarto"].''?>" class="btn btn-danger" target="_blanck">Imprimir <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 			</div>

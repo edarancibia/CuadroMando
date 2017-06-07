@@ -33,7 +33,7 @@
 
 <div style="width: max;">
 
-  <a href="<?php echo base_url('index.php/welcome/Home'); ?>" class="bntInicio"><span class="glyphicon glyphicon-home"></span></a>
+  <a href="<?php echo base_url('index.php/welcome/Home'); ?>" class="bntInicio"><span class="glyphicon"><i class="fa fa-home" aria-hidden="true"></i></span></a>
   <div style="width: 150px;float:right;">
     <a href="<?php echo base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
   </div>

@@ -21,7 +21,7 @@
 					echo 	"<td width=100>".$row['Caracteristica']."</td>";
 					echo 	"<td width=150>".$row['sub']."</td>";
 					echo 	"<td width=400>".$row['descripcion']."</td>";
-					echo 	"<td width=50><a href=".base_url() ."index.php/Indicadores/detalleIndicador?idIndicador=".$row["idIndicador"]."&idUnidad=".$idUnidad." class='btn btn-warning'>Evaluar <span class='glyphicon glyphicon-pencil'></span></a></td>";
+					echo 	"<td width=50><a href=".base_url() ."index.php/Indicadores/detalleIndicador?idIndicador=".$row["idIndicador"]."&idUnidad=".$idUnidad." class='btn btn-warning'>Evaluar <span class='glyphicon'><i class='fa fa-pencil' aria-hidden='true'></i></span></a></td>";
 					//echo 	"<td width=50><a href=".base_url()."index.php/Informe/Informe?idIndicador=".$row["idIndicador"]."&idUnidad=".$idUnidad." class='btn btn-info'>Informe <i class='fa fa-file-text-o' aria-hidden='true'></i></a></td>";
 					echo 	"<td width=50><a href=".base_url()."index.php/Informe/periodo?idIndicador=".$row["idIndicador"]."&idUnidad=".$idUnidad." class='btn btn-info'>Informe  <i class='fa fa-file-text-o' aria-hidden='true'></i></a></td>";
 					echo "</tr>";

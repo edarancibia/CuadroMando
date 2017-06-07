@@ -65,7 +65,7 @@
 			<br>
 			<div>
 
-				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].'' ;?>" class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+				<a href="<?php echo base_url().'index.php/Indicadores/MisIndicadores?idUnidad='.$_REQUEST["idUnidad"].'' ;?>" class="btn btn-success">Volver atras <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 
 				<a href="<?php echo base_url().'index.php/Informe/Imprimir?idUnidad='.$_REQUEST["idUnidad"].'&idIndicador='.$_REQUEST['idIndicador'].'&anio='.$_REQUEST["cboAnio3"].'&cuarto='.$_REQUEST["cboCuarto"].''?>" target="_blanck" class="btn btn-danger">Imprimir <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 			</div>

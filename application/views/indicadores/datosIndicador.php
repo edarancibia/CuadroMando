@@ -127,8 +127,8 @@
 
 			<div>
 				<button type="button" name="btnGuadar" id="btnGuadar" class="btn btn-success">
-				Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button> 
-				<a href='<?php echo base_url(). $url2 . $_REQUEST["idUnidad"]; ?>' class="btn btn-success">Volver atras <span class="glyphicon glyphicon-circle-arrow-left"></span></a> 
+				Guardar <span><i class="fa fa-floppy-o" aria-hidden="true"></i></span></button> 
+				<a href='<?php echo base_url(). $url2 . $_REQUEST["idUnidad"]; ?>' class="btn btn-success">Volver atras <span class="glyphicon"><i class="fa fa-arrow-left" aria-hidden="true"></i></span></a> 
 			</div>
 
 		</div>

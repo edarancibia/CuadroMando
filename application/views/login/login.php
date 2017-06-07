@@ -13,8 +13,8 @@
 			    	<form accept-charset="UTF-8" method="post" role="form" action="<?= base_url('index.php/login/Login'); ?>">
                     <fieldset>
 			    	  	<div class="input-group">
-			    	  		<span class="input-group-addon glyphicon glyphicon-user" id="addon1"></span>
-			    		    <input class="form-control" placeholder="Rut" name="rut" id="rut" type="text" aria-describedby="addon1" required>
+			    	  		<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+			    		    <input class="form-control" placeholder="Rut" name="rut" id="rut" type="text" required>
 			    		</div>
 			    		<br>
 			    		<div class="input-group">

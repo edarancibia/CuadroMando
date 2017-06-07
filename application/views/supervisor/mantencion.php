@@ -73,7 +73,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><button type="button" name="btnGuardaIndicador" id="btnGuardaIndicador" class="btn btn-success">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button></td>
+				<td><button type="button" name="btnGuardaIndicador" id="btnGuardaIndicador" class="btn btn-success">Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i></button></td>
 			</tr>
 		</table>
 	</div>
