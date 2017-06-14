@@ -61,6 +61,19 @@ class Indicadores extends CI_Controller
 		$this->load->view('indicadores/indicadoresCargo',$data);
 	}
 
+	//llena listado de indicadores por cargo,unidad y subdivision
+	public function MisIndicadores3(){
+		$rut = $this->session->userdata('rut');
+		$idUnidad = $_REQUEST['idUnidad'];
+		$subd = $_REQUEST['subdivision'];
+		$data['unidad'] = $idUnidad;
+		$data['indica'] = $this->Indicadores_model->getByCargoUnidadYsubd($rut,$idUnidad,$subd);
+		$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
+
+		$this->template();
+		$this->load->view('indicadores/indicadoresCargo',$data);
+	}
+
 	//MUESTRA DETALLE DEL INDICADOR SELCCIONADO Y PERMITE INGRESAR VALORES
 	public function detalleIndicador(){
 		$idIndicador = $_GET['idIndicador'];

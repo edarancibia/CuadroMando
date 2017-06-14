@@ -31,7 +31,7 @@
 		</div>
 	</div>
 
-	<div id="dialog-confirm3" title="Modificando datos">
+	<div id="dialog-confirm4" title="Modificando datos">
   				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea guardar los cambios?.</p>
 	</div>
 </div>

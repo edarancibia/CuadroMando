@@ -5,10 +5,30 @@
 		<div class="col-md-9 col-md-offset-1">
 			<table class="table">
 				<tr>
-					<td><a href="<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=1')?>" class="btn btn-primary">Hospitalizacion</a></td>
+				<td>
+					<div class="dropdown">
+						<a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
+                             Hospitalización<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                        	<li class="dropdown">
+	                            <a tabindex="-1" href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Medicina') ?>'>Medicina</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Pediatria') ?>'>Pediatria</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Cirugia adulto') ?>'>Cirugía adulto</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Cirugia infantil') ?>'>Cirigía infantil</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Gineco-Obstetricia') ?>'>Gineco-Obstetrica</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Traumatologia') ?>'>Traumatología</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Farmacia')?>'>Farmacia</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Laboratorio')?>'>Laboratorio</a>
+                          </li>
+                        </ul>
+					</div>
+				</td>
+					<!--<td><a href="<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=1')?>" class="btn btn-primary">Hospitalizacion</a></td>-->
 					<td><a href="<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=3')?>" class="btn btn-primary">Pabellón</a></td>
+					
 					<td><a href="<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=2')?>" class="btn btn-primary">Upc</a></td>
-					<td><a href="<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=4')?>" class="btn btn-primary">Gineco Obst.</a></td>
+					<td><a href='<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=17') ?>' class="btn btn-primary">Archivo</a></td>
 				</tr>
 				<tr>
 					<td><a href="<?php echo base_url('index.php/Indicadores/MisIndicadores?idUnidad=5')?>" class="btn btn-primary">Neonatología</a></td>

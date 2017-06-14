@@ -704,7 +704,7 @@ $(document).ready(function(){
 	});
 
 	$( function () { //DIALOG CONFIRM MODIFICA DATOS
-		$( "#dialog-confirm3" ).dialog({
+		$( "#dialog-confirm4" ).dialog({
 			    resizable: false,
 			    autoOpen: false,
 			    height: "auto",

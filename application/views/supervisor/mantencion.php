@@ -22,7 +22,7 @@
 				<td ><div class="checkboxes">
 					<label><input type="checkbox" name="chksubu1" id="chksubu1" value="Hospitalizacion">Hospitalización</label>
 					<label><input type="checkbox" name="chksubu2" id="chksubu2" value="Medicina">Medicina</label>
-					<label><input type="checkbox" name="chksubu3" id="chksubu3" value="Gineco Obst">Gineco Obst</label>
+					<label><input type="checkbox" name="chksubu3" id="chksubu3" value="Gineco Obstetricia">Gineco Obst</label>
 					<label><input type="checkbox" name="chksubu4" id="chksubu4" value="Cirugia adulto">Cirugia adulto</label>
 					<label><input type="checkbox" name="chksubu5" id="chksubu5" value="Cirugia infantil">Cirugia infantil</label>
 					<label><input type="checkbox" name="chksubu6" id="chksubu6" value="Pediatria">Pediatria</label>
@@ -34,6 +34,7 @@
 					<label><input type="checkbox" name="chksubu11" id="chksubu11" value="Upc">UPC</label>
 					<label><input type="checkbox" name="chksubu12" id="chksubu12" value="UPP">UPP</label>
 					<label><input type="checkbox" name="chksubu13" id="chksubu13" value="Neo">Neo</label>
+					<label><input type="checkbox" name="chksubu14" id="chksubu14" value="Neo">Farmacia</label>
 					</div>
 				</td>
 				<td></td>

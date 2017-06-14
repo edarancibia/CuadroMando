@@ -43,7 +43,7 @@
 			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=1'?>">Hospitalización</a></td>
 			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=2'?>">Upc</a></td>
 			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=3'?>">Pabellón</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=4'?>">Gineco-Obtetrica</a></td>
+			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=17'?>">Archivo</a></td>
 		</tr>
 		<tr>
 			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=5'?>">Neonatología</a></td>

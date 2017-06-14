@@ -167,7 +167,7 @@ class Informe extends CI_Controller{
 		$this->load->view('supervisor/informes',$data);
 	}
 
-	//carga lista de indicadore por unidad
+	//carga lista de indicadores por unidad
 	public function Reports(){
 		$idUnidad = $this->input->post('idUnidad');
 		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);

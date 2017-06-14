@@ -89,7 +89,7 @@ I. INFORMACIÓN GENERAL<br><br>
 <table>
 	<tr>
 		<td>Nombre unidad:</td>
-		<td>$unidad->descripcion</td>
+		<td>$unidad->descripcion  $datos->desc_subUn</td>
 	</tr>
 	<tr>
 		<td>Fecha del Informe:</td>
