@@ -316,7 +316,7 @@ class Indicadores extends CI_Controller
 	//llama vista para modificar datos de evaluaciones de indicadores
 	public function EditIndex2(){
 		$idIndicador = $_REQUEST['txtidndicador'];
-		$mes = $_REQUEST['cbomes'];
+		$mes = $_REQUEST['cbomes2'];
 		$anio = $_REQUEST['cboanio7'];
 		//$idUnidad = $_REQUEST['idUnidad'];
 		$periodo = $mes.$anio;
@@ -355,14 +355,12 @@ class Indicadores extends CI_Controller
 		echo json_encode($data);
 	}
 
-	//carga datos del indicador seleccionado y su periodo
+	//modificadatos del indicador seleccionado y su periodo
 	public function Edit(){
 		$idIndicador = $_REQUEST['idIndicador'];
-		$cuarto = $_REQUEST['trimestre'];
-		$anio = $_REQUEST['anio'];
-		$periodo = $cuarto.$anio;
-		$numerador = $this->input->post('txtf1');
-		$denominador = $this->input->post('txtf2');
+		$periodo = $_REQUEST['periodo'];
+		$numerador = $this->input->post('denominador'); //aqui denominador de num erador estan invertidos
+		$denominador = $this->input->post('numerador');
 		$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador);
 	}
 }

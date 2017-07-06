@@ -6,6 +6,7 @@
 					<td>Característica: </td>
 					<td><?php echo $info->cod_c; ?>
 						<input type="hidden" name="txtIdIndicador2" id="txtIdIndicador2" value="<?php echo $info->idIndicador;?>">
+						<input type="hidden" name="txtperiodo3" id="txtperiodo3" value="<?php echo $info->periodo;?>">
 					</td>
 				</tr>
 				<tr>

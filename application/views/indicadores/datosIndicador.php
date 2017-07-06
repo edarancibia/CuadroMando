@@ -12,7 +12,7 @@
 				<tr>
 					<td>Característica: </td>
 					<td>
-						<?php echo $indicador->caracteristica; ?>
+						<?php echo $indicador->caracteristica . ' '. $indicador->desc_subUn; ?>
 					</td>
 				</tr>
 				<tr>

@@ -698,7 +698,7 @@ $(document).ready(function(){
 
 
 	$('#btnModDatos').on('click',function(){
-		$('#dialog-confirm3').dialog("open");
+		$('#dialog-confirm4').dialog("open");
 
 		
 	});
@@ -716,19 +716,20 @@ $(document).ready(function(){
 			   	 	var numerador = $('#txtf1').val();
 					var denominador = $('#txtf2').val();
 					var idIndicador = $('#txtIdIndicador2').val();
+					var periodo = $('#txtperiodo3').val();
 			   	 		
 			   	 		$.ajax({
 							type: 'post',
 							url: baseUrl + 'Indicadores/Edit',
-							data: {idIndicador: idIndicador, numerador: numerador,denominador: denominador},
+							data: {idIndicador: idIndicador, numerador: numerador,denominador: denominador,periodo: periodo},
 							success: function(){
-								toastr.success('Informe guardado exitosamente');
+								toastr.success('Datos modificados exitosamente');
 								$('#txtperiodo').val('');
 								$('#comentarios').val('');
 								$('#plan').val('');
 							},
 							error: function(){
-								console.log('error ajax al guardar informe');
+								console.log('error ajax al modificar datos');
 							}
 						});
 
@@ -781,7 +782,7 @@ $(document).ready(function(){
 			data: {idUnidad: idUnidad},
 			success: function(d){
 				var data = JSON.parse(d);
-				console.log(data);
+				//console.log(data);
 				$('#table-edit tr').remove();
 
 				$.each(data.lista, function(i, item){

@@ -50,7 +50,7 @@
 			</select>
 
         	Mes: 
-			<select id="cbomes" name="cbomes" class="form-control">
+			<select id="cbomes2" name="cbomes2" class="form-control">
 				<option value="1">Enero</option>
 				<option value="2">Febrero</option>
 				<option value="3">Marzo</option>
