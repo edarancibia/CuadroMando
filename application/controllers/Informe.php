@@ -201,6 +201,47 @@ class Informe extends CI_Controller{
 		}
 	}
 
+	//llama vista de edicion de informe
+	public function UpdateReport(){
+		$idIndicador = $_REQUEST['idIndicador'];
+		$cuarto = $_REQUEST['trimestre'];
+		$anio = $_REQUEST['anio'];
+		$idUnidad = $_REQUEST['idUnidad'];
+		$periodo = $cuarto.$anio;
+		$data['periodo'] = $periodo;
+
+		$rut_num = $_REQUEST['rut'];
+		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
+		$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
+		$data['caracteristica'] = $this->Indicadores_model->getById($idIndicador);
+
+		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
+		$data['resp'] = $cliente->getNombre($rut_num);
+
+		if ($data['datos'] != null) {
+			$this->load->view('template/header');
+			$this->load->view('template/navSuper');
+			$this->load->view('informes/vwinformeInfoEdita',$data);
+		}else{
+			echo "<h3>Todavia no ha hecho un informe para el periodo seleccionado.</h3>";
+		}
+
+	}
+
+	//llama metodo que edita informe
+	public function UpdateReport2(){
+		$idIndicador = $_REQUEST['idIndicador'];
+		//$cuarto = $_REQUEST['trimestre'];
+		//$anio = $_REQUEST['anio'];
+		$periodo = $this->input->post('periodo');
+		$resultado = $this->input->post('resultado');
+		$periodoDet = $this->input->post('periodoDet');
+		$comentario = $this->input->post('comentarios');
+		$plan = $this->input->post('plan');
+
+		$this->IndicadorInforme->editaInforme($idIndicador,$periodo,$resultado,$comentario,$plan,$periodoDet);
+	}
+
 }
 
 

@@ -73,6 +73,12 @@ class IndicadorInforme extends CI_Model{
 		}
 	}
 
+	//modifica datos del informe del indicador
+	public function editaInforme($idIndicador,$periodo,$resultadoDet,$comentarios,$plan,$periodoDet){
+		$sql = $this->db->query("UPDATE IndicadorInformes SET resultadoDet = '$resultadoDet', periodoDet='$periodoDet', comentarios='$comentarios', plan='$plan' WHERE fk_idIndicador='$idIndicador' AND periodo='$periodo'");
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
 }
 
 

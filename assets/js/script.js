@@ -153,6 +153,9 @@ $(document).ready(function(){
 					parsedDen = parseInt(denominador);
 					parsedNum = parseInt(numerador);
 
+					var roundDen = Math.round(denominador);
+					var roundNum = Math.round(numerador);
+
 					if (parsedNum == 0) {
 						parsedDen = 0
 						parsedNum = 0;
@@ -174,19 +177,23 @@ $(document).ready(function(){
 						$('#txtvalor2').focus();
 					}else{
 
-						var res = denominador/numerador*100;
+						//var res = denominador/numerador*100;
+						var res = roundDen/roundNum*100;
+						var roundRes =	Math.round(res);
+
+						console.log('numerador='+roundDen+ ' '+'denominador='+roundNum+ 'resultado='+roundRes);
 
 						$.ajax({
 							type: 'post',
 							url: baseUrl+'Indicadores/guardaEvaluacion',
-							data: {denominador: parsedDen,numerador: parsedNum,multiplicador: 100, resultado: parsedRes,idIndicador: indicador,fecha: fecha2, periodo: periodo},
+							data: {numerador: roundNum,denominador: roundDen,multiplicador: 100, resultado: roundRes,idIndicador: indicador,fecha: fecha2, periodo: periodo},
 							success: function(data){
 								console.log('Guardado exitosamente');
 								$('#txtvalor1').val('');
 								$('#txtvalor2').val('');
 								toastr.success('Datos guardados exitosamente');
 								configToastr();
-								$('#txtresultado').val(parsedRes+'%');
+								$('#txtresultado').val(roundRes+'%');
 								$("#btnGuadar").attr('disabled','disabled');
 
 							},
@@ -717,11 +724,15 @@ $(document).ready(function(){
 					var denominador = $('#txtf2').val();
 					var idIndicador = $('#txtIdIndicador2').val();
 					var periodo = $('#txtperiodo3').val();
+
+					//con decimales
+					var roundNum2 = numerador;
+					var roundDen2 = denominador;
 			   	 		
 			   	 		$.ajax({
 							type: 'post',
 							url: baseUrl + 'Indicadores/Edit',
-							data: {idIndicador: idIndicador, numerador: numerador,denominador: denominador,periodo: periodo},
+							data: {idIndicador: idIndicador, numerador: roundDen2,denominador: roundNum2,periodo: periodo},
 							success: function(){
 								toastr.success('Datos modificados exitosamente');
 								$('#txtperiodo').val('');
@@ -763,7 +774,10 @@ $(document).ready(function(){
         				data.lista[i].descInd + "</td><td>" + data.lista[i].responsable+
         				"<td><a href="+baseUrl+"Informe/GetReport?idIndicador="+data.lista[i].idIndicador+
         				"&trimestre="+cuarto+"&anio="+anio+"&idUnidad="+idUnidad+"&rut="+data.lista[i].rut+
-        				" target='blank' class='btn btn-danger'><i class='fa fa-print' aria-hidden='true'></i></a></td>").appendTo('#table-reports');
+        				" target='blank' class='btn btn-danger'><i class='fa fa-print' aria-hidden='true'></i></a></td>"+
+        				"<td><a href="+baseUrl+"Informe/UpdateReport?idIndicador="+data.lista[i].idIndicador+
+        				"&trimestre="+cuarto+"&anio="+anio+"&idUnidad="+idUnidad+"&rut="+data.lista[i].rut + 
+        				" class='btn btn-primary'>Editar <i class='fa fa-pencil' aria-hidden='true'></a></td>").appendTo('#table-reports');
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -805,6 +819,37 @@ $(document).ready(function(){
 		var idIndicadorModal = $(boton).attr("data-id");
 
 		$('#txtidndicador').val(idIndicadorModal);
+	});
+
+
+	//EDITA INFORMES
+	$('#btnModInforme').on('click',function(){
+		var idIndicador = $('#textIdindicador_').val();
+		var periodoDet = $('#txtperiodo_').val();
+		var periodo = $('#txtperiodo3').val();
+		var comentarios = document.getElementById("comentarios_").value;
+		var plan2 = document.getElementById("plan_").value;
+		var resultado = $('#txtresultado_').val();
+
+		//console.log(idIndicador+' '+periodo+' '+periodoDet+' '+resultado+' '+comentarios+' '+plan2);
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Informe/UpdateReport2',
+			data: {idIndicador: idIndicador, periodo: periodo, periodoDet: periodoDet, resultado: resultado, comentarios: comentarios,plan: plan2},
+			success: function(){
+				//console.log(idIndicador+' '+periodo+' '+periodoDet+' '+resultado+' '+comentarios+' '+plan);
+				toastr.success('Informe modificado exitosamente!');
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});
+
+	});
+
+	$('#btnVolver').on('click',function(){
+		javascript:history.back(1);
 	});
 
 // - - - - -  SECCION MODAL INFORME - - - - -  - - - - 
