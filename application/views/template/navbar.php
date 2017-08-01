@@ -16,6 +16,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo base_url('index.php/welcome/Home'); ?>">Inicio <span class="sr-only">(current)</span></a></li>
+        <li><a href="<?php echo base_url('index.php/Indicadores/MisUnidades')?>">Mediciones</a></li>
       </ul>
       
     </div><!-- /.navbar-collapse -->

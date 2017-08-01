@@ -13,6 +13,7 @@ class Indicadores extends CI_Controller
 		$this->load->model('Ambitos');
 		$this->load->model('Unidades_model');
 		$this->load->model('Cargos_model');
+		$this->load->model('Login_model');
 		$this->load->library('Pdf');
 	}
 
@@ -193,6 +194,15 @@ class Indicadores extends CI_Controller
 		$this->load->view('supervisor/listaIndicadores2', $data);
 	}
 
+	//carga vista con medidicones de la unidad del usuario
+	public function Mediciones(){
+		$idUnidad = $_GET['idUnidad'];
+		$data['idUnidad'] = $idUnidad;
+		$data['unidad'] = $this->NombreUnidad($idUnidad);
+		$this->template();
+		$this->load->view('indicadores/mediciones', $data);
+	}
+
 
 	//- - -  - Muestra lista de indicadores segun la unidad seleccionada - - - - 
 	public function Result(){
@@ -214,6 +224,40 @@ class Indicadores extends CI_Controller
 			$this->template();
 			$this->load->view('supervisor/listaIndicadores2',$data);
 		}
+	}
+
+	//llama vista que busca resultados de indicadores de seccion del usuario
+	public function MiUnidad(){
+		$idUnidad = $_GET['idUnidad'];
+		$this->template();
+		$this->load->view('indicadores/mediciones');
+	}
+
+	//- - -  - Muestra lista de resultados de indicadores de la unidad del usuario - - - - 
+	public function ResultMediciones(){
+		$idUnidad = $this->input->post('idUnidad',TRUE);
+		$trimestre = $this->input->post('trimestre',TRUE);
+		$fecha = getdate();
+		$anio = $this->input->post('cboanio5');
+		$desde;
+		$hasta;
+
+		list($desde,$hasta) = $this->rango($trimestre,$anio);
+		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$anio,$desde,$hasta);
+		$data['unidad'] = $this->NombreUnidad($idUnidad);
+		
+		$this->template();
+		$this->load->view('indicadores/mediciones',$data);
+	}
+
+	//llama vista mis Unidades
+	public function MisUnidades(){
+		$rut = $this->session->userdata('rut');
+		$idCargo = $this->Login_model->getCargo2($rut);
+		$idCargo2 = $idCargo->idCargo;
+		$data['unidades'] = $this->Unidades_model->getUnidades($idCargo2);
+		$this->template();
+		$this->load->view('encargado/MisUnidades',$data);
 	}
 
 	//calcula en cuarto(trimestre) actual

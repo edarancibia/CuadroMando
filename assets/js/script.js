@@ -435,6 +435,12 @@ $(document).ready(function(){
 	    .parents("tr")
 	    .css("background-color", "#ffcccc");
 	});
+
+	$(function() {
+	  $("#tablaMedicion td:last-child:contains(NO)")
+	    .parents("tr")
+	    .css("background-color", "#ffcccc");
+	});
 	//---------------------- - - - - - - - - - - -- - - - - - - -- - - - - -- 
 
 
@@ -696,6 +702,12 @@ $(document).ready(function(){
 
 	$("#btnFiltrar2").on('click',function(){
 	  $("#tablaAmbito td:last-child:contains(SI)")
+	    .parents("tr").toggle();
+
+	});
+
+	$("#btnFiltrar3").on('click',function(){
+	  $("#tablaMedicion td:last-child:contains(SI)")
 	    .parents("tr").toggle();
 
 	});

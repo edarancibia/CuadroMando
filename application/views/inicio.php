@@ -16,6 +16,7 @@
                             	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Pediatria') ?>'>Pediatria</a>
                             	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Cirugia adulto') ?>'>Cirugía adulto</a>
                             	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Cirugia infantil') ?>'>Cirigía infantil</a>
+                            	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=CMA') ?>'>CMA</a>
                             	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Gineco-Obstetricia') ?>'>Gineco-Obstetrica</a>
                             	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Traumatologia') ?>'>Traumatología</a>
                             	<a href='<?php echo base_url('index.php/Indicadores/MisIndicadores3?idUnidad=1&subdivision=Farmacia')?>'>Farmacia</a>

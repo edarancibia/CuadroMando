@@ -12,4 +12,13 @@ class Unidades_model extends CI_Model{
 			return $unidad->result();
 		}
 	}
+
+	//busca unidades a cargo del usuario
+	public function getUnidades($idCargo){
+		$sql = $this->db->query('SELECT * FROM rel_cargoUnidad a,  Unidades b  WHERE a.fk_id_unidad = b.idUnidad AND a.fk_idCargo='.$idCargo.'');
+
+		if ($sql->num_rows()>0) {
+			return $sql->result();
+		}
+	}
 }
