@@ -10,7 +10,7 @@
 
 				<tr>
 					<td>Nombre unidad:</td>
-					<td><?php echo $unidad->descripcion;  ?></td>
+					<td><?php echo $unidad->descripcion."-".$datos->desc_subUn;  ?></td>
 					<td><input type="hidden" name="textIdindicador" id="textIdindicador" value="<?php echo $_REQUEST['idIndicador']; ?>"></td>
 
 				</tr>

@@ -1,4 +1,4 @@
-<?php
+ç<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Informe extends CI_Controller{
@@ -37,8 +37,8 @@ class Informe extends CI_Controller{
 			$m2 = 2;
 			$m3 = 3;
 
-			$desde = $anio.$m1;
-			$hasta = $anio.$m3;
+			$desde = $m1.$anio;
+			$hasta = $m3.$anio;
 			return array($desde,$hasta);
 		}
 
@@ -46,8 +46,8 @@ class Informe extends CI_Controller{
 			$m1 = 4;
 			$m2 = 5;
 			$m3 = 6;
-			$desde = $anio.$m1;
-			$hasta = $anio.$m3;
+			$desde = $m1.$anio;
+			$hasta = $m3.$anio;
 			return array($desde,$hasta);
 		}
 
@@ -55,8 +55,8 @@ class Informe extends CI_Controller{
 			$m1 = 7;
 			$m2 = 8;
 			$m3 = 9;
-			$desde = $anio.$m1;
-			$hasta = $anio.$m3;
+			$desde = $m1.$anio;
+			$hasta = $m3.$anio;
 			return array($desde,$hasta);
 		}
 
@@ -64,8 +64,8 @@ class Informe extends CI_Controller{
 			$m1 = 10;
 			$m2 = 11;
 			$m3 = 12;
-			$desde = $anio.$m1;
-			$hasta = $anio.$m3;
+			$desde = $m1.$anio;
+			$hasta = $m3.$anio;
 			return array($desde,$hasta);
 		}
 	}

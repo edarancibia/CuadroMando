@@ -141,20 +141,20 @@ class Indicadores extends CI_Controller
 	public function rango($trimestre,$anio){
 		switch ($trimestre) {
 			case 1:
-				$desde = '1'.$anio;
-				$hasta = '3'.$anio;
+				$desde = $anio.'1';
+				$hasta = $anio.'3';
 				break;
 			case 2:
-				$desde = '4'.$anio;
-				$hasta = '6'.$anio;
+				$desde = $anio.'4';
+				$hasta = $anio.'6';
 				break;
 			case 3:
-				$desde = '7'.$anio;
-				$hasta = '9'.$anio;
+				$desde = $anio.'7';
+				$hasta = $anio.'9';
 				break;
 			case 4:
-				$desde = '10'.$anio;
-				$hasta = '12'.$anio;
+				$desde = $anio.'10';
+				$hasta = $anio.'12';
 				break;
 			default:
 				# code...
@@ -257,7 +257,7 @@ class Indicadores extends CI_Controller
 		$idCargo2 = $idCargo->idCargo;
 		$data['unidades'] = $this->Unidades_model->getUnidades($idCargo2);
 		$this->template();
-		$this->load->view('encargado/MisUnidades',$data);
+		$this->load->view('encargado/misUnidades',$data);
 	}
 
 	//calcula en cuarto(trimestre) actual

@@ -91,7 +91,7 @@ $(document).ready(function(){
 	$('#cbomes').change(function(){
 		var anio = $('#cboAnio').val();
 		var mes = $("#cbomes").val();
-		var periodo = mes.concat(anio);
+		var periodo = anio.concat(mes);
 
 		var indicador = $('#txtIdindicador').val();
 
@@ -148,7 +148,7 @@ $(document).ready(function(){
 					var fecha = new Date;
 			        var anio = $('#cboAnio').val();
 					var mes = $("#cbomes").val();
-					var periodo = mes.concat(anio);
+					var periodo = anio.concat(mes);
 			        var indicador = $('#txtIdindicador').val();
 					parsedDen = parseInt(denominador);
 					parsedNum = parseInt(numerador);
@@ -160,10 +160,8 @@ $(document).ready(function(){
 						parsedDen = 0
 						parsedNum = 0;
 						parsedRes = 0;
-						
 					}else{
-						parsedRes = parseInt(parsedDen / parsedNum * 100);
-						
+						parsedRes = parseInt(parsedDen / parsedNum * 100);					
 					}
 					
 					var fecha2 = moment().format('L');
@@ -178,10 +176,15 @@ $(document).ready(function(){
 					}else{
 
 						//var res = denominador/numerador*100;
-						var res = roundDen/roundNum*100;
-						var roundRes =	Math.round(res);
+						if (parsedRes == 0) {
+							var roundRes = 0;
+						}else{
+							var res = roundDen/roundNum*100;
+							var roundRes =	Math.round(res);
+						}
 
-						console.log('numerador='+roundDen+ ' '+'denominador='+roundNum+ 'resultado='+roundRes);
+
+						//console.log('numerador='+roundDen+ ' '+'denominador='+roundNum+ 'resultado='+roundRes);
 
 						$.ajax({
 							type: 'post',
