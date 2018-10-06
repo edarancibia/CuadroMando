@@ -21,7 +21,7 @@ $(document).ready(function(){
 		   "hideMethod": "fadeOut"
 		}
 	}
-	var baseUrl = window.location.origin+'/CuadroMando/index.php/';
+	var baseUrl = window.location.origin+'/erwin/CuadroMando/index.php/';
 
 	//- - - - -   Login - - -  - - - -  - 
 	$('#btnLogin').on('click', function(){
@@ -898,6 +898,53 @@ $(document).ready(function(){
 		});
 	});*/
 
+	//CREA NUEVO SERVICIO
+	$('#btnUnidad').on('click',function(e){
+
+		if ($('#txtunidad').val().length < 1 ) {
+			toastr.error('Ingrese nombre del servicio');
+			return false;
+		}else{
+			e.preventDefault();
+			$('#dialog-confirmUnidad').dialog("open");	
+		}
+
+	});
+
+	$( function () { //DIALOG CONFIRM MODIFICA DATOS
+		$( "#dialog-confirmUnidad" ).dialog({
+			    resizable: false,
+			    autoOpen: false,
+			    height: "auto",
+			    width: 400,
+			    modal: true,
+			    buttons: {
+			   	 "Guardar": function() {
+			   	 
+			   	 	var desc = $('#txtunidad').val();
+			   	 		
+			   	 		$.ajax({
+							type: 'post',
+							url: baseUrl + 'Unidad/Add',
+							data: {desc: desc},
+							success: function(){
+								toastr.success('Servicio guardado exitosamente');
+								$('#txtunidad').val('');
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown){
+								console.log(XMLHttpRequest);
+							}
+						});
+
+			       	
+			        $( this ).dialog( "close" );
+			      },
+			       Cancelar: function() {
+			         $( this ).dialog( "close" );
+			       }
+			    }
+		});
+	});
 
 
 });

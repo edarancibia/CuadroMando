@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://190.217.149.107:4021/CuadroMando/';
+$config['base_url'] = 'http://190.217.149.107:4021/erwin/CuadroMando/';
 
 /*
 |--------------------------------------------------------------------------

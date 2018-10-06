@@ -363,7 +363,7 @@ class Indicadores extends CI_Controller
 		$mes = $_REQUEST['cbomes2'];
 		$anio = $_REQUEST['cboanio7'];
 		//$idUnidad = $_REQUEST['idUnidad'];
-		$periodo = $mes.$anio;
+		$periodo = $anio.$mes;
 
 		$data['info'] = $this->Indicadores_model->getDataIndicador($idIndicador,$periodo);
 		//echo json_encode($data);

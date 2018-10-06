@@ -22,6 +22,7 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url('index.php/Indicadores/mantencion')?>">Nuevo indicador</a></li>
             <li><a href="<?php echo base_url('index.php/Indicadores/EditIndex')?>">Modificar datos</a></li>
+            <li><a href="<?php echo base_url('index.php/Unidad/')?>">Nuevo Servicio</a></li>
           </ul>
         </li>
       </ul>
