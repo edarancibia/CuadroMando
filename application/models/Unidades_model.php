@@ -27,9 +27,13 @@ class Unidades_model extends CI_Model{
 		$sql = $this->db->query("insert into Unidades(descripcion) values (UPPER('$desc'))");
 	}
 
-	//get all
-	public function getAllUnidades(){
-		$query = $this->db->get('Unidades');
-		return $query->result_array();
+	//CARGA TODAS LAS UNIDADES DE LA TABLA PARA MOSTRARLOS EN HOME
+	public function getAll2(){
+		$this->db->order_by('descripcion','asc');
+		$unidad = $this->db->get('Unidades');
+
+		if ($unidad->num_rows()>0) {
+			return $unidad->result_array();
+		}
 	}
 }

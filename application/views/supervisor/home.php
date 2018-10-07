@@ -37,35 +37,19 @@
 </div>
 
 <div class="row">
-	<div id="divUnidades" style="display: none;" class="col-md-8 col-md-offset-1">
-		<table class="table" border="1">
-		<tr>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=1'?>">Hospitalización</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=2'?>">Upc</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=3'?>">Pabellón</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=17'?>">Archivo</a></td>
-		</tr>
-		<tr>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=5'?>">Neonatología</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=6'?>">Anatomía Patológica</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=7'?>">Diagnóstico ambulatorio</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=8'?>">Farmacia</a></td>
-		</tr>
-		<tr>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=9'?>">Esterilización</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=10'?>">Imagenología</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=11'?>">Kinesiterapia</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=12'?>">Laboratorio</a></td>
-		</tr>
-		<tr>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=13'?>">Oncología</a></li></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=14'?>">Post-Operado</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=15'?>">Residencia Médica</a></td>
-			<td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad=16'?>">Vacunatorio</a></td>
-		</tr>
-		</table>
+	<div id="divUnidades" style="display: none;" class="col-md-6 col-md-offset-3">
+	<table class="table" border="1">
+		<tr><th>Servicio</th></tr>
+		<?php foreach ($servicios2 as $row): ?>
+		    <tr>
+		        <td><a class="btn btn-default" href="<?php echo base_url().'index.php/Indicadores/ResultIndex?idUnidad='.$row['idUnidad']?>">
+		        	<?php echo $row['descripcion'];?></a></td>
+		    </tr>
+		<?php endforeach; ?>
+	</table>
 	</div>
 </div>
+
 
 
 <br><br>

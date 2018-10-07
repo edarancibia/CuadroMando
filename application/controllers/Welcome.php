@@ -7,6 +7,7 @@ class Welcome extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Ambitos');
 		$this->load->model('Caracteristicas');
+		$this->load->model('Unidades_model');
 	}
 
 	public function index()
@@ -27,8 +28,9 @@ class Welcome extends CI_Controller {
 	}
 
 	public function HomeSupervisor(){
+		$data['servicios2'] = $this->Unidades_model->getAll2();
 		$this->cabeceraSupervisor();
-		$this->load->view('supervisor/home');
+		$this->load->view('supervisor/home',$data);
 	}
 
 	public function cabecera(){
