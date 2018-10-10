@@ -28,4 +28,12 @@ class Login_model extends CI_Model{
 			return null;
 		}
 	}
+
+	//inserta nuevo usuario
+	public function insertUser($rut,$pass){
+		$db_sicbo = $this->load->database('sicbo',TRUE);
+
+		$sql = $this->db_sicbo->query('insert into PER_FIL (RUT_NUM,CLAVE) values('.$rut.','.$pass.')');
+		return ($this->db_sicbo->affected_rows() != 1) ? false : true;
+	}
 } 

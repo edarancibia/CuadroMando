@@ -946,6 +946,49 @@ $(document).ready(function(){
 		});
 	});
 
+	//EDITA UMBRAL DE INDICADORES
+	//lista indicador por unidad para editar
+	$('#btnEditIndex5').on('click', function(){
+		var idUnidad = $('#cboUnidadEditaUmbral').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Indicadores/EditList',
+			data: {idUnidad: idUnidad},
+			success: function(d){
+				var data = JSON.parse(d);
+				//console.log(data);
+				$('#table-edit-umbral tr').remove();
+				$.each(data.lista, function(i, item){
+					$('<tr>').html(
+        				"<td>"+data.lista[i].carac+' '+data.lista[i].desc_subUn+"</td><td>"+ 
+        				data.lista[i].descInd + "</td><td>" + data.lista[i].responsable+
+        				"<td><button type='button' data-id="+data.lista[i].idIndicador+" data-toggle='modal' data-target='#modalEditUmbral' class='btn btn-info'>Modificar</button></td>").appendTo('#table-edit-umbral');
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});
+	});
+
+	//NUEVO USUARIO
+	$('#btnokUsernew').on('click', function(){
+		var rut = $('#txtrutUsernew').val();
+		var pass = $('#txtpassUsernew').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Registro/AddUser',
+			data: {rut: rut, pass: pass},
+			success: function(){
+				toastr.success('Usuario creado exitosamente!');
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});
+	}
 
 });
 

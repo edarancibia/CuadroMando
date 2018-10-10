@@ -62,4 +62,5 @@ class Login extends CI_Controller{
 			//echo "no esta en sistema de calidad";
 		}
 	}
+
 }

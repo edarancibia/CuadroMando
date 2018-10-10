@@ -225,6 +225,7 @@ class Indicadores_model extends CI_Model{
 		$sql = $this->db->query('UPDATE IndicadorDatos SET numerador='.$numerador.',denominador='.$denominador.' WHERE fk_idIndicador='.$idIndicador.' AND periodo='.$periodo.'');
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
+
 }
 
 

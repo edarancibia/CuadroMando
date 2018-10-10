@@ -407,6 +407,14 @@ class Indicadores extends CI_Controller
 		$denominador = $this->input->post('numerador');
 		$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador);
 	}
+
+	//llama vista index de lista de indicadores para editar datos mensuales
+	public function editIndicador(){
+		$data['unidadesUmbral'] = $this->Unidades_model->getAll();
+		$this->templateSupervisor();
+		$this->load->view('supervisor/editIndicador',$data);
+	}
+
 }
 
 
