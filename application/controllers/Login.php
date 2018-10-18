@@ -5,13 +5,16 @@ class Login extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('Login_model');
+		$this->load->model('Unidades_model');
 	}
 
 	public function Login(){
 		$rut_num = $this->input->post('rut');
 		$clave = $this->input->post('password');
-		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/loginCmando.php?wsdl');
-		$result = $cliente->verificaUsuario($rut_num,$clave);
+		//$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/loginCmando.php?wsdl');
+		//$result = $cliente->verificaUsuario($rut_num,$clave);
+		$result = $this->Login_model->login($rut_num,$clave);
+
 
 		if ($result == "si") {
 			//echo "pasa";
@@ -21,7 +24,10 @@ class Login extends CI_Controller{
 				$this->session->set_userdata('rut',$rut_num);
 				$this->load->view('template/header');
 				$this->load->view('template/navSuper');
-				$this->load->view('supervisor/home');
+				//$this->load->view('supervisor/home');
+				$data['servicios2'] = $this->Unidades_model->getAll2();
+				
+				$this->load->view('supervisor/home',$data);
 			}else{
 				$this->getNombreUsuario();
 				$this->session->set_userdata('rut',$rut_num);
@@ -42,8 +48,9 @@ class Login extends CI_Controller{
 
 	public function getNombreUsuario(){
 		$rut_num = $this->input->post('rut');
-		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
-		$result = $cliente->getNombre($rut_num);
+		//$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
+		//$result = $cliente->getNombre($rut_num);
+		$result = $this->Login_model->loginDatos($rut_num);
 		$this->session->set_userdata('user',$result);
 	}
 	

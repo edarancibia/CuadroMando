@@ -30,10 +30,38 @@ class Login_model extends CI_Model{
 	}
 
 	//inserta nuevo usuario
-	public function insertUser($rut,$pass){
-		$db_sicbo = $this->load->database('sicbo',TRUE);
+	public function insertUser($rut,$apat,$amat,$nombre,$pass){
 
-		$sql = $this->db_sicbo->query('insert into PER_FIL (RUT_NUM,CLAVE) values('.$rut.','.$pass.')');
-		return ($this->db_sicbo->affected_rows() != 1) ? false : true;
+		$sql = $this->db->query("insert into Usuario (rut_num,a_pat,a_mat,nombre,clave) values('$rut','$apat','$amat','$nombre','$pass')");
+		return ($this->db->affected_rows() != 1) ? false : true;
 	}
+
+	//actualiza contraseña
+	public function updPass($rut,$pass){
+		$sql = $this->db->query("update Usuario set clave='$pass' where rut_num='$rut'");
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
+	//login
+	public function login($rut_num,$pass){
+		$sql = $this->db->query("SELECT * FROM Usuario WHERE rut_num='$rut_num' and clave='$pass'");
+
+		if ($sql->num_rows() > 0) {
+			return "si";
+		}else{
+			return "no";
+		}
+	}
+
+	//obtiene datos user
+	public function loginDatos($rut_num){
+		$sql = $this->db->query("SELECT a_pat FROM Usuario WHERE rut_num='$rut_num'");
+
+		if ($sql->num_rows() > 0) {
+			return $res = $sql->row();
+		}else{
+			return null;
+		}
+	}
+
 } 

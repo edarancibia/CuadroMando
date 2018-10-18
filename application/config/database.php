@@ -98,10 +98,10 @@ $db['default'] = array(
 $db['sicbo'] = array(
 	'dsn'	=> '',
 	'hostname' => '192.168.1.58,1433',
-	'username' => 'cal',
-	'password' => 'cal124536',
+	'username' => 'sa',
+	'password' => '1234536',
 	'database' => 'SICBONET',
-	'dbdriver' => 'sqlsrv',
+	'dbdriver' => 'mssql',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

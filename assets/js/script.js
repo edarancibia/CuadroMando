@@ -899,6 +899,7 @@ $(document).ready(function(){
 	});*/
 
 	//CREA NUEVO SERVICIO
+	$('#btnUnidad').prop( "disabled", true );
 	$('#btnUnidad').on('click',function(e){
 
 		if ($('#txtunidad').val().length < 1 ) {
@@ -910,6 +911,28 @@ $(document).ready(function(){
 		}
 
 	});
+
+	//busca si existe el usuario para asignar cargo
+	$("#txtrutrespcargo").keypress(function(e) {
+        if(e.which == 13) {
+          var rut_encargado = $('#txtrutrespcargo').val();
+
+          $.ajax({
+          	type: 'post',
+          	url: baseUrl + 'Registro/ValidateUser',
+          	data: {rut_encargado: rut_encargado},
+          	success: function(data){
+          		var obj = JSON.parse(data);
+          		//var ape1 = resp["a_pat"];
+          		console.log("dato: "+obj.encargado.a_pat);
+          		$('#txtnomrespcargo').val(obj.encargado.nombre+' '+ obj.encargado.a_pat+' '+obj.encargado.a_mat);
+          	},
+          		error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			},
+          });
+        }
+      });
 
 	$( function () { //DIALOG CONFIRM MODIFICA DATOS
 		$( "#dialog-confirmUnidad" ).dialog({
@@ -946,6 +969,11 @@ $(document).ready(function(){
 		});
 	});
 
+	//CREA CARGO Y RELACION CON UNIDAD
+	$('#txtrutrespcargo').keyup(function (){
+        this.value = (this.value + '').replace(/[^0-9]/g, '');
+      });
+
 	//EDITA UMBRAL DE INDICADORES
 	//lista indicador por unidad para editar
 	$('#btnEditIndex5').on('click', function(){
@@ -973,22 +1001,73 @@ $(document).ready(function(){
 	});
 
 	//NUEVO USUARIO
+	$('#txtrutUsernew').keyup(function (){
+        this.value = (this.value + '').replace(/[^0-9]/g, '');
+      });
+
 	$('#btnokUsernew').on('click', function(){
 		var rut = $('#txtrutUsernew').val();
 		var pass = $('#txtpassUsernew').val();
+		var apat = $('#txtuserapat').val();
+		var amat = $('#txtuseramat').val();
+		var nombre = $('#txtusernom').val();
 
+		//comprueba si usuario ya existe
 		$.ajax({
 			type: 'post',
-			url: baseUrl + 'Registro/AddUser',
-			data: {rut: rut, pass: pass},
-			success: function(){
-				toastr.success('Usuario creado exitosamente!');
+			url: baseUrl + 'Registro/ValidateUser',
+			data: {rut_encargado: rut},
+			success: function(data){
+				var obj = JSON.parse(data);
+          		//var ape1 = resp["a_pat"];
+          		$.ajax({
+						type: 'post',
+						url: baseUrl + 'Registro/AddUser',
+						data: {rut: rut,apat: apat, amat: amat, nombre: nombre, pass: pass},
+						success: function(){
+							toastr.success('Usuario creado exitosamente!');
+								$('#txtrutUsernew').val('');
+								$('#txtpassUsernew').val('');
+								$('#txtuserapat').val('');
+								$('#txtuseramat').val('');
+								$('#txtusernom').val('')
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown){
+							console.log(XMLHttpRequest);
+						}
+				});
+				
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				console.log(XMLHttpRequest);
 			}
 		});
-	}
+	});
+
+	//cambio de clave
+	$('#txtrutnuevapass').keyup(function (){
+        this.value = (this.value + '').replace(/[^0-9]/g, '');
+      });
+
+	$("#btnnuevapass").on('click',function(e) {
+          var rut_usuario = $('#txtrutnuevapass').val();
+          var nueva_pass = $('#txtnuevapass').val();
+
+          $.ajax({
+          	type: 'post',
+          	url: baseUrl + 'Registro/ChangePass',
+          	data: {rut_usuario: rut_usuario, nueva_pass: nueva_pass},
+          	success: function(data){
+          		toastr.success('Contraseña modificada exitosamente');
+          		$('#txtrutnuevapass').val('');
+          		$('#txtnuevapass').val('');
+          	},
+          		error: function(XMLHttpRequest, textStatus, errorThrown){
+				toastr.error('Algo salió mal, verifica los datos');
+				//console.log(XMLHttpRequest);
+			},
+          });
+      });
 
 });
 
