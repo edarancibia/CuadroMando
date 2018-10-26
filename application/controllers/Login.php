@@ -6,6 +6,7 @@ class Login extends CI_Controller{
 		parent::__construct();
 		$this->load->model('Login_model');
 		$this->load->model('Unidades_model');
+		$this->load->model('Indicadores_model');
 	}
 
 	public function Login(){
@@ -32,13 +33,24 @@ class Login extends CI_Controller{
 				$this->getNombreUsuario();
 				$this->session->set_userdata('rut',$rut_num);
 				$this->cabecera();
-				$this->load->view('inicio');
+				//$this->load->view('inicio');
+				$this->MisIndicadores();
 			}
 		}else{
 			echo "<script>alert('Usuario o contraseña incorrectos')</script>";
 			$this->load->view('template/header');
 			$this->load->view('login/login');
 		}
+	}
+
+	//metodo que busca Los indicadores asisgnados por unidad y usuario
+	public function MisIndicadores(){
+		$rut = $this->session->userdata('rut');
+		$data['indica'] = $this->Indicadores_model->getByUsuario($rut);
+		//$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
+
+		//$this->template();
+		$this->load->view('indicadores/indicadoresCargo',$data);
 	}
 
 	public function cabecera(){
@@ -50,7 +62,8 @@ class Login extends CI_Controller{
 		$rut_num = $this->input->post('rut');
 		//$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
 		//$result = $cliente->getNombre($rut_num);
-		$result = $this->Login_model->loginDatos($rut_num);
+		$resultObject = $this->Login_model->loginDatos($rut_num);
+		$result = $resultObject->nombre.' '.$resultObject->a_pat.' '.$resultObject->a_mat;
 		$this->session->set_userdata('user',$result);
 	}
 	

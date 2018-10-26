@@ -1,9 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Unidad extends CI_Model{
+class Unidad extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('Unidades_model');
+		$this->load->model('Cargos_model');
 	}
 
 	public function index(){
@@ -22,8 +23,13 @@ class Unidad extends CI_Model{
 		$email = $this->input->post('email');
 		$resp = $this->input->post('respCargo');
 		$perfil = $this->input->post('perfil');
-		$this->Unidades_model->insertUnidad($descrip);
+		$un = $this->Unidades_model->insertUnidad($descrip);
+		//echo $un;
 
+		$cargo = $this->Cargos_model->insertCargo($desCargo,$resp,$email,$perfil);
+		//echo "cargo:".$cargo;
+
+		$this->Cargos_model->cargoUnidad($cargo,$un);
 	}
 
 }

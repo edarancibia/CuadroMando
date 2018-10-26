@@ -898,12 +898,11 @@ $(document).ready(function(){
 		});
 	});*/
 
-	//CREA NUEVO SERVICIO
-	$('#btnUnidad').prop( "disabled", true );
+	//CREA NUEVO SERVICIO - - - - - -  - - - - - - - - -
 	$('#btnUnidad').on('click',function(e){
 
-		if ($('#txtunidad').val().length < 1 ) {
-			toastr.error('Ingrese nombre del servicio');
+		if ($('#txtunidad').val().length < 1 || $('#txtrescargo').val().length < 1 ) {
+			toastr.error('Complete todos los campos');
 			return false;
 		}else{
 			e.preventDefault();
@@ -924,7 +923,7 @@ $(document).ready(function(){
           	success: function(data){
           		var obj = JSON.parse(data);
           		//var ape1 = resp["a_pat"];
-          		console.log("dato: "+obj.encargado.a_pat);
+          		//console.log("dato: "+obj.encargado.a_pat);
           		$('#txtnomrespcargo').val(obj.encargado.nombre+' '+ obj.encargado.a_pat+' '+obj.encargado.a_mat);
           	},
           		error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -944,15 +943,24 @@ $(document).ready(function(){
 			    buttons: {
 			   	 "Guardar": function() {
 			   	 
+			   	 	var resp = $('#txtrutrespcargo').val();
 			   	 	var desc = $('#txtunidad').val();
+			   	 	var desCargo = $('#txtrescargo').val();
+			   	 	var email = $('#txtresmail').val();
+			   	 	var perfil = $('#cboPerfilUser').val();
 			   	 		
 			   	 		$.ajax({
 							type: 'post',
 							url: baseUrl + 'Unidad/Add',
-							data: {desc: desc},
-							success: function(){
+							data: {desc: desc,respCargo: resp,desCargo: desCargo,email:email,perfil:perfil},
+							success: function(d){
 								toastr.success('Servicio guardado exitosamente');
 								$('#txtunidad').val('');
+								$('#txtrutrespcargo').val('');
+						   	 	$('#txtrescargo').val('');
+						   	 	$('#txtresmail').val('');
+						   	 	$('#txtnomrespcargo').val('');
+
 							},
 							error: function(XMLHttpRequest, textStatus, errorThrown){
 								console.log(XMLHttpRequest);
@@ -1068,6 +1076,93 @@ $(document).ready(function(){
 			},
           });
       });
+
+	//modal editar umbral - - - -  -
+	$('#modalEditUmbral').on('shown.bs.modal', function (e){
+		var boton = e.relatedTarget;
+		var idIndicadorModalUmbral = $(boton).attr("data-id");
+
+		$('#txtidndicadorumbral').val(idIndicadorModalUmbral);
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Indicadores/GetUmbral',
+			data: {idIndicador: idIndicadorModalUmbral},
+			success: function(d){
+				var obj = JSON.parse(d);
+				$('#txtumbralactual').val(obj.umbral.umbralDesc);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				//toastr.error('Algo salió mal, verifica los datos');
+				console.log(XMLHttpRequest);
+			},
+		});
+	});
+
+	$('#btnEditUmbral').on('click', function(){
+		var idIndicador = $('#txtidndicadorumbral').val();
+		var umbral = $('#txtnuevoumbral').val();
+		var tipo = $('#cboTipoUmbral').val();
+		var umbralDesc = tipo + umbral;
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Indicadores/UpdateUmbral',
+			data: {idIndicador: idIndicador, umbral: umbral, umbralDesc: umbralDesc},
+			success: function(d){
+				toastr.success('Umbral actualizado exitosamente!');
+				$('#txtnuevoumbral').val('');
+				$('#modalEditUmbral').modal('hide');
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				//toastr.error('Algo salió mal, verifica los datos');
+				console.log(XMLHttpRequest);
+			},
+		});
+	});
+
+	//modifica usuario responsable de una unidad - - - -
+	$('#btnReemplaza').on('click', function(e){
+		e.preventDefault();
+		$('#dialog-confirmReemplaza').dialog("open");	
+	});
+
+	$( function () { //DIALOG CONFIRM MODIFICA DATOS
+		$( "#dialog-confirmReemplaza" ).dialog({
+			    resizable: false,
+			    autoOpen: false,
+			    height: "auto",
+			    width: 400,
+			    modal: true,
+			    buttons: {
+			   	 "Guardar": function() {
+			   	 
+			   	 	var rut_actual = $('#cboActual').val();
+			   	 	var rut_nuevo = $('#cboNuevo').val();
+			   	 		
+			   	 		$.ajax({
+							type: 'post',
+							url: baseUrl + 'Registro/Reemplazar2',
+							data: {rut_actual: rut_actual, rut_nuevo: rut_nuevo},
+							success: function(d){
+								toastr.success('Responsable modificado exitosamente');
+
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown){
+								console.log(XMLHttpRequest);
+							}
+						});
+
+			       	
+			        $( this ).dialog( "close" );
+			      },
+			       Cancelar: function() {
+			         $( this ).dialog( "close" );
+			       }
+			    }
+		});
+	});
+
 
 });
 

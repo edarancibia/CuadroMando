@@ -14,11 +14,11 @@
 			</tr>
 			<?php 
 
-			if (empty($indica)) {
+			if (empty($indicaReemplaza)) {
 				echo "<h3>Usted no tiene indicadores asignados en esta unidad.</h3>";
 			}else{
 				//$idUnidad = $_GET['idUnidad'];
-				foreach ($indica as $row) {
+				foreach ($indicaReemplaza as $row) {
 					echo "<tr>";
 					echo 	"<td width=100 style='display:none'>".$row['idUnidad']."</td>";
 					echo 	"<td width=100>".$row['unidad']."</td>";
@@ -71,7 +71,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="btnModalOk" id="btnModalOk" name="btnModalOk">Crear informe</button>
+        <button type="button" class="btn btn-primary" id="btnModalOkreemplazar" id="btnModalOkreemplazar" name="btnModalOk">Crear informe</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

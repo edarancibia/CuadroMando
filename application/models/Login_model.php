@@ -55,7 +55,7 @@ class Login_model extends CI_Model{
 
 	//obtiene datos user
 	public function loginDatos($rut_num){
-		$sql = $this->db->query("SELECT a_pat FROM Usuario WHERE rut_num='$rut_num'");
+		$sql = $this->db->query("SELECT * FROM Usuario WHERE rut_num='$rut_num'");
 
 		if ($sql->num_rows() > 0) {
 			return $res = $sql->row();
@@ -64,4 +64,20 @@ class Login_model extends CI_Model{
 		}
 	}
 
+	//update email al crear cargo
+	public function updEmail($rut,$email){
+		$sql = $this->db->query("update Usuario set email='$email' where rut_num = '$rut'");
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
+	//obtiene lista de todos los usuarios
+	public function getUsers(){
+		$sql = $this->db->query('SELECT * FROM Usuario order by a_pat');
+
+		if ($sql->num_rows() > 0) {
+			return $sql->result_array();
+		}else{
+			return null;
+		}
+	}
 } 

@@ -25,6 +25,11 @@ class Unidades_model extends CI_Model{
 	//nuevo
 	public function insertUnidad($desc){
 		$sql = $this->db->query("insert into Unidades(descripcion) values (UPPER('$desc'))");
+
+		$query = $this->db->query('SELECT LAST_INSERT_ID()');
+	    $row = $query->row_array();
+	    $LastIdInserted = $row['LAST_INSERT_ID()'];
+	    return $LastIdInserted;
 	}
 
 	//CARGA TODAS LAS UNIDADES DE LA TABLA PARA MOSTRARLOS EN HOME

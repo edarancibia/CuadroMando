@@ -26,7 +26,7 @@
 				     </select>
 				</div>
 			</div>
-			<?php $url2 = 'index.php/Indicadores/MisIndicadores?idUnidad=';?>
+			<?php $url2 = 'index.php/Welcome/home?idUnidad=';?>
 				<br>
 				<button type="submit" name="btnPeriodo" class="btn btn-success">Informe <i class="fa fa-file-text-o" aria-hidden="true"></i></button>
 				<a href='<?php echo base_url(). $url2 . $_REQUEST["idUnidad"]; ?>' class="btn btn-success">Volver atras <span class="glyphicon"><i class="fa fa-arrow-left" aria-hidden="true"></i></span></a> 

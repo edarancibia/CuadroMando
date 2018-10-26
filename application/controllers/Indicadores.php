@@ -415,6 +415,21 @@ class Indicadores extends CI_Controller
 		$this->load->view('supervisor/editIndicador',$data);
 	}
 
+	//obtiene umbral
+	public function GetUmbral(){
+		$idIndicador = $this->input->post('idIndicador');
+		$data['umbral'] = $this->Indicadores_model->getUmbral($idIndicador);
+		echo json_encode($data);
+	}
+
+	//actualiza umbral
+	public function UpdateUmbral(){
+		$idIndicador = $this->input->post('idIndicador');
+		$umbral = $this->input->post('umbral');
+		$umbralDesc = $this->input->post('umbralDesc');
+		$this->Indicadores_model->updUmbral($idIndicador,$umbral,$umbralDesc);
+	}
+
 }
 
 

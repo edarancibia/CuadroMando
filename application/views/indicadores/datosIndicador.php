@@ -34,7 +34,7 @@
 			$mes = $fecha['mon'];
 			$anio = $fecha['year'];
 			$nombreMes = '';
-			$url2 = 'index.php/Indicadores/MisIndicadores?idUnidad=';
+			$url2 = 'index.php/Welcome/home?idUnidad=';
 			
 			switch ($mes) {
 				case 1:

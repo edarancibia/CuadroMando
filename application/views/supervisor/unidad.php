@@ -6,7 +6,7 @@
 				<table class="table">
 					<tr>
 						<td><label>Nombre Servicio:</label></td>
-						<td><input type="text" name="txtunidad" id="txtunidad" class="form-control"> <br></td>
+						<td><input type="text" name="txtunidad" id="txtunidad" class="form-control" > <br></td>
 					</tr>
 					<tr>
 						<td>Rut Responsable:</td>
@@ -14,7 +14,14 @@
 					</tr>
 					<tr>
 						<td>Nombre Responsable:</td>
-						<td><input type="text" id="txtnomrespcargo" class="form-control"></td>
+						<td><input type="text" id="txtnomrespcargo" class="form-control" disabled="true"></td>
+					</tr>
+					<tr>
+						<td>Perfil:</td>
+						<td><select id="cboPerfilUser" class="form-control">
+							<option value="0">Encargado de calidad</option>
+							<option value="1">Supervisor</option>
+						</select></td>
 					</tr>
 					<tr>
 						<td>Cargo:</td>
@@ -25,7 +32,7 @@
 						<td><input type="text" id="txtresmail" class="form-control"></td>
 					</tr>
 					<tr>
-						<td><button type="button" id="btnUnidad" class="btn btn-success">Guardar</button></td>
+						<td><button type="button" id="btnUnidad" class="btn btn-success">Guardar nuevo</button></td>
 					</tr>
 				</table>
 			</div>
@@ -34,5 +41,8 @@
 
 			<div id="dialog-confirmUnidad" title="Guardando datos">
   				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea guardar el nuevo servicio?</p>
+			</div>
+			<div id="dialog-confirmUnidad2" title="Modificando datos">
+  				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea cambiar el responsable?</p>
 			</div>
 </div>

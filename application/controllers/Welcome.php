@@ -8,6 +8,8 @@ class Welcome extends CI_Controller {
 		$this->load->model('Ambitos');
 		$this->load->model('Caracteristicas');
 		$this->load->model('Unidades_model');
+		$this->load->model('Indicadores_model');
+		$this->load->model('Delegate_model');
 	}
 
 	public function index()
@@ -18,7 +20,32 @@ class Welcome extends CI_Controller {
 
 	public function home(){
 		$this->cabecera();
-		$this->load->view('inicio');
+		//$this->load->view('inicio');
+		$this->MisIndicadores();
+	}
+
+	//metodo que busca Los indicadores asisgnados por unidad y usuario
+	public function MisIndicadores(){
+		$rut = $this->session->userdata('rut');
+		$data['indica'] = $this->Indicadores_model->getByUsuario($rut);
+		//$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
+
+		//$this->template();
+		$this->load->view('indicadores/indicadoresCargo',$data);
+	}
+
+	//metodo que busca Los indicadores del usuario reemplazado
+	public function Reemplazando(){
+
+		$rut = $this->session->userdata('rut');
+		$reem = $this->Delegate_model->getDelegate($rut);
+		$to_user = $reem->to_user;
+		$data['indicaReemplaza'] = $this->Indicadores_model->getByUsuarioDelegate($to_user);
+		//$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
+
+		//$this->template();
+		$this->cabecera();
+		$this->load->view('encargado/reemplazar',$data);
 	}
 
 	public function logout(){

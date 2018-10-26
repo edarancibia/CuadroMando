@@ -226,6 +226,57 @@ class Indicadores_model extends CI_Model{
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
+	//obtiene umbral
+	public function getUmbral($idIndicador){
+		$sql = $this->db->query('SELECT umbralDesc FROM Indicadores where idIndicador='.$idIndicador.'');
+
+		if ($sql->num_rows() >0) {
+			return $sql->row();
+		}else{
+			return null;
+		}
+	}
+
+	//actualiza umbral
+	public function updUmbral($idIndicador,$umbral,$umbralDesc){
+		$sql = $this->db->query("update Indicadores set umbral='$umbral', umbralDesc='$umbralDesc' where idIndicador='$idIndicador'");
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
+	//get indicadores por usuario
+	public function getByUsuario($rut){
+		$sql = $this->db->query('SELECT b.idUnidad, a.idIndicador,b.descripcion as unidad, f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1 '.
+				'from Indicadores a,Unidades b, Cargos c,Rel_cargoIndicadores d,rel_indicadorUnidades e,Caracteristicas f '.
+				"WHERE c.fk_rut_num='$rut' AND c.idCargo=d.fk_idCargo 
+				AND a.idIndicador=d.fk_idIndicador
+				AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad 
+				AND f.idCaracteristica=a.fk_idCaracteristica
+				order by unidad asc");
+
+		if ($sql->num_rows() >0) {
+			return $sql->result_array();
+		}else{
+			return null;
+		}
+	}
+
+	//get indicadores por usuario delgate
+	public function getByUsuarioDelegate($to_user){
+		$sql = $this->db->query('SELECT b.idUnidad, a.idIndicador,b.descripcion as unidad, f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1 '.
+				'from Indicadores a,Unidades b, Cargos c,Rel_cargoIndicadores d,rel_indicadorUnidades e,Caracteristicas f '.
+				"WHERE c.fk_rut_num ='$to_user' AND c.idCargo=d.fk_idCargo 
+				AND a.idIndicador=d.fk_idIndicador
+				AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad 
+				AND f.idCaracteristica=a.fk_idCaracteristica
+				order by unidad asc");
+
+		if ($sql->num_rows() >0) {
+			return $sql->result_array();
+		}else{
+			return null;
+		}
+	}
+
 }
 
 

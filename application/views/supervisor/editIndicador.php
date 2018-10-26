@@ -37,25 +37,28 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Periodo</h4>
+        <h4 class="modal-title">Modificar umbral</h4>
       </div>
       <div class="modal-body">
-      <form method="post" action="<?php echo base_url('index.php/Indicadores/EditIndex2'); ?>">
-        <input type="text" name="txtidndicador" id="txtidndicador" class="form-control" style="display: none;">
+        <input type="text" name="txtidndicadorumbral" id="txtidndicadorumbral" class="form-control" >
+        Umbral actual:
+        <input type="text" name="txtumbralactual" id="txtumbralactual" class="form-control" disabled="true">
 
-			Año:
-			<select id="cboanio7" name="cboanio7" class="form-control">
-				<option value="2017">2017</option>
-				<option value="2018">2018</option>
-			</select>
+        Nuevo umbral:
+        <input type="text" name="txtnuevoumbral" id="txtnuevoumbral" class="form-control">
+
+        Tipo:
+        <select id="cboTipoUmbral" class="form-control">
+        	<option value=">=">>=</option>
+        	<option value="<="><=</option>
+        </select>
 
       </div>
       <div class="modal-footer">
-      	<button type="submit" class="btn btn-success">Aceptar</button>
+      	<button type="button" id="btnEditUmbral" class="btn btn-success">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
-    </form>
 
   </div>
 </div>
