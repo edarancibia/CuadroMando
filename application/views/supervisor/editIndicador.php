@@ -40,7 +40,7 @@
         <h4 class="modal-title">Modificar umbral</h4>
       </div>
       <div class="modal-body">
-        <input type="text" name="txtidndicadorumbral" id="txtidndicadorumbral" class="form-control" >
+        <input type="hidden" name="txtidndicadorumbral" id="txtidndicadorumbral" class="form-control" >
         Umbral actual:
         <input type="text" name="txtumbralactual" id="txtumbralactual" class="form-control" disabled="true">
 

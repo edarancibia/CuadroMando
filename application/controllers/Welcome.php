@@ -38,9 +38,9 @@ class Welcome extends CI_Controller {
 	public function Reemplazando(){
 
 		$rut = $this->session->userdata('rut');
-		$reem = $this->Delegate_model->getDelegate($rut);
-		$to_user = $reem->to_user;
-		$data['indicaReemplaza'] = $this->Indicadores_model->getByUsuarioDelegate($to_user);
+		//$reem = $this->Delegate_model->getDelegate($rut);
+		//$to_user = $reem->to_user;
+		$data['indicaReemplaza'] = $this->Indicadores_model->getByUsuarioDelegate($rut);
 		//$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
 
 		//$this->template();

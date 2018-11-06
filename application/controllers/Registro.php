@@ -7,6 +7,7 @@ class Registro extends CI_Controller{
 		$this->load->model('Unidades_model');
 		$this->load->model('Cargos_model');
 		$this->load->model('Delegate_model');
+		$this->load->model('Indicadores_model');
 	}
 
 	public function index(){
@@ -57,14 +58,21 @@ class Registro extends CI_Controller{
 		$data['users'] = $this->Login_model->getUsers();
 		$this->load->view('template/header');
 		$this->load->view('template/navSuper');
-		$this->load->view('supervisor/reemplazar',$data);
+		$this->load->view('supervisor/reemplazarUser',$data);
 	}
 
 	//llama vista reemplazar
-	public function Reemplazar2(){
+	public function ReemplazarLista(){
 		$rut_actual = $this->input->post('rut_actual');
+		$data['indicadores_reemplazar'] = $this->Indicadores_model->getByUsuario($rut_actual);
+		echo json_encode($data);
+	}
+
+	//Guarda relacion reemplazo usuario-indicador (delegate)
+	public function InsertDelegate_(){
 		$rut_nuevo = $this->input->post('rut_nuevo');
-		$this->Delegate_model->insertDelegate($rut_nuevo,$rut_actual);	
+		$idIndicador = $this->input->post('idIndicador');
+		$this->Delegate_model->InsertDelegate($idIndicador,$rut_nuevo);
 	}
 
 }

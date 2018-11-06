@@ -262,13 +262,16 @@ class Indicadores_model extends CI_Model{
 
 	//get indicadores por usuario delgate
 	public function getByUsuarioDelegate($to_user){
-		$sql = $this->db->query('SELECT b.idUnidad, a.idIndicador,b.descripcion as unidad, f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1 '.
-				'from Indicadores a,Unidades b, Cargos c,Rel_cargoIndicadores d,rel_indicadorUnidades e,Caracteristicas f '.
-				"WHERE c.fk_rut_num ='$to_user' AND c.idCargo=d.fk_idCargo 
-				AND a.idIndicador=d.fk_idIndicador
-				AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad 
-				AND f.idCaracteristica=a.fk_idCaracteristica
-				order by unidad asc");
+		$sql = $this->db->query('SELECT b.idUnidad, a.idIndicador,b.descripcion as unidad, 
+								f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1 
+								from Indicadores a,Unidades b,delegate d, rel_indicadorUnidades e,
+								Caracteristicas f '.
+								"WHERE d.to_user='$to_user'
+								AND a.idIndicador=d.idIndicador
+								AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad 
+								AND f.idCaracteristica=a.fk_idCaracteristica
+								order by unidad asc");
+		//$this->db->last_query();
 
 		if ($sql->num_rows() >0) {
 			return $sql->result_array();

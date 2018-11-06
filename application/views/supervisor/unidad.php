@@ -42,7 +42,4 @@
 			<div id="dialog-confirmUnidad" title="Guardando datos">
   				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea guardar el nuevo servicio?</p>
 			</div>
-			<div id="dialog-confirmUnidad2" title="Modificando datos">
-  				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Seguro que desea cambiar el responsable?</p>
-			</div>
 </div>

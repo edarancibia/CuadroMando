@@ -1123,43 +1123,47 @@ $(document).ready(function(){
 
 	//modifica usuario responsable de una unidad - - - -
 	$('#btnReemplaza').on('click', function(e){
-		e.preventDefault();
-		$('#dialog-confirmReemplaza').dialog("open");	
+		//e.preventDefault();
+		//$('#dialog-confirmReemplaza').dialog("open");
+		
+		var rut_actual = $('#cboActual').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Registro/ReemplazarLista',
+			data: {rut_actual: rut_actual},
+			success: function(d){
+				var data = JSON.parse(d);
+				//console.log(data);
+				$('#table-lista-reemplazo tr').remove();
+				$.each(data.indicadores_reemplazar, function(i, item){
+					$('<tr>').html(
+        				
+        				"<td>"+data.indicadores_reemplazar[i].Caracteristica+"</td><td>"+data.indicadores_reemplazar[i].unidad+"</td><td>"+ 
+        				data.indicadores_reemplazar[i].sub + "</td><td>" + data.indicadores_reemplazar[i].descripcion+
+        				"<td><button type='button' id='btnReem' data-id="+data.indicadores_reemplazar[i].idIndicador+" data-toggle='modal' data-target='#modalAsignaReemplazo' class='btn btn-info'>Modificar</button></td>").appendTo('#table-lista-reemplazo');
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});	
 	});
 
-	$( function () { //DIALOG CONFIRM MODIFICA DATOS
-		$( "#dialog-confirmReemplaza" ).dialog({
-			    resizable: false,
-			    autoOpen: false,
-			    height: "auto",
-			    width: 400,
-			    modal: true,
-			    buttons: {
-			   	 "Guardar": function() {
-			   	 
-			   	 	var rut_actual = $('#cboActual').val();
-			   	 	var rut_nuevo = $('#cboNuevo').val();
-			   	 		
-			   	 		$.ajax({
-							type: 'post',
-							url: baseUrl + 'Registro/Reemplazar2',
-							data: {rut_actual: rut_actual, rut_nuevo: rut_nuevo},
-							success: function(d){
-								toastr.success('Responsable modificado exitosamente');
+	$('#btnReemplazaOK').on('click', function(){
+		var idIndicador = $('#btnReem').data('id');
+		var rut_nuevo = $('#cboNuevoResp').val();
 
-							},
-							error: function(XMLHttpRequest, textStatus, errorThrown){
-								console.log(XMLHttpRequest);
-							}
-						});
-
-			       	
-			        $( this ).dialog( "close" );
-			      },
-			       Cancelar: function() {
-			         $( this ).dialog( "close" );
-			       }
-			    }
+		$.ajax({
+			type: 'post',
+			url: baseUrl+'Registro/InsertDelegate_',
+			data: {idIndicador: idIndicador, rut_nuevo: rut_nuevo},
+			success: function(){
+				$('#modalAsignaReemplazo').modal('hide');
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
 		});
 	});
 
