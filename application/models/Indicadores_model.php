@@ -260,16 +260,17 @@ class Indicadores_model extends CI_Model{
 		}
 	}
 
-	//get indicadores por usuario delgate
-	public function getByUsuarioDelegate($to_user){
+	//get indicadores por usuario nueva segun table rel_cargoIndicador
+	public function getByUsuarioNew($rut_res){
 		$sql = $this->db->query('SELECT b.idUnidad, a.idIndicador,b.descripcion as unidad, 
 								f.codigo Caracteristica,a.desc_subUn sub,a.descripcion,a.umbralDesc,a.formula1 
-								from Indicadores a,Unidades b,delegate d, rel_indicadorUnidades e,
+								from Indicadores a,Unidades b, Rel_cargoIndicadores c, rel_indicadorUnidades e,
 								Caracteristicas f '.
-								"WHERE d.to_user='$to_user'
-								AND a.idIndicador=d.idIndicador
-								AND a.idIndicador=e.fk_idIndicador AND b.idUnidad=e.fk_idUnidad 
+								"WHERE c.rut_res='$rut_res'
+								AND a.idIndicador=c.fk_idIndicador
 								AND f.idCaracteristica=a.fk_idCaracteristica
+								AND b.idUnidad=e.fk_idUnidad 
+								AND e.fk_idIndicador = a.idIndicador
 								order by unidad asc");
 		//$this->db->last_query();
 
@@ -278,6 +279,12 @@ class Indicadores_model extends CI_Model{
 		}else{
 			return null;
 		}
+	}
+
+	//UPD REL_CARGOINDICADOR
+	public function updateRelCagoIndicador($rut_res,$idIndicador){
+		$sql = $this->db->query("update Rel_cargoIndicadores set rut_res= '$rut_res' where fk_idIndicador= '$idIndicador'");
+		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
 }

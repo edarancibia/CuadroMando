@@ -38,7 +38,8 @@ class Indicadores extends CI_Controller
 	public function misIndicadores2(){
 		$rut = $this->session->userdata('rut');
 		$idUnidad = $_REQUEST['idUnidad'];
-		$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+		//$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+		$data['indica'] = $this->Indicadores_model->getByUsuarioNew($rut);
 		//$data['unidad'] = $idUnidad;
 		
 		if ($this->session->userdata('cargo') == 1) {
@@ -55,7 +56,8 @@ class Indicadores extends CI_Controller
 		$rut = $this->session->userdata('rut');
 		$idUnidad = $_REQUEST['idUnidad'];
 		$data['unidad'] = $idUnidad;
-		$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+		//$data['indica'] = $this->Indicadores_model->getByCargoYunidad($rut,$idUnidad);
+		$data['indica'] = $this->Indicadores_model->getByUsuarioNew($rut);
 		$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
 
 		$this->template();

@@ -64,7 +64,7 @@ class Registro extends CI_Controller{
 	//llama vista reemplazar
 	public function ReemplazarLista(){
 		$rut_actual = $this->input->post('rut_actual');
-		$data['indicadores_reemplazar'] = $this->Indicadores_model->getByUsuario($rut_actual);
+		$data['indicadores_reemplazar'] = $this->Indicadores_model->getByUsuarioNew($rut_actual);
 		echo json_encode($data);
 	}
 
@@ -72,7 +72,7 @@ class Registro extends CI_Controller{
 	public function InsertDelegate_(){
 		$rut_nuevo = $this->input->post('rut_nuevo');
 		$idIndicador = $this->input->post('idIndicador');
-		$this->Delegate_model->InsertDelegate($idIndicador,$rut_nuevo);
+		$this->Indicadores_model->updateRelCagoIndicador($rut_nuevo,$idIndicador);
 	}
 
 }

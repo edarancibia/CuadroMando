@@ -46,7 +46,7 @@ class Login extends CI_Controller{
 	//metodo que busca Los indicadores asisgnados por unidad y usuario
 	public function MisIndicadores(){
 		$rut = $this->session->userdata('rut');
-		$data['indica'] = $this->Indicadores_model->getByUsuario($rut);
+		$data['indica'] = $this->Indicadores_model->getByUsuarioNew($rut);
 		//$data['nomUnidad'] = $this->NombreUnidad($idUnidad);
 
 		//$this->template();
