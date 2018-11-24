@@ -17,7 +17,6 @@
 
 			<table class="table table-responsive table-hover table-striped header-fixed tabla-informe" id="table-lista-reemplazo">
 				<thead>
-
 				</thead>
 				<tbody>
 				</tbody>
@@ -37,6 +36,7 @@
         <h4 class="modal-title">Asignar nuevo responsable</h4>
       </div>
       <div class="modal-body">
+      		<input type="hidden" name="hiddenIndicador" id="hiddenIndicador">
 			<select id="cboNuevoResp" class="form-control">
 				<?php
 					foreach ($users as  $item)

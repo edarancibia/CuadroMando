@@ -24,6 +24,36 @@
 					<td>Contraseña:</td>
 					<td><input type="text" name="txtpassUsernew" id="txtpassUsernew" class="form-control"></td>
 				</tr>
+
+				<tr>
+						<td>Perfil:</td>
+						<td><select id="cboPerfilUser" class="form-control">
+							<option value="0">Encargado de calidad</option>
+							<option value="1">Supervisor</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Cargo:</td>
+						<td><input type="text" id="txtrescargo" class="form-control"></td>
+					</tr>
+					<tr>
+						<td>Email:</td>
+						<td><input type="text" id="txtresmail" class="form-control"></td>
+					</tr>
+
+				<tr>
+					<td>Servicio:</td>
+						<td>
+						
+							<select id="cboUnidad" class="form-control">
+								<?php
+									foreach ($unidadesUser as $item) {
+										echo '<option value="'.$item->idUnidad.'">'.$item->descripcion.'</option>';
+									}
+								?>
+							</select>
+						</td>
+					</tr>
 				<tr>
 					<td><button type="button" class="btn btn-success" id="btnokUsernew">Aceptar</button></td>
 				</tr>

@@ -29,7 +29,18 @@ class Registro extends CI_Controller{
 		$amat = $this->input->post('amat');
 		$nombre = $this->input->post('nombre');
 		$pass = $this->input->post('pass');
+
+		$perfil = $this->input->post('perfil');
+		$email = $this->input->post('email');
+		$unidad = $this->input->post('unidad');
+		$cargo = $this->input->post('cargo');
+
 		$this->Login_model->insertUser($rut,$apat,$amat,$nombre,$pass);
+
+		$idcargo = $this->Cargos_model->insertCargo($cargo,$rut,$email,$perfil);
+
+		$this->Cargos_model->cargoUnidad($idcargo,$unidad);
+
 	}
 
 	//comprueba si existe el usuario y busca sus datos al presionar enter
@@ -72,7 +83,9 @@ class Registro extends CI_Controller{
 	public function InsertDelegate_(){
 		$rut_nuevo = $this->input->post('rut_nuevo');
 		$idIndicador = $this->input->post('idIndicador');
-		$this->Indicadores_model->updateRelCagoIndicador($rut_nuevo,$idIndicador);
+		$data = $this->Indicadores_model->getCargo($rut_nuevo);
+		$idCargo = $data->idCargo;
+		$this->Indicadores_model->updateRelCagoIndicador($rut_nuevo,$idIndicador,$idCargo);
 	}
 
 }

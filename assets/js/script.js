@@ -100,18 +100,40 @@ $(document).ready(function(){
 				url: baseUrl+'Indicadores/validateDate',
 				data: {periodo: periodo, idIndicador: indicador},
 				success: function(data){
-					//console.log('validacion '+data);
+					console.log('validacion '+data);
 					if (data == 1) {
 						//console.log('No se puede');
 						$("#txtvalor1").attr('disabled','disabled');
 						$("#txtvalor2").attr('disabled','disabled');
 						$("#btnGuadar").attr('disabled','disabled');
 						toastr.warning('Ya existen datos para este periodo');
+
+						$.ajax({
+							type: 'post',
+							url: baseUrl+'Indicadores/GetDatosMes',
+							data: {periodo: periodo, idIndicador: indicador},
+							success: function(data){
+								var obj = JSON.parse(data);
+								var num = obj.datosPer[0].numerador;
+								var den = obj.datosPer[0].denominador;
+								var res = obj.datosPer[0].resultado;
+								$("#txtvalor1").val(num);
+								$("#txtvalor2").val(den);
+								$('#txtresultado').val(res);
+								//console.log('numerador: '+num);
+							},
+							error: function(){
+								console.log('error al obtener datos del periodo');
+							}
+						});
 					}else{
 						$("#txtvalor1").attr('disabled',false);
 						$("#txtvalor2").attr('disabled',false);
 						$("#btnGuadar").attr('disabled',false);
 						//console.log('Si se puede');
+						$('#txtvalor1').val('');
+						$('#txtvalor2').val('');
+						$('#txtresultado').val('');
 						$('#txtvalor1').focus();
 					}
 				},
@@ -901,13 +923,9 @@ $(document).ready(function(){
 	//CREA NUEVO SERVICIO - - - - - -  - - - - - - - - -
 	$('#btnUnidad').on('click',function(e){
 
-		if ($('#txtunidad').val().length < 1 || $('#txtrescargo').val().length < 1 ) {
-			toastr.error('Complete todos los campos');
-			return false;
-		}else{
 			e.preventDefault();
 			$('#dialog-confirmUnidad').dialog("open");	
-		}
+		
 
 	});
 
@@ -1019,6 +1037,10 @@ $(document).ready(function(){
 		var apat = $('#txtuserapat').val();
 		var amat = $('#txtuseramat').val();
 		var nombre = $('#txtusernom').val();
+		var perfil = $('#cboPerfilUser').val();
+		var cargo = $('#txtrescargo').val();
+		var email = $('#txtresmail').val();
+		var unidad = $('#cboUnidad').val();
 
 		//comprueba si usuario ya existe
 		$.ajax({
@@ -1031,14 +1053,16 @@ $(document).ready(function(){
           		$.ajax({
 						type: 'post',
 						url: baseUrl + 'Registro/AddUser',
-						data: {rut: rut,apat: apat, amat: amat, nombre: nombre, pass: pass},
+						data: {rut: rut,apat: apat, amat: amat, nombre: nombre, pass: pass,perfil:perfil,email:email,unidad:unidad,cargo:cargo},
 						success: function(){
 							toastr.success('Usuario creado exitosamente!');
 								$('#txtrutUsernew').val('');
 								$('#txtpassUsernew').val('');
 								$('#txtuserapat').val('');
 								$('#txtuseramat').val('');
-								$('#txtusernom').val('')
+								$('#txtusernom').val('');
+								$('#txtrescargo').val('');
+								$('#txtresmail').val('');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown){
 							console.log(XMLHttpRequest);
@@ -1141,7 +1165,7 @@ $(document).ready(function(){
         				
         				"<td>"+data.indicadores_reemplazar[i].Caracteristica+"</td><td>"+data.indicadores_reemplazar[i].unidad+"</td><td>"+ 
         				data.indicadores_reemplazar[i].sub + "</td><td>" + data.indicadores_reemplazar[i].descripcion+
-        				"<td><button type='button' id='btnReem' data-id="+data.indicadores_reemplazar[i].idIndicador+" data-toggle='modal' data-target='#modalAsignaReemplazo' class='btn btn-info'>Modificar</button></td>").appendTo('#table-lista-reemplazo');
+        				"<td><button type='button' data-id="+data.indicadores_reemplazar[i].idIndicador+" data-toggle='modal' data-target='#modalAsignaReemplazo' class='btn btn-info'>Modificar</button></td>").appendTo('#table-lista-reemplazo');
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -1150,24 +1174,29 @@ $(document).ready(function(){
 		});	
 	});
 
-	$('#btnReemplazaOK').on('click', function(){
-		var idIndicador = $('#btnReem').data('id');
-		var rut_nuevo = $('#cboNuevoResp').val();
+	$('#modalAsignaReemplazo').on('shown.bs.modal', function (e){
+		var boton = e.relatedTarget;
+		var idIndicador = $(boton).attr("data-id");
+		$('#hiddenIndicador').val(idIndicador);
 
-		$.ajax({
-			type: 'post',
-			url: baseUrl+'Registro/InsertDelegate_',
-			data: {idIndicador: idIndicador, rut_nuevo: rut_nuevo},
-			success: function(){
-				$('#modalAsignaReemplazo').modal('hide');
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown){
-				console.log(XMLHttpRequest);
-			}
+		$('#btnReemplazaOK').on('click', function(){
+			var rut_nuevo = $('#cboNuevoResp').val();
+			//var indicador2 = $('#hiddenIndicador').val(idIndicador);
+
+			$.ajax({
+				type: 'post',
+				url: baseUrl+'Registro/InsertDelegate_',
+				data: {idIndicador: idIndicador, rut_nuevo: rut_nuevo},
+				success: function(){
+					toastr.success('Indicador transferido exitosamente!');
+					$('#modalAsignaReemplazo').modal('hide');
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					console.log(XMLHttpRequest);
+				}
+			});
 		});
 	});
-
-
 });
 
 

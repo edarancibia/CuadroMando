@@ -123,6 +123,14 @@ class Indicadores extends CI_Controller
 		print_r($this->Indicadores_model->validaFecha($idIndicador,$periodo));
 	}
 
+	//- - -obtiene datos x mes
+	public function GetDatosMes(){  
+		$idIndicador = $_POST['idIndicador'];
+		$periodo = $this->input->post('periodo');
+		$data['datosPer'] = $this->Indicadores_model->getDatosPeriodo($idIndicador,$periodo);
+		echo json_encode($data);
+	}
+
 	//OBTIENE NOMBRE DEL AMBITO SELECCIONADO
 	public function NombreAmbito($idAmbito){
 		$amb = $this->Ambitos->getById($idAmbito);

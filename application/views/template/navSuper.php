@@ -23,7 +23,7 @@
             <li><a href="<?php echo base_url('index.php/Indicadores/mantencion')?>">Nuevo indicador</a></li>
             <li><a href="<?php echo base_url('index.php/Indicadores/editIndicador')?>">Modificar indicador</a></li>
             <li><a href="<?php echo base_url('index.php/Indicadores/EditIndex')?>">Modificar datos</a></li>
-            <li><a href="<?php echo base_url('index.php/Unidad/')?>">Administrar Servicios</a></li>
+            <li><a href="<?php echo base_url('index.php/Unidad/')?>">Nuevo Servicio</a></li>
             <li><a href="<?php echo base_url('index.php/Registro/')?>">Nuevo Usuario</a></li>
             <li><a href="<?php echo base_url('index.php/Registro/Reemplazar/')?>">Reemplazar Usuario</a></li>
             <li><a href="<?php echo base_url('index.php/Registro/Restablecer')?>">Restablecer contraseña</a></li>

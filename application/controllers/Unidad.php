@@ -19,17 +19,8 @@ class Unidad extends CI_Controller{
 
 	public function Add(){
 		$descrip = $this->input->post('desc');
-		$desCargo = $this->input->post('desCargo');
-		$email = $this->input->post('email');
 		$resp = $this->input->post('respCargo');
-		$perfil = $this->input->post('perfil');
-		$un = $this->Unidades_model->insertUnidad($descrip);
-		//echo $un;
-
-		$cargo = $this->Cargos_model->insertCargo($desCargo,$resp,$email,$perfil);
-		//echo "cargo:".$cargo;
-
-		$this->Cargos_model->cargoUnidad($cargo,$un);
+		$this->Unidades_model->insertUnidad($descrip);
 	}
 
 }

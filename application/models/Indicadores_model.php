@@ -90,6 +90,17 @@ class Indicadores_model extends CI_Model{
 		}
 	}
 
+	//OBTIENE DATOS INGRESADOS POR PERIODO
+	public function getDatosPeriodo($idIndicador,$periodo){
+		$query = $this->db->query('SELECT * FROM IndicadorDatos WHERE fk_idIndicador='.$idIndicador.' AND periodo='.$periodo.'');
+		
+		if (empty($query->result_array())) {
+			return false;
+		}else{
+			return $query->result_array();
+		}
+	}
+
 	//BUSCA Y MUESTRA LISTADO DE INDICADORES Y SUS DATOS MENSUALES Y TRIMESTRALES POR AMBITO
 	public function getByAmbito($idAmbito,$anio,$desde,$hasta){
 		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,c.idAmbito,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,round((SUM(d.denominador)/sum(d.numerador)*100)) as res,
@@ -281,9 +292,20 @@ class Indicadores_model extends CI_Model{
 		}
 	}
 
+	//get cargo del usuario responsable del indicador
+	public function getCargo($rut_res){
+		$sql = $this->db->query('select * from Cargos where fk_rut_num= '.$rut_res.'');
+
+		if ($sql->num_rows() >0) {
+			return $sql->row();
+		}else{
+			return null;
+		}
+	}
+
 	//UPD REL_CARGOINDICADOR
-	public function updateRelCagoIndicador($rut_res,$idIndicador){
-		$sql = $this->db->query("update Rel_cargoIndicadores set rut_res= '$rut_res' where fk_idIndicador= '$idIndicador'");
+	public function updateRelCagoIndicador($rut_res,$idIndicador,$idCargo){
+		$sql = $this->db->query("update Rel_cargoIndicadores set rut_res= '$rut_res', fk_idCargo= '$idCargo' where fk_idIndicador= '$idIndicador'");
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 

@@ -16,21 +16,7 @@
 						<td>Nombre Responsable:</td>
 						<td><input type="text" id="txtnomrespcargo" class="form-control" disabled="true"></td>
 					</tr>
-					<tr>
-						<td>Perfil:</td>
-						<td><select id="cboPerfilUser" class="form-control">
-							<option value="0">Encargado de calidad</option>
-							<option value="1">Supervisor</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td>Cargo:</td>
-						<td><input type="text" id="txtrescargo" class="form-control"></td>
-					</tr>
-					<tr>
-						<td>Email:</td>
-						<td><input type="text" id="txtresmail" class="form-control"></td>
-					</tr>
+					
 					<tr>
 						<td><button type="button" id="btnUnidad" class="btn btn-success">Guardar nuevo</button></td>
 					</tr>
