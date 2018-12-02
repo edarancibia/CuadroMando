@@ -232,8 +232,8 @@ class Indicadores_model extends CI_Model{
 	}
 
 	//modifica datos de evalucion de indicador
-	public function editaDatos($idIndicador,$periodo,$numerador,$denominador){
-		$sql = $this->db->query('UPDATE IndicadorDatos SET numerador='.$numerador.',denominador='.$denominador.' WHERE fk_idIndicador='.$idIndicador.' AND periodo='.$periodo.'');
+	public function editaDatos($idIndicador,$periodo,$numerador,$denominador,$fecha){
+		$sql = $this->db->query("UPDATE IndicadorDatos SET numerador='$numerador',denominador='$denominador', fecha='$fecha' WHERE fk_idIndicador='$idIndicador' AND periodo='$periodo'");
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 

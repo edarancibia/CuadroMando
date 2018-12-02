@@ -813,8 +813,8 @@ $(document).ready(function(){
         				"&trimestre="+cuarto+"&anio="+anio+"&idUnidad="+idUnidad+"&rut="+data.lista[i].rut+
         				" target='blank' class='btn btn-danger'><i class='fa fa-print' aria-hidden='true'></i></a></td>"+
         				"<td><a href="+baseUrl+"Informe/UpdateReport?idIndicador="+data.lista[i].idIndicador+
-        				"&trimestre="+cuarto+"&anio="+anio+"&idUnidad="+idUnidad+"&rut="+data.lista[i].rut + 
-        				" class='btn btn-primary'>Editar <i class='fa fa-pencil' aria-hidden='true'></a></td>").appendTo('#table-reports');
+        				"&trimestre="+cuarto+"&anio="+anio+"&idUnidad="+idUnidad+"&rut="+data.lista[i].rut + ' '+
+        				" target='blank' class='btn btn-primary'>Editar <i class='fa fa-pencil' aria-hidden='true'></a></td>").appendTo('#table-reports');
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -1197,6 +1197,62 @@ $(document).ready(function(){
 			});
 		});
 	});
+
+
+	//carga modal para editar datos del indicador
+	$('#modalEdit').on('shown.bs.modal', function () {
+  		var idIndicador_ = $('#txtidndicador').val();
+  		var periodo_ = $('#cboanio7').val()+$('#cbomes2').val();
+  		$('#txtperiodo4').val(periodo_);
+
+  		$.ajax({
+			type: 'post',
+			url: baseUrl+'Indicadores/EditIndex2',
+			data: {idIndicador: idIndicador_, periodo: periodo_},
+			success: function(d){
+				var data = JSON.parse(d);
+				
+				$('#txtCarac').val(data.info.cod_c);
+				$('#txtIdIndicador3').val(data.info.descripcion);
+				$('#txtfecha').val(data.info.fecha);
+				$('#txtformula1_').val(data.info.formula1);
+				$('#txtformula2_').val(data.info.formula2);
+				$('#txtf1').val(data.info.denominador);
+				$('#txtf2').val(data.info.numerador);
+				
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+		});
+	});
+
+	$('#btnEditaDatos').on('click', function(){
+		
+		var numerador = $('#txtf1').val();
+		var denominador = $('#txtf2').val();
+		var idIndicador = $('#txtidndicador').val();
+		var periodo = $('#txtperiodo4').val();
+		var fecha = $('#txtfecha_n').val();
+
+		//con decimales
+		var roundNum2 = numerador;
+		var roundDen2 = denominador;
+			   	 		
+		$.ajax({
+			type: 'post',
+			url: baseUrl + 'Indicadores/Edit',
+			data: {idIndicador: idIndicador, numerador: roundDen2,denominador: roundNum2,periodo: periodo,fecha: fecha},
+			success: function(){
+				toastr.success('Datos modificados exitosamente');
+				$('#modalEdit').modal('hide');
+			},
+			error: function(){
+				console.log('error ajax al modificar datos');
+			}
+		});
+	});
+
 });
 
 

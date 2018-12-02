@@ -14,6 +14,9 @@
 					<td><?php echo $info->descripcion; ?></td>
 				</tr>
 				<tr>
+					<td>Fecha:</td>
+				</tr>
+				<tr>
 					<td>Fórmula: </td>
 					<td><?php echo $info->formula1; ?></td>
 					<td><input type="text" name="txtf1" id="txtf1" class="form-control" value="<?php echo $info->denominador; ?>"></td>

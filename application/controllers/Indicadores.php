@@ -369,21 +369,21 @@ class Indicadores extends CI_Controller
 
 	//llama vista para modificar datos de evaluaciones de indicadores
 	public function EditIndex2(){
-		$idIndicador = $_REQUEST['txtidndicador'];
-		$mes = $_REQUEST['cbomes2'];
-		$anio = $_REQUEST['cboanio7'];
+		$idIndicador = $_REQUEST['idIndicador'];
+		//$mes = $_REQUEST['cbomes2'];
+		//$anio = $_REQUEST['cboanio7'];
 		//$idUnidad = $_REQUEST['idUnidad'];
-		$periodo = $anio.$mes;
+		$periodo = $_REQUEST['periodo'];
 
 		$data['info'] = $this->Indicadores_model->getDataIndicador($idIndicador,$periodo);
-		//echo json_encode($data);
-		if (empty($data['info'])) {
+		echo json_encode($data);
+		/*if (empty($data['info'])) {
 			echo "<script>alert('no hay datos')
 					history.go(-1);</script>";
 		}else{
 			$this->templateSupervisor();
 			$this->load->view('supervisor/editaDatos',$data);
-		}
+		}*/
 	}
 
 	//llama vista index de lista de indicadores para editar datos mensuales
@@ -415,7 +415,8 @@ class Indicadores extends CI_Controller
 		$periodo = $_REQUEST['periodo'];
 		$numerador = $this->input->post('denominador'); //aqui denominador de num erador estan invertidos
 		$denominador = $this->input->post('numerador');
-		$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador);
+		$fecha = $this->input->post('fecha');
+		$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador,$fecha);
 	}
 
 	//llama vista index de lista de indicadores para editar datos mensuales
