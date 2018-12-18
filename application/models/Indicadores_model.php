@@ -309,6 +309,17 @@ class Indicadores_model extends CI_Model{
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
+	//obtiene timpo de formula
+	public function getTipoformula($idIndicador){
+		$sql = $this->db->query('select idIndicador,umbralDesc from Indicadores where idIndicador = '.$idIndicador.'');
+
+		if ($sql->num_rows() >0) {
+			return $sql->row();
+		}else{
+			return null;
+		}
+	}
+
 }
 
 

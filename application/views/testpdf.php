@@ -118,7 +118,7 @@ II. INFORMACIÓN MEDICIÓN DEL INDICADOR <br><br>
 	</tr>
 	<tr>
 		<td>Resultado:</td>
-		<td>$datos->resultadoDet</td>
+		<td>$datos2->denominadores / $datos2->numeradores = $datos2->res %</td>
 	</tr>
 	<tr>
 		<td>Umbral de cumplimiento:</td>

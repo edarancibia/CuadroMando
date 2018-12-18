@@ -18,11 +18,12 @@
 				</tr>
 				<tr>
 					<td>Fecha del informe:</td>
-					<td><?= $datos->fecha; ?></td>
+					<td><input type="text" id="txtfechaInforme2" class="form-control" value="<?= $datos->fecha; ?>" readonly></td>
+					<td><input type="date" id="txtfechaInforme" class="form-control"></td>
 				</tr>
 				<tr>
 					<td>Responsable:</td>
-					<td><?php echo $this->session->userdata('user'); ?></td>
+					<td><?php echo $resp; //$this->session->userdata('user'); ?></td>
 				</tr>
 			</table>
 
@@ -44,7 +45,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado_" id="txtresultado_" class="form-control tabla-informe" value="<?php echo $datos->resultadoDet;?>" >
+						<input type="text" name="txtresultado_" id="txtresultado_" class="form-control tabla-informe" value="<?= $datos2->denominadores. ' / '.$datos2->numeradores.' = '. intval($datos2->res).'%';?>" >
 					</td>
 				</tr>
 				<tr>
@@ -68,7 +69,7 @@
 			<div>
 				<button type="button" class="btn btn-success" id="btnModInforme">Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				
-				<button type="button" class="btn btn-success" id="btnVolver">Volver Atrás <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+				<!--<button type="button" class="btn btn-success" id="btnVolver">Volver Atrás <i class="fa fa-arrow-left" aria-hidden="true"></i></button>-->
 			
 			</div>
 		</div>

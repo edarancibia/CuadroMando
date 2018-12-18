@@ -441,6 +441,13 @@ class Indicadores extends CI_Controller
 		$this->Indicadores_model->updUmbral($idIndicador,$umbral,$umbralDesc);
 	}
 
+	//obtiene timpo de formula
+	public function getFormula(){
+		$idIndicador = $this->input->post('idIndicador');
+		$data['form'] = $this->Indicadores_model->getTipoformula($idIndicador);
+		echo json_encode($data);
+	}
+
 }
 
 

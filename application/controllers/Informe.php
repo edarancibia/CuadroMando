@@ -146,10 +146,15 @@ class Informe extends CI_Controller{
 		$usuario = $this->session->userdata('user');
 		$cuarto = $_REQUEST['cuarto'];
 		$periodo = $cuarto.$anio;
+		$desde;
+		$hasta;
+
+		list($desde,$hasta) = $this->desdeHasta($cuarto,$anio);
 		//list($desde,$hasta) = $this->desdeHasta($cuarto, $anio);
 		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
 		$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
 		$data['resp'] = $usuario;
+		$data['datos2'] = $this->IndicadorInforme->getDatosByIndicadorYPerido($idIndicador,$desde,$hasta);
 
 		if ($data['datos'] != null) {
 			$this->load->view('testpdf',$data);
@@ -188,8 +193,18 @@ class Informe extends CI_Controller{
 		$idUnidad = $_REQUEST['idUnidad'];
 		$periodo = $cuarto.$anio;
 		$rut_num = $_REQUEST['rut'];
+
+		$desde;
+		$hasta;
+		$m1;
+		$m2;
+		$m3;
+
+		list($desde,$hasta) = $this->desdeHasta($cuarto,$anio);
+
 		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
 		$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
+		$data['datos2'] = $this->IndicadorInforme->getDatosByIndicadorYPerido($idIndicador,$desde,$hasta);
 
 		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
 		$data['resp'] = $cliente->getNombre($rut_num);
@@ -209,14 +224,21 @@ class Informe extends CI_Controller{
 		$idUnidad = $_REQUEST['idUnidad'];
 		$periodo = $cuarto.$anio;
 		$data['periodo'] = $periodo;
+		$desde;
+		$hasta;
 
-		$rut_num = $_REQUEST['rut'];
+		list($desde,$hasta) = $this->desdeHasta($cuarto,$anio);
+
+		//$rut_num = $_REQUEST['rut'];
 		$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
 		$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
 		$data['caracteristica'] = $this->Indicadores_model->getById($idIndicador);
+		$data['datos2'] = $this->IndicadorInforme->getDatosByIndicadorYPerido($idIndicador,$desde,$hasta);
 
+		$rut_res2 = $this->IndicadorInforme->getNomResp($idIndicador);
+		$rut_ = $rut_res2->rut_res;
 		$cliente = new SoapClient('http://192.168.1.51/earancibia/pruebaws/personal.php?wsdl');
-		$data['resp'] = $cliente->getNombre($rut_num);
+		$data['resp'] = $cliente->getNombre($rut_);
 
 		if ($data['datos'] != null) {
 			$this->load->view('template/header');
@@ -232,14 +254,14 @@ class Informe extends CI_Controller{
 	public function UpdateReport2(){
 		$idIndicador = $_REQUEST['idIndicador'];
 		//$cuarto = $_REQUEST['trimestre'];
-		//$anio = $_REQUEST['anio'];
+		$fecha = $this->input->post('fecha');
 		$periodo = $this->input->post('periodo');
 		$resultado = $this->input->post('resultado');
 		$periodoDet = $this->input->post('periodoDet');
 		$comentario = $this->input->post('comentarios');
 		$plan = $this->input->post('plan');
 
-		$this->IndicadorInforme->editaInforme($idIndicador,$periodo,$resultado,$comentario,$plan,$periodoDet);
+		$this->IndicadorInforme->editaInforme($idIndicador,$periodo,$resultado,$comentario,$plan,$periodoDet,$fecha);
 	}
 
 }

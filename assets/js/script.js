@@ -100,7 +100,7 @@ $(document).ready(function(){
 				url: baseUrl+'Indicadores/validateDate',
 				data: {periodo: periodo, idIndicador: indicador},
 				success: function(data){
-					console.log('validacion '+data);
+					//console.log('validacion '+data);
 					if (data == 1) {
 						//console.log('No se puede');
 						$("#txtvalor1").attr('disabled','disabled');
@@ -117,8 +117,8 @@ $(document).ready(function(){
 								var num = obj.datosPer[0].numerador;
 								var den = obj.datosPer[0].denominador;
 								var res = obj.datosPer[0].resultado;
-								$("#txtvalor1").val(num);
-								$("#txtvalor2").val(den);
+								$("#txtvalor1").val(den);
+								$("#txtvalor2").val(num);
 								$('#txtresultado').val(res);
 								//console.log('numerador: '+num);
 							},
@@ -178,6 +178,9 @@ $(document).ready(function(){
 					var roundDen = Math.round(denominador);
 					var roundNum = Math.round(numerador);
 
+					var roundDen = denominador;
+					var roundNum = numerador;
+
 					if (parsedNum == 0) {
 						parsedDen = 0
 						parsedNum = 0;
@@ -199,14 +202,36 @@ $(document).ready(function(){
 
 						//var res = denominador/numerador*100;
 						if (parsedRes == 0) {
-							var roundRes = 0;
+							//var roundRes = 0;
+							var roundRes2 = denominador/numerador *100;
+							//var roundRes = roundRes2.toFixed(2);
+							var roundRes = Math.round(res);
+							
 						}else{
 							var res = roundDen/roundNum*100;
 							var roundRes =	Math.round(res);
+							//var roundRes =	res;
+							
 						}
 
-
 						//console.log('numerador='+roundDen+ ' '+'denominador='+roundNum+ 'resultado='+roundRes);
+
+						/*$.ajax({
+							type: 'post',
+							url: baseUrl+'Indicadores/getFormula',
+							data: {idIndicador: indicador},
+							success: function(d){
+								var obj = JSON.parse(d);
+								var formula = obj.form.umbralDesc;
+								$('#txtresultado').val(roundRes+'%');
+								if (formula.contains('<')) {
+									console.log('es menos o igual');
+								}
+							},
+							error: function(){
+								console.log('error al obtener formula');
+							}
+						});*/
 
 						$.ajax({
 							type: 'post',
@@ -867,13 +892,20 @@ $(document).ready(function(){
 		var comentarios = document.getElementById("comentarios_").value;
 		var plan2 = document.getElementById("plan_").value;
 		var resultado = $('#txtresultado_').val();
+		var fecha; 
+
+		if($('#txtfechaInforme').val() === ''){
+			fecha = $('#txtfechaInforme2').val();
+		}else{
+			fecha = $('#txtfechaInforme').val();
+		}
 
 		//console.log(idIndicador+' '+periodo+' '+periodoDet+' '+resultado+' '+comentarios+' '+plan2);
 
 		$.ajax({
 			type: 'post',
 			url: baseUrl + 'Informe/UpdateReport2',
-			data: {idIndicador: idIndicador, periodo: periodo, periodoDet: periodoDet, resultado: resultado, comentarios: comentarios,plan: plan2},
+			data: {idIndicador: idIndicador, periodo: periodo, periodoDet: periodoDet, resultado: resultado, comentarios: comentarios,plan: plan2, fecha: fecha},
 			success: function(){
 				//console.log(idIndicador+' '+periodo+' '+periodoDet+' '+resultado+' '+comentarios+' '+plan);
 				toastr.success('Informe modificado exitosamente!');
@@ -1229,8 +1261,8 @@ $(document).ready(function(){
 
 	$('#btnEditaDatos').on('click', function(){
 		
-		var numerador = $('#txtf1').val();
-		var denominador = $('#txtf2').val();
+		var numerador = $('#txtf2').val();
+		var denominador = $('#txtf1').val();
 		var idIndicador = $('#txtidndicador').val();
 		var periodo = $('#txtperiodo4').val();
 		var fecha = $('#txtfecha_n').val();

@@ -74,9 +74,19 @@ class IndicadorInforme extends CI_Model{
 	}
 
 	//modifica datos del informe del indicador
-	public function editaInforme($idIndicador,$periodo,$resultadoDet,$comentarios,$plan,$periodoDet){
-		$sql = $this->db->query("UPDATE IndicadorInformes SET resultadoDet = '$resultadoDet', periodoDet='$periodoDet', comentarios='$comentarios', plan='$plan' WHERE fk_idIndicador='$idIndicador' AND periodo='$periodo'");
+	public function editaInforme($idIndicador,$periodo,$resultadoDet,$comentarios,$plan,$periodoDet,$fecha){
+		$sql = $this->db->query("UPDATE IndicadorInformes SET resultadoDet = '$resultadoDet', periodoDet='$periodoDet', comentarios='$comentarios', plan='$plan', fecha='$fecha' WHERE fk_idIndicador='$idIndicador' AND periodo='$periodo'");
 		return ($this->db->affected_rows() != 1) ? false : true;
+	}
+
+	//obtiene nombre del responsable delindicador y del informe
+	public function getNomResp($idIndicador){
+		$sql = $this->db->query('select rut_res from Rel_cargoIndicadores where fk_idIndicador='.$idIndicador.'');
+		if ($sql->num_rows() > 0) {
+			return $sql->row();
+		}else{
+			return false;
+		}	
 	}
 
 }
