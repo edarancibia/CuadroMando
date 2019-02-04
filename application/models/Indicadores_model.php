@@ -33,8 +33,8 @@ class Indicadores_model extends CI_Model{
 	}
 
 	//GRABA NUEVA RELACION INDICADOR-RESPONSABLE
-	public function relIndCargo($idIndicador,$idCargo){
-		$sql = $this->db->query('INSERT INTO Rel_cargoIndicadores(fk_idCargo,fk_idIndicador)VALUES('.$idCargo.','.$idIndicador.')');
+	public function relIndCargo($idIndicador,$idCargo,$rut_res){
+		$sql = $this->db->query('INSERT INTO Rel_cargoIndicadores(fk_idCargo,fk_idIndicador,rut_res)VALUES('.$idCargo.','.$idIndicador.','.$rut_res.')');
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
@@ -239,7 +239,7 @@ class Indicadores_model extends CI_Model{
 
 	//obtiene umbral
 	public function getUmbral($idIndicador){
-		$sql = $this->db->query('SELECT umbralDesc FROM Indicadores where idIndicador='.$idIndicador.'');
+		$sql = $this->db->query('SELECT * FROM Indicadores where idIndicador='.$idIndicador.'');
 
 		if ($sql->num_rows() >0) {
 			return $sql->row();
@@ -249,8 +249,8 @@ class Indicadores_model extends CI_Model{
 	}
 
 	//actualiza umbral
-	public function updUmbral($idIndicador,$umbral,$umbralDesc){
-		$sql = $this->db->query("update Indicadores set umbral='$umbral', umbralDesc='$umbralDesc' where idIndicador='$idIndicador'");
+	public function updUmbral($idIndicador,$umbral,$umbralDesc,$desc,$f1,$f2){
+		$sql = $this->db->query("update Indicadores set umbral='$umbral', umbralDesc='$umbralDesc', descripcion='$desc', formula1='$f1', formula2='$f2' where idIndicador='$idIndicador'");
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 

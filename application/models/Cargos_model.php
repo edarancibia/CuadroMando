@@ -93,4 +93,15 @@ class Cargos_model extends CI_Model{
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
+	//get by ID
+	public function getRutCargo($idCargo){
+		$sql = $this->db->query("select fk_rut_num from Cargos where idCargo = '$idCargo'");
+
+		if ($sql->num_rows() > 0) {
+			return $res = $sql->row();
+		}else{
+			return null;
+		}
+	}
+
 }

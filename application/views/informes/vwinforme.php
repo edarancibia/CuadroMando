@@ -46,7 +46,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?= $datos->denominadores. ' / '.$datos->numeradores.' = '. intval($datos->res).'%';?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?= $datos->denominadores. ' / '.$datos->numeradores.' = '. $datos->res.'%';?>" disabled="true">
 					</td>
 				</tr>
 				<tr>

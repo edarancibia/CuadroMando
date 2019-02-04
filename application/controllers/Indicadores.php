@@ -357,6 +357,10 @@ class Indicadores extends CI_Controller
 	public function relIndUnidad(){
 		$idIndicador = $this->input->post('idIndicador');
 		$idUnidad = $this->input->post('idUnidad');
+
+		$idCargo = $this->input->post('idCargo');
+		$rut_res = $this->input->post('rut_res');
+		$this->Indicadores_model->relIndCargo($idIndicador,$idCargo,$rut_res);
 		$this->Indicadores_model->relIndUni($idIndicador,$idUnidad);
 	}
 
@@ -364,7 +368,8 @@ class Indicadores extends CI_Controller
 	public function relIndCar(){
 		$idIndicador = $this->input->post('idIndicador');
 		$idCargo = $this->input->post('idCargo');
-		$this->Indicadores_model->relIndCargo($idIndicador,$idCargo);
+		$rut_res = $this->input->post('rut_res');
+		$this->Indicadores_model->relIndCargo($idIndicador,$idCargo,$rut_res);
 	}
 
 	//llama vista para modificar datos de evaluaciones de indicadores
@@ -438,13 +443,29 @@ class Indicadores extends CI_Controller
 		$idIndicador = $this->input->post('idIndicador');
 		$umbral = $this->input->post('umbral');
 		$umbralDesc = $this->input->post('umbralDesc');
-		$this->Indicadores_model->updUmbral($idIndicador,$umbral,$umbralDesc);
+		$desc = $this->input->post('desc');
+		$f1 = $this->input->post('f1');
+		$f2 = $this->input->post('f2');
+		$this->Indicadores_model->updUmbral($idIndicador,$umbral,$umbralDesc,$desc,$f1,$f2);
 	}
 
 	//obtiene timpo de formula
 	public function getFormula(){
 		$idIndicador = $this->input->post('idIndicador');
 		$data['form'] = $this->Indicadores_model->getTipoformula($idIndicador);
+		echo json_encode($data);
+	}
+
+	//obtiene rut del encargado al crear indicador
+	public function getRutResNuevo(){
+		$idCargo = $this->input->post('idCargo');
+
+		//$idIndicador = $this->input->post('idIndicador');
+		//$rut_res = $this->input->post('rut_res');
+		$data['resp'] = $this->Cargos_model->getRutCargo($idCargo);
+		//$resp2 = $this->Cargos_model->getRutCargo($idCargo);
+		//$res = $resp2->fk_rut_num;
+		//$this->Indicadores_model->relIndCargo($idIndicador,$idCargo,$res);
 		echo json_encode($data);
 	}
 

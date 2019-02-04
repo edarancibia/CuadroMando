@@ -14,6 +14,9 @@
 			<select id="cboanio6" name="cboanio6">
 				<option value="2017">2017</option>
 				<option value="2018">2018</option>
+				<option value="2018">2019</option>
+				<option value="2018">2020</option>
+				<option value="2018">2021</option>
 			</select>
 
 			<select id="cboUnidad" name="cboUnidad">

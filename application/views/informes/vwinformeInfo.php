@@ -16,7 +16,7 @@
 				</tr>
 				<tr>
 					<td>Fecha del informe:</td>
-					<td><?= $datos->fecha; ?></td>
+					<td><?= $datos1->fecha; ?></td>
 				</tr>
 				<tr>
 					<td>Responsable:</td>
@@ -42,7 +42,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?php echo $datos->resultadoDet;?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?php echo $datos->res;?>" disabled="true">
 					</td>
 				</tr>
 				<tr>
@@ -50,17 +50,17 @@
 					<td><?php echo $caracteristica->umbralDesc .'%'; ?></td>
 				</tr>
 				<td>Periodo:</td>
-				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?php echo $datos->periodoDet;?>" disabled="true"></td>
+				<td><input type="text" name="txtperiodo" id="txtperiodo" class="form-control" value="<?php echo $datos1->periodoDet;?>" disabled="true"></td>
 			</table>
 		</div>
 
 		<div class="col-md-6 col-md-offset-3">
 			<fieldset>
 				<label for="comentarios">3.Comentarios:</label>
-				<textarea name="comentarios" id="comentarios" class="form-control" disabled="true"><?php echo $datos->comentarios;?></textarea>
+				<textarea name="comentarios" id="comentarios" class="form-control" disabled="true"><?php echo $datos1->comentarios;?></textarea>
 
 				<label for="plan">Plan de mejora:</label>
-				<textarea name="plan" id="plan" class="form-control" disabled="true"><?php echo $datos->plan;?></textarea>
+				<textarea name="plan" id="plan" class="form-control" disabled="true"><?php echo $datos1->plan;?></textarea>
 			</fieldset>
 			<br>
 			<div>

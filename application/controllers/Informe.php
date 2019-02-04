@@ -92,18 +92,19 @@ class Informe extends CI_Controller{
 		//pregunta si hay datos de evaluaciones en en trimestre para realizar el informe
 		if ($this->IndicadorInforme->existenDatos($idIndicador,$anio,$desde,$hasta) == true) {
 		
-			if ($this->IndicadorInforme->existeInforme($idIndicador,$anio,$periodo) == true) {//pregunta si hay informe hecho este trimestre
+			if ($this->IndicadorInforme->existeInforme($idIndicador,$periodo) == true) {//pregunta si hay informe hecho este trimestre
 				//hay informacion y el informe esta hecho
 				$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);
 				$data['caracteristica'] = $this->Indicadores_model->getById($idIndicador);
 				//$data['datos'] = $this->IndicadorInforme->getDatosByIndicadorYrut($idIndicador,1);
-				$data['datos'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
+				$data['datos1'] = $this->IndicadorInforme->getDatosInforme($idIndicador,$periodo);
+				$data['datos'] = $this->IndicadorInforme->getDatosByIndicadorYPerido($idIndicador,$desde,$hasta);
 				$data['indicador'] = $idIndicador;
 				$data['idUnidad'] = $idUnidad;
 				
 				$this->cabecera();
 				$this->load->view('informes/vwinformeInfo',$data);
-				//echo "hay informeacion e informe";
+				//echo "hay informacion e informe";
 			}else{
 				//hay informacion pero el informe no esta hecho
 				$data['unidad'] = $this->IndicadorInforme->getNombreUnidad($idUnidad);

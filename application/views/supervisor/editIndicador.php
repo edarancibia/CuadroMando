@@ -51,7 +51,16 @@
         <select id="cboTipoUmbral" class="form-control">
         	<option value=">=">>=</option>
         	<option value="<="><=</option>
+          <option value="<=">=</option>
         </select>
+
+        Descripción:
+        <textarea id="desIndEdita" class="form-control"></textarea>
+
+        Formula:
+        <textarea id="f1edita" class="form-control"></textarea>
+
+        <textarea id="f2edita" class="form-control"></textarea>
 
       </div>
       <div class="modal-footer">

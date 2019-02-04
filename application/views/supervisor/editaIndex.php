@@ -5,6 +5,9 @@
 			<select id="cboanio7" name="cboanio7" >
 				<option value="2017">2017</option>
 				<option value="2018">2018</option>
+				<option value="2018">2019</option>
+				<option value="2018">2020</option>
+				<option value="2018">2021</option>
 			</select>
 
 			Mes: 

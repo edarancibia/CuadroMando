@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var email;
+	var email,resp,resp2,resp3;
 
 	function configToastr(){
 		toastr.options = {
@@ -180,13 +180,62 @@ $(document).ready(function(){
 
 					var roundDen = denominador;
 					var roundNum = numerador;
+					var fecha2 = moment().format('L');
+					console.log('den'+roundDen, 'num'+roundNum);
 
-					if (parsedNum == 0) {
-						parsedDen = 0
-						parsedNum = 0;
+					if (parsedDen == 0) {
+						parsedDen = roundDen
+						parsedNum = roundNum;	
 						parsedRes = 0;
+
+						$.ajax({
+							type: 'post',
+							url: baseUrl+'Indicadores/guardaEvaluacion',
+							data: {numerador: parsedNum,denominador: parsedDen,multiplicador: 100, resultado: 0,idIndicador: indicador,fecha: fecha2, periodo: periodo},
+							success: function(data){
+								console.log('Guardado exitosamente');
+								$('#txtvalor1').val('');
+								$('#txtvalor2').val('');
+								toastr.success('Datos guardados exitosamente');
+								configToastr();
+								$('#txtresultado').val(0+'%');
+								$("#btnGuadar").attr('disabled','disabled');
+
+							},
+							error: function(){
+								console.log('error ajax al guardar');
+							}
+						});
 					}else{
-						parsedRes = parseInt(parsedDen / parsedNum * 100);					
+						console.log('aqui');
+						
+						parsedRes = parseInt(parsedDen / parsedNum * 100);
+						var parsedRes_ = parsedRes.toFixed(2);
+						//var res = roundDen/roundNum*100;
+						var roundRes2 = denominador/numerador *100;
+						//var roundRes = roundRes2.toFixed(2);
+						var roundRes3 = Math.round(roundRes2);
+						console.log('aqii'+parsedDen,parsedNum,roundRes3);
+						//aqui quede domingo 13 enero
+						$.ajax({
+							type: 'post',
+							url: baseUrl+'Indicadores/guardaEvaluacion',
+							data: {numerador: roundNum,denominador: roundDen,multiplicador: 100, resultado: roundRes3,idIndicador: indicador,fecha: fecha2, periodo: periodo},
+							success: function(data){
+								console.log('Guardado exitosamente');
+								$('#txtvalor1').val('');
+								$('#txtvalor2').val('');
+								toastr.success('Datos guardados exitosamente');
+								configToastr();
+								//$('#txtresultado').val(String.fromCharCode(roundRes3)+'%');
+								$('#txtresultado').val(roundRes3+'%');
+								$("#btnGuadar").attr('disabled','disabled');
+
+							},
+							error: function(){
+								console.log('error ajax al guardar');
+							}
+						});		
 					}
 					
 					var fecha2 = moment().format('L');
@@ -201,6 +250,7 @@ $(document).ready(function(){
 					}else{
 
 						//var res = denominador/numerador*100;
+
 						if (parsedRes == 0) {
 							//var roundRes = 0;
 							var roundRes2 = denominador/numerador *100;
@@ -233,7 +283,7 @@ $(document).ready(function(){
 							}
 						});*/
 
-						$.ajax({
+						/*$.ajax({
 							type: 'post',
 							url: baseUrl+'Indicadores/guardaEvaluacion',
 							data: {numerador: roundNum,denominador: roundDen,multiplicador: 100, resultado: roundRes,idIndicador: indicador,fecha: fecha2, periodo: periodo},
@@ -250,7 +300,7 @@ $(document).ready(function(){
 							error: function(){
 								console.log('error ajax al guardar');
 							}
-						});
+						});*/
 					}
 					 $( this ).dialog( "close" );
 			   	 		
@@ -506,6 +556,26 @@ $(document).ready(function(){
 	    });
 	});
 
+	$('#cboResponsable').on('change', function(){
+		//obtiene rut del encargado
+		resp = $('#cboResponsable').val();
+
+		$.ajax({
+			type: 'post',
+			url: baseUrl+'Indicadores/getRutResNuevo',
+			data: {idCargo: resp},
+			success: function(d){
+				var obj = JSON.parse(d);
+				resp2 = obj.resp.fk_rut_num;
+				$('#hiddenRutRes').val(resp2);
+				resp3 = $('#hiddenRutRes').val(resp2);
+			},
+			error: function(){
+				console.log('error ajax obteniendo rut resp');
+			}
+		});
+	});
+
 	$('#btnGuardaIndicador').on('click',function(e){
 
 		if ($('#txtCaracteristica').val().length < 1 || $('#txtUmbral').val() < 1 || $('#txtDescIndicador').val() < 1  || $('#txtf1').val() < 1 ||$('#txtf2').val() < 1) {
@@ -532,14 +602,15 @@ $(document).ready(function(){
 			   	 	var caract = $('#txtCaracteristica').val();
 			   	 	var desc = $('#txtDescIndicador').val();
 			   	 	var umbral = $('#txtUmbral').val();
-			   	 	var umbralDesc = $('#cboTipUmbral').val();
-			   	 	var resp = $('#cboResponsable').val();
+			   	 	var umbralDesc = $('#cboTipUmbral').val();			   	 	
 			   	 	var umbralDesc2;
 			   	 	var f1 = $('#txtf1').val();
 			   	 	var f2 = $('#txtf2').val();
 			   	 	var a,b,c,d,e,f,g,h,i,j,k,l,m;
 			   	 	var subUnidad2;
-			   	 	var nuevoIndicador;
+			   	 	var nuevoIndicador,nuevoIndicador2;
+			   	 	var unidad2;
+			   	 	var resp4 = $('#hiddenRutRes').val();
 
 			   	 	if ($('#chksubu1').is(':checked')) {
 			   	 		a = $('#chksubu1').val();
@@ -640,42 +711,32 @@ $(document).ready(function(){
 			   	 		url: baseUrl+'Indicadores/nuevo',
 			   	 		data: {caract:caract,desc:desc,umbral:umbral,umbralDesc:umbralDesc2,f1:f1,f2:f2,subUn: subUnidad2},
 			   	 		success: function(d){
-			   	 			console.log('el codigo indicadores es: '+d);
+			   	 			//console.log('el codigo indicadores es: '+d);
 			   	 			nuevoIndicador = d;
+			   	 			$('#hiddenIndi').val(nuevoIndicador);
 			   	 			toastr.success('Indicador guardado exitosamente');
 			   	 		},
 			   	 		error: function(){
-			   	 			console.log('error ajax al guardar nuevo indicador');
+			   	 			//console.log('error ajax al guardar nuevo indicador');
 			   	 		}
 			   	 	}).done(function(){
-
-			   	 				$.ajax({
-									type: 'post',
-									url: baseUrl+'Indicadores/relIndUnidad',
-									data: {idIndicador: nuevoIndicador,idUnidad:unidad},
-									success: function(){
-										console.log('relacion ind unidad guardada exitosamente');
-									},
-									error: function(){
-										console.log('error ajax en relacion ind-unidad');
-									}
-								});
-
-			   	 				$.ajax({
-									type: 'post',
-									url: baseUrl+'Indicadores/relIndCar',
-									data: {idIndicador: nuevoIndicador,idCargo:resp},
-									success: function(){
-										console.log('relacion ind cargo guardada exitosamente');
-									},
-									error: function(){
-										console.log('error ajax en relacion ind-cargo');
-									}
-								});
+		   	 				$.ajax({
+								type: 'post',
+								url: baseUrl+'Indicadores/relIndUnidad',
+								data: {idIndicador: nuevoIndicador,idUnidad:unidad,idCargo:resp,rut_res: resp4},
+								success: function(){
+									console.log('relacion ind unidad guardada exitosamente');
+								},
+								error: function(){
+									console.log('error ajax en relacion ind-unidad');
+								}
+							});
+			   	 	});			
 
 								limpiarMantendor();
 
-			   	 	});
+			   	 	
+				
 
 					 $( this ).dialog( "close" );
 			   	 		
@@ -1147,6 +1208,10 @@ $(document).ready(function(){
 			success: function(d){
 				var obj = JSON.parse(d);
 				$('#txtumbralactual').val(obj.umbral.umbralDesc);
+				$('#txtnuevoumbral').val(obj.umbral.umbral);
+				$('#desIndEdita').val(obj.umbral.descripcion);
+				$('#f1edita').val(obj.umbral.formula1);
+				$('#f2edita').val(obj.umbral.formula2);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				//toastr.error('Algo salió mal, verifica los datos');
@@ -1159,15 +1224,22 @@ $(document).ready(function(){
 		var idIndicador = $('#txtidndicadorumbral').val();
 		var umbral = $('#txtnuevoumbral').val();
 		var tipo = $('#cboTipoUmbral').val();
+		var desc = $('#desIndEdita').val();
+		var f1 = $('#f1edita').val();
+		var f2 = $('#f2edita').val();
 		var umbralDesc = tipo + umbral;
-
+		//var data= {idIndicador: idIndicador, umbral: umbral, umbralDesc: umbralDesc,desc:desc, f1:f1, f2:f2};
+		//console.log(data);
 		$.ajax({
 			type: 'post',
 			url: baseUrl + 'Indicadores/UpdateUmbral',
-			data: {idIndicador: idIndicador, umbral: umbral, umbralDesc: umbralDesc},
+			data: {idIndicador: idIndicador, umbral: umbral, umbralDesc: umbralDesc,desc:desc, f1:f1, f2:f2},
 			success: function(d){
 				toastr.success('Umbral actualizado exitosamente!');
 				$('#txtnuevoumbral').val('');
+				$('#desIndEdita').val();
+				$('#f1edita').val();
+				$('#f2edita').val();
 				$('#modalEditUmbral').modal('hide');
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){

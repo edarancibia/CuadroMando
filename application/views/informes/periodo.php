@@ -16,6 +16,9 @@
 				      <select class="form-control" id="cboAnio3" name="cboAnio3">
 				       	<option value="2017">2017</option>
 				        <option value="2018">2018</option>
+						<option value="2018">2019</option>
+						<option value="2018">2020</option>
+						<option value="2018">2021</option>
 				      </select>
 				       <span class="input-group-addon">-</span>
 				       <select class="form-control" id="cboCuarto" name="cboCuarto">

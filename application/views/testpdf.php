@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+  ini_set('display_errors', 0);
+  ini_set('log_errors', 1);
 //============================================================+
 // File name   : example_001.php
 // Begin       : 2008-03-04
@@ -144,8 +147,6 @@ PLAN DE MEJORA:
 <p>$resp</p>
 <p>ENCARGADO DE CALIDAD</p>
 </div>
-
-
 EOD;
 
 
@@ -153,7 +154,6 @@ EOD;
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // ---------------------------------------------------------
-
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $pdf->Output('example_001.pdf', 'I');

@@ -70,7 +70,9 @@
 					foreach ($cargos as  $item)
 					   echo '<option value="'.$item->idCargo.'">'.$item->descripcion.'</option>';
 					?>
-				</select></td>
+				</select>
+				<input type="text" id="hiddenRutRes" style="display: none;">
+			</td>
 			</tr>
 			<tr>
 				<td></td>
