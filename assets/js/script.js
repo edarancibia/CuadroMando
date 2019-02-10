@@ -90,9 +90,9 @@ $(document).ready(function(){
 
 	$('#cbomes').change(function(){
 		var anio = $('#cboAnio').val();
-		var mes = $("#cbomes").val();
+		var mes = $('#cbomes').val();
 		var periodo = anio.concat(mes);
-
+		console.log(anio+mes);
 		var indicador = $('#txtIdindicador').val();
 
 		$.ajax({ // - - - COMPRUEBA SI HAY ALGUNA EVALUACION DURANTE EL PERIODO ACTUAL
