@@ -60,6 +60,12 @@ class Welcome extends CI_Controller {
 		$this->load->view('supervisor/home',$data);
 	}
 
+	public function HomeResult(){
+		$data['servicios2'] = $this->Unidades_model->getAll2();
+		$this->cabecera();
+		$this->load->view('encargado/home',$data);
+	}
+
 	public function cabecera(){
 		$this->load->view('template/header');
 		$this->load->view('template/navbar');

@@ -16,6 +16,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo base_url('index.php/welcome/Home'); ?>">Inicio <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="<?php echo base_url('index.php/welcome/HomeResult'); ?>">Resultados</a></li>
         <!--<li><a href="<?php echo base_url('index.php/Indicadores/MisUnidades')?>">Mediciones</a></li>-->
       </ul>
       
@@ -34,7 +35,7 @@
 
 <div style="width: max;">
 
-  <a href="<?php echo base_url('index.php/welcome/Home'); ?>" class="bntInicio"><span class="glyphicon"><i class="fa fa-home" aria-hidden="true"></i></span></a>
+
   <div style="width: 150px;float:right;">
     <a href="<?php echo base_url('index.php/welcome/logout'); ?>" class="logout">Cerrar sesión <i class="fa fa-sign-out" aria-hidden="true"></i></a>
   </div>

@@ -16,7 +16,7 @@ class IndicadorInforme extends CI_Model{
 
 	//obtiene la informacion de evaluacion de indicador por ID y periodo
 	public function getDatosByIndicadorYPerido($idIndicador,$desde,$hasta){
-		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,ROUND(SUM(d.denominador)/sum(d.numerador)*100,2) as res ".
+		$sql = $this->db->query("SELECT d.fk_idIndicador, b.codigo Caracteristica,a.*,b.idCaracteristica,GROUP_CONCAT(DATE_FORMAT(d.fecha,'%d-%m-%Y')ORDER BY d.fecha ASC SEPARATOR ' | ') as fechas,GROUP_CONCAT(d.numerador ORDER BY d.fecha ASC SEPARATOR '    |    ')as numerador,SUM(d.numerador)as numeradores,GROUP_CONCAT(d.denominador ORDER BY d.fecha ASC SEPARATOR '    |    ')as denominador,sum(d.denominador)as denominadores, GROUP_CONCAT(d.resultado ORDER BY d.fecha ASC SEPARATOR '  |  ')as resultados,ROUND(SUM(d.denominador)/sum(d.numerador)*100,1) as res ".
 				'FROM Indicadores a '.
 					'INNER JOIN Caracteristicas b ON a.fk_idCaracteristica=b.idCaracteristica '.
 					'LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND d.periodo BETWEEN '.$desde.' AND '.$hasta.' '.

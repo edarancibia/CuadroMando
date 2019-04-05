@@ -154,7 +154,7 @@ class Indicadores_model extends CI_Model{
 			INNER JOIN rel_indicadorUnidades b ON a.idIndicador=b.fk_idIndicador
 			INNER JOIN Unidades c ON b.fk_idUnidad=c.idUnidad AND c.idUnidad='.$idUnidad.'
 			INNER JOIN Caracteristicas e ON a.fk_idCaracteristica=e.idCaracteristica
-			LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND YEAR(d.fecha)='.$anio.' AND periodo BETWEEN '.$desde.' AND '.$hasta.'
+			LEFT JOIN IndicadorDatos d ON a.idIndicador=d.fk_idIndicador AND periodo BETWEEN '.$desde.' AND '.$hasta.'
 			GROUP BY  d.fk_idIndicador,e.codigo,e.idCaracteristica,c.idUnidad,a.idIndicador,a.codigo,a.desc_subUn,a.descripcion,a.fk_idCaracteristica,a.formula1,a.formula2,a.umbral,a.umbralDesc');
 
 		if ($sql->num_rows() >0) {

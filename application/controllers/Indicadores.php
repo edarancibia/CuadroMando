@@ -204,6 +204,15 @@ class Indicadores extends CI_Controller
 		$this->load->view('supervisor/listaIndicadores2', $data);
 	}
 
+	//cargar vista index con buscador de datos por trimestre y unidad para encargados
+	public function ResultIndex_(){
+		$idUnidad = $_GET['idUnidad'];
+		$data['idUnidad'] = $idUnidad;
+		$data['unidad'] = $this->NombreUnidad($idUnidad);
+		$this->template();
+		$this->load->view('encargado/listaIndicadores', $data);
+	}
+
 	//carga vista con medidicones de la unidad del usuario
 	public function Mediciones(){
 		$idUnidad = $_GET['idUnidad'];
@@ -234,6 +243,24 @@ class Indicadores extends CI_Controller
 			$this->template();
 			$this->load->view('supervisor/listaIndicadores2',$data);
 		}
+	}
+
+	//- - -  - Muestra lista de indicadores segun la unidad seleccionada para encargados- - - - 
+	public function Result2(){
+		$idUnidad = $this->input->post('idUnidad',TRUE);
+		$trimestre = $this->input->post('trimestre',TRUE);
+		$fecha = getdate();
+		$anio = $this->input->post('cboanio5');
+		$desde;
+		$hasta;
+
+		list($desde,$hasta) = $this->rango($trimestre,$anio);
+		$data['indicadoresUnidad'] = $this->Indicadores_model->getByUnidad($idUnidad,$anio,$desde,$hasta);
+		$data['unidad'] = $this->NombreUnidad($idUnidad);
+		
+		$this->template();
+		$this->load->view('encargado/listaIndicadores',$data);
+		
 	}
 
 	//llama vista que busca resultados de indicadores de seccion del usuario
