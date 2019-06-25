@@ -42,7 +42,7 @@
 				<tr>
 					<td>Resultado:</td>
 					<td>
-						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?php echo $datos->res;?>" disabled="true">
+						<input type="text" name="txtresultado" id="txtresultado" class="form-control tabla-informe" value="<?php echo $datos1->resultadoDet;?>" disabled="true">
 					</td>
 				</tr>
 				<tr>
