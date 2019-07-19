@@ -715,6 +715,7 @@ $(document).ready(function(){
 			   	 			nuevoIndicador = d;
 			   	 			$('#hiddenIndi').val(nuevoIndicador);
 			   	 			toastr.success('Indicador guardado exitosamente');
+
 			   	 		},
 			   	 		error: function(){
 			   	 			//console.log('error ajax al guardar nuevo indicador');
