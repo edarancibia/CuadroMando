@@ -715,7 +715,6 @@ $(document).ready(function(){
 			   	 			nuevoIndicador = d;
 			   	 			$('#hiddenIndi').val(nuevoIndicador);
 			   	 			toastr.success('Indicador guardado exitosamente');
-
 			   	 		},
 			   	 		error: function(){
 			   	 			//console.log('error ajax al guardar nuevo indicador');
@@ -920,29 +919,20 @@ $(document).ready(function(){
 			data: {idUnidad: idUnidad},
 			success: function(d){
 				var data = JSON.parse(d);
-				//console.log(data);
+				
 				$('#table-edit tr').remove();
 
 				$.each(data.lista, function(i, item){
 					$('<tr>').html(
         				"<td>"+data.lista[i].carac+' '+data.lista[i].desc_subUn+"</td><td>"+ 
         				data.lista[i].descInd + "</td><td>" + data.lista[i].responsable+
-        				"<td><button type='button' data-id="+data.lista[i].idIndicador+" data-toggle='modal' data-target='#modalEdit' class='btn btn-info'>Modificar</button></td>").appendTo('#table-edit');
+        				"<td><button type='button' data-id="+data.lista[i].idIndicador+" data-toggle='modal' data-target='#modalEditValues' class='btn btn-info'>Modificar</button></td>").appendTo('#table-edit');
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				console.log(XMLHttpRequest);
 			}
 		});
-	});
-
-
-	//modal editar datos
-	$('#modalEdit').on('shown.bs.modal', function (e){
-		var boton = e.relatedTarget;
-		var idIndicadorModal = $(boton).attr("data-id");
-
-		$('#txtidndicador').val(idIndicadorModal);
 	});
 
 
@@ -1305,7 +1295,10 @@ $(document).ready(function(){
 
 
 	//carga modal para editar datos del indicador
-	$('#modalEdit').on('shown.bs.modal', function () {
+	$('#modalEditValues').on('shown.bs.modal', function (e) {
+		var boton = e.relatedTarget;
+		var idIndicadorModal = $(boton).attr("data-id");
+		$('#txtidndicador').val(idIndicadorModal);
   		var idIndicador_ = $('#txtidndicador').val();
   		var periodo_ = $('#cboanio7').val()+$('#cbomes2').val();
   		$('#txtperiodo4').val(periodo_);
@@ -1316,26 +1309,63 @@ $(document).ready(function(){
 			data: {idIndicador: idIndicador_, periodo: periodo_},
 			success: function(d){
 				var data = JSON.parse(d);
-				
-				$('#txtCarac').val(data.info.cod_c);
-				$('#txtIdIndicador3').val(data.info.descripcion);
-				$('#txtfecha').val(data.info.fecha);
-				$('#txtformula1_').val(data.info.formula1);
-				$('#txtformula2_').val(data.info.formula2);
-				$('#txtf1').val(data.info.denominador);
-				$('#txtf2').val(data.info.numerador);
-				
+				if(d.length == 13){
+					alert('No hay datos');
+					$('#modalEditValues').modal('hide');
+				}else{
+					$('#lblDescInd').append(data.info[0].cod_c+'  '+data.info[0].descripcion);
+				}
+
+				$('#table-editValues tr').remove();
+
+				$.each(data.info, function(i, item){
+					$('<tr>').html( 
+						"<td style='display:none;'>"+data.info[i].idIndicadorDatos+"</td>"+
+        				"<td>" + data.info[i].formula1+
+        				"</td><td><input type='text' class='form-control col-xs-2' id='txtvalor1' value="+data.info[i].denominador+"></td>"+
+        				"<td>"+ data.info[i].formula2+
+        				"</td><td><input type='text' class='form-control col-xs-2' id='txtvalor2' value="+data.info[i].numerador+"></td>"+
+        				"<td><button id='btnEditValue' type='button' data-id="+data.info[i].idIndicador+" data-toggle='modal' data-target='#' class='btn btn-info'>Modificar</button></td>"+
+        				"<td><button id='btnDeleteValue' type='button' data-id="+data.info[i].idIndicadorDatos+" data-toggle='modal' data-target='#' class='btn btn-danger'>Eliminar</button></td>").appendTo('#table-editValues');
+				});
+		
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				console.log(XMLHttpRequest);
+				$(".modal-body").html('');
 			}
 		});
 	});
 
-	$('#btnEditaDatos').on('click', function(){
-		
-		var numerador = $('#txtf2').val();
-		var denominador = $('#txtf1').val();
+	$('#modalEditValues').on('hidden.bs.modal', function(){
+	    $('#lblDescInd').html('');
+	});
+
+	//ELIMINAR DATOS DE INDICADORES PARA DUPLICADOS
+	$(document).on("click","#btnDeleteValue",function(e) {
+         
+         var idIndicadorDatos_ = document.getElementById("table-editValues").rows[0].cells.item(0).innerHTML;
+         
+         $.ajax({
+         	type: 'post',
+         	url: baseUrl + 'Indicadores/RemoveValue',
+         	data: {idIndicadorDatos: idIndicadorDatos_},
+         	success: function(d){
+         		console.log('ok');
+         		$('#modalEditValues').modal('hide');
+         	},
+         	error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log(XMLHttpRequest);
+			}
+         });
+	});
+
+	$(document).on("click","#btnEditValue",function(e) {
+
+		var idIndicadorDatos_ = document.getElementById("table-editValues").rows[0].cells.item(0).innerHTML;
+
+		var numerador = $('#txtvalor1').val();
+		var denominador = $('#txtvalor2').val();
 		var idIndicador = $('#txtidndicador').val();
 		var periodo = $('#txtperiodo4').val();
 		var fecha = $('#txtfecha_n').val();
@@ -1343,20 +1373,22 @@ $(document).ready(function(){
 		//con decimales
 		var roundNum2 = numerador;
 		var roundDen2 = denominador;
-			   	 		
+		
 		$.ajax({
 			type: 'post',
 			url: baseUrl + 'Indicadores/Edit',
-			data: {idIndicador: idIndicador, numerador: roundDen2,denominador: roundNum2,periodo: periodo,fecha: fecha},
+			data: {idIndicadorDatos: idIndicadorDatos_,numerador:roundNum2,denominador: roundDen2},
+			//data: {idIndicador: idIndicador, numerador: roundDen2,denominador: roundNum2,periodo: periodo,fecha: fecha},
 			success: function(){
 				toastr.success('Datos modificados exitosamente');
-				$('#modalEdit').modal('hide');
+				$('#modalEditValues').modal('hide');
 			},
 			error: function(){
 				console.log('error ajax al modificar datos');
 			}
 		});
 	});
+
 
 });
 

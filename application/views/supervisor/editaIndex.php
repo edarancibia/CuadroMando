@@ -54,10 +54,9 @@
 </body>
 
 <!-- Modal -->
-<div id="modalEdit" class="modal fade" role="dialog">
+<!--<div id="modalEdit" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -99,6 +98,35 @@
       </div>
       <div class="modal-footer">
       	<button type="button" id="btnEditaDatos" class="btn btn-success">Aceptar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>-->
+
+    <!-- Modal -->
+<div id="modalEditValues" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><label id="lblDescInd"></label></h4>
+      </div>
+      <div class="modal-body">
+      
+        <input type="text" name="txtidndicador" id="txtidndicador" class="form-control" style="display: none;">
+        <input type="text"  id="txtperiodo4" style="display: none;" >
+
+        <table class="table" id="table-editValues">
+
+        	<tbody>
+        		
+        	</tbody>
+        </table>
+			
+      </div>
+      <div class="modal-footer">
+      	<!--<button type="button" id="btnEditaDatos" class="btn btn-success">Aceptar <i class="fa fa-floppy-o" aria-hidden="true"></i></button>-->
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

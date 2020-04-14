@@ -408,6 +408,7 @@ class Indicadores extends CI_Controller
 		$periodo = $_REQUEST['periodo'];
 
 		$data['info'] = $this->Indicadores_model->getDataIndicador($idIndicador,$periodo);
+		
 		echo json_encode($data);
 		/*if (empty($data['info'])) {
 			echo "<script>alert('no hay datos')
@@ -416,6 +417,12 @@ class Indicadores extends CI_Controller
 			$this->templateSupervisor();
 			$this->load->view('supervisor/editaDatos',$data);
 		}*/
+	}
+
+	//ELIMINAR VALORES DE INDICADORES (PARA DUPLICADOS)
+	public function RemoveValue(){
+		$idIndicadorDatos = $this->input->post('idIndicadorDatos');
+		$this->Indicadores_model->deleteValues($idIndicadorDatos);
 	}
 
 	//llama vista index de lista de indicadores para editar datos mensuales
@@ -443,12 +450,14 @@ class Indicadores extends CI_Controller
 
 	//modificadatos del indicador seleccionado y su periodo
 	public function Edit(){
-		$idIndicador = $_REQUEST['idIndicador'];
-		$periodo = $_REQUEST['periodo'];
+		//$idIndicador = $_REQUEST['idIndicador'];
+		//$periodo = $_REQUEST['periodo'];
 		$numerador = $this->input->post('denominador'); //aqui denominador de num erador estan invertidos
 		$denominador = $this->input->post('numerador');
-		$fecha = $this->input->post('fecha');
-		$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador,$fecha);
+		//$fecha = $this->input->post('fecha');
+		$idIndicadorDatos = $this->input->post('idIndicadorDatos');
+		$this->Indicadores_model->editaDatos($idIndicadorDatos,$numerador,$denominador);
+		//$this->Indicadores_model->editaDatos($idIndicador,$periodo,$numerador,$denominador,$fecha);
 	}
 
 	//llama vista index de lista de indicadores para editar datos mensuales

@@ -222,18 +222,30 @@ class Indicadores_model extends CI_Model{
 
 	//obtiene los datos de evaluacion mensual de un indicador
 	public function getDataIndicador($idIndicador,$periodo){
-		$sql = $this->db->query('SELECT c.codigo cod_c,a.*,b.* FROM Indicadores a ,IndicadorDatos b,Caracteristicas c WHERE a.idIndicador=b.fk_idIndicador AND a.idIndicador='.$idIndicador.' AND b.periodo='.$periodo.' and a.fk_idCaracteristica=c.idCaracteristica');
+		$sql = $this->db->query('SELECT b.idIndicadorDatos,c.codigo cod_c,a.*,b.* FROM Indicadores a ,IndicadorDatos b,Caracteristicas c WHERE a.idIndicador=b.fk_idIndicador AND a.idIndicador='.$idIndicador.' AND 
+			b.periodo='.$periodo.' and a.fk_idCaracteristica=c.idCaracteristica');
 
 		if ($sql->num_rows() >0) {
-			return $sql->row();
+			return $sql->result_array();
 		}else{
 			return null;
 		}
+
+		/*if ($sql->num_rows() >0) {
+			return $sql->row();
+		}else{
+			return null;
+		}*/
 	}
 
 	//modifica datos de evalucion de indicador
-	public function editaDatos($idIndicador,$periodo,$numerador,$denominador,$fecha){
+	/*public function editaDatos($idIndicador,$periodo,$numerador,$denominador,$fecha){
 		$sql = $this->db->query("UPDATE IndicadorDatos SET numerador='$numerador',denominador='$denominador', fecha='$fecha' WHERE fk_idIndicador='$idIndicador' AND periodo='$periodo'");
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}*/
+
+	public function editaDatos($idIndicadorDatos,$numerador,$denominador){
+		$sql = $this->db->query("UPDATE IndicadorDatos SET numerador='$numerador',denominador='$denominador'  WHERE idIndicadorDatos='$idIndicadorDatos'");
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
@@ -318,6 +330,12 @@ class Indicadores_model extends CI_Model{
 		}else{
 			return null;
 		}
+	}
+
+	//ELIMINAR DATOS DE INDICADORES DESDE MANTENEDOR(PARA DUPLICADOS)
+	public function deleteValues($idIndicadorDatos){
+		$sql = $this->db->query("delete from IndicadorDatos where idIndicadorDatos= '$idIndicadorDatos'");
+		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
 }
